@@ -14,7 +14,7 @@ public class Main {
         cfg.height = 1080;
 
        // new LwjglApplication(new DesktopLauncher(), cfg);
-        new LwjglApplication(new TiledTest(), cfg);
+        new LwjglApplication(new TiledTestTwo(), cfg);
 
     }
 }
