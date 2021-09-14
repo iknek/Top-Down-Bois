@@ -38,8 +38,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         sprite = new Sprite(texture);
         sprite.scale(1);
 
-        tiledMap = new TmxMapLoader().load("mapOne.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap, 1);
+        tiledMap = new TmxMapLoader().load("diner.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap, 2);
         tiledMapRenderer.addSprite(sprite);
         Gdx.input.setInputProcessor(this);
     }
