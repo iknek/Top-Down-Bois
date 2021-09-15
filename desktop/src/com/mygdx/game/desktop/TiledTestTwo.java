@@ -23,10 +23,9 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     TiledMap tiledMap;
     OrthographicCamera camera;
     OrthogonalTiledMapRendererWithSprites tiledMapRenderer;
-    Texture texture;
-    Sprite sprite;
+    Player player;
     private SpriteBatch batch;
-    private String currentAtlasKey = new String("0001");
+    private int ispressed = 0;
 
     @Override
     public void create () {
@@ -34,19 +33,16 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-        //Player player = new Player(atlas);
-        texture = new Texture(Gdx.files.internal("Adam_idle_16x16.png"));
-        sprite = new Sprite(texture);
-        sprite.scale(1);
+        player = new Player(atlas,w/2,h/2,3);
 
-        tiledMap = new TmxMapLoader().load("diner.tmx");
+        tiledMap = new TmxMapLoader().load("mapOne.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap, 2);
-        tiledMapRenderer.addSprite(sprite);
+        tiledMapRenderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -58,39 +54,27 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        if(ispressed == 21){
+            player.setRegion(player.textureAtlas.findRegion("Adam_left"));
+        }
+        if(ispressed == 22){
+            player.setRegion(player.textureAtlas.findRegion("Adam_right"));
+        }
+        if(ispressed == 19){
+            player.setRegion(player.textureAtlas.findRegion("Adam_forward"));
+        }
+        if(ispressed == 20){
+            player.setRegion(player.textureAtlas.findRegion("Adam_back"));
+        }
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        ispressed = keycode;
+        return player.getInputProcessor().keyDown(keycode);
     }
 
     @Override public boolean keyUp(int keycode) {
-        if(keycode == Input.Keys.LEFT)
-            //camera.translate(-32,0);
-            sprite.setPosition(sprite.getX()-32,sprite.getY());
-        //texture = new Texture(Gdx.files.internal("Adam_left.png")); <-- Needs doing, obviously not like this
-
-        if(keycode == Input.Keys.RIGHT)
-            //camera.translate(32,0);
-            sprite.setPosition(sprite.getX()+32,sprite.getY());
-        //texture = new Texture(Gdx.files.internal("Adam_right.png")); <-- Needs doing, obviously not like this
-
-        if(keycode == Input.Keys.UP)
-            //camera.translate(0,32);
-            sprite.setPosition(sprite.getX(),sprite.getY()+32);
-        //texture = new Texture(Gdx.files.internal("Adam_forward.png")); <-- Needs doing, obviously not like this
-
-        if(keycode == Input.Keys.DOWN)
-            //camera.translate(0,-32);
-            sprite.setPosition(sprite.getX(),sprite.getY()-32);
-        //texture = new Texture(Gdx.files.internal("Adam_back.png")); <-- Needs doing, obviously not like this
-
-        if(keycode == Input.Keys.NUM_1)
-            tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-
-        if(keycode == Input.Keys.NUM_2)
-            tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
         return false;
     }
 
@@ -103,7 +87,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
         Vector3 position = camera.unproject(clickCoordinates);
-        sprite.setPosition(position.x, position.y);
+        player.setPosition(position.x, position.y);
         return true;
     }
 

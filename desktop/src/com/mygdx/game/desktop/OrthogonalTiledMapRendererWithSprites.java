@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRenderer {
-    private Sprite sprite;
+
     private List<Sprite> sprites;
     private int drawSpritesAfterLayer = 1;
 
@@ -22,7 +22,6 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
 
     public void addSprite(Sprite sprite){
         sprites.add(sprite);
-        //sprite.scale(2);
     }
 
     @Override
@@ -35,8 +34,10 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
                     if(currentLayer == drawSpritesAfterLayer){
-                        for(Sprite sprite : sprites)
-                            sprite.draw(this.getBatch());
+
+                        for(Sprite sprite : sprites) {
+                            sprite.draw(this.batch);
+                        }
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {

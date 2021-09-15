@@ -7,52 +7,98 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static com.badlogic.gdx.Gdx.files;
 
-public class Player extends Sprite {
 
+
+public class Player extends Sprite {
     TextureAtlas textureAtlas;
-    public Player(TextureAtlas atlas) {
+
+    public Player(TextureAtlas atlas, float posX, float posY, float scale) {
+
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
-        //Gdx.input.setInputProcessor(inputProcessor);
+        this.setPosition(posX, posY);
+        this.setScale(scale);
+        setRegion(textureAtlas.findRegion("Adam_back"));
+
+
     }
 
-    public void setTexture(String textureName) {
-        setRegion(textureAtlas.findRegion(textureName));
+    public float getX() {
+        return super.getX();
     }
 
-   /* private final InputProcessor inputProcessor = new InputAdapter() {
+    public float getY(){
+        return super.getY();
+    }
+
+    public void setPosition(float posX, float posY){
+        this.setX(posX);
+        this.setY(posY);
+    }
+
+
+    private final InputProcessor inputProcessor = new InputAdapter() {
+
         @Override
-        public boolean keyUp(int keycode) {
+
+        public boolean keyDown(int keycode) {
             if (keycode == Input.Keys.LEFT)
-                //camera.translate(-32,0);
-                Player.setPosition(Player.getX() - 32, Player.getY());
-            //texture = new Texture(Gdx.files.internal("Adam_left.png")); <-- Needs doing, obviously not like this
+                translateX(-16);
 
             if (keycode == Input.Keys.RIGHT)
-                //camera.translate(32,0);
-                sprite.setPosition(sprite.getX() + 32, sprite.getY());
-            //texture = new Texture(Gdx.files.internal("Adam_right.png")); <-- Needs doing, obviously not like this
+                translateX(16);
 
             if (keycode == Input.Keys.UP)
-                //camera.translate(0,32);
-                sprite.setPosition(sprite.getX(), sprite.getY() + 32);
-            //texture = new Texture(Gdx.files.internal("Adam_forward.png")); <-- Needs doing, obviously not like this
+                translateY(16);
 
             if (keycode == Input.Keys.DOWN)
-                //camera.translate(0,-32);
-                sprite.setPosition(sprite.getX(), sprite.getY() - 32);
-            //texture = new Texture(Gdx.files.internal("Adam_back.png")); <-- Needs doing, obviously not like this
+                translateY(-16);
 
-            if (keycode == Input.Keys.NUM_1)
-                tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-
-            if (keycode == Input.Keys.NUM_2)
-                tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
             return false;
         }
-    };*/
 
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+            return false;
+        }
+    };
+
+    public InputProcessor getInputProcessor(){
+        return inputProcessor;
+    }
 }
