@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -24,16 +25,21 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     OrthogonalTiledMapRendererWithSprites tiledMapRenderer;
     Texture texture;
     Sprite sprite;
+    private SpriteBatch batch;
+    private String currentAtlasKey = new String("0001");
 
     @Override
     public void create () {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+        batch = new SpriteBatch();
+
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-
+        //Player player = new Player(atlas);
         texture = new Texture(Gdx.files.internal("Adam_idle_16x16.png"));
         sprite = new Sprite(texture);
         sprite.scale(1);
@@ -63,22 +69,22 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         if(keycode == Input.Keys.LEFT)
             //camera.translate(-32,0);
             sprite.setPosition(sprite.getX()-32,sprite.getY());
-            //texture = new Texture(Gdx.files.internal("Adam_left.png")); <-- Needs doing, obviously not like this
+        //texture = new Texture(Gdx.files.internal("Adam_left.png")); <-- Needs doing, obviously not like this
 
         if(keycode == Input.Keys.RIGHT)
             //camera.translate(32,0);
             sprite.setPosition(sprite.getX()+32,sprite.getY());
-            //texture = new Texture(Gdx.files.internal("Adam_right.png")); <-- Needs doing, obviously not like this
+        //texture = new Texture(Gdx.files.internal("Adam_right.png")); <-- Needs doing, obviously not like this
 
         if(keycode == Input.Keys.UP)
             //camera.translate(0,32);
             sprite.setPosition(sprite.getX(),sprite.getY()+32);
-            //texture = new Texture(Gdx.files.internal("Adam_forward.png")); <-- Needs doing, obviously not like this
+        //texture = new Texture(Gdx.files.internal("Adam_forward.png")); <-- Needs doing, obviously not like this
 
         if(keycode == Input.Keys.DOWN)
             //camera.translate(0,-32);
             sprite.setPosition(sprite.getX(),sprite.getY()-32);
-            //texture = new Texture(Gdx.files.internal("Adam_back.png")); <-- Needs doing, obviously not like this
+        //texture = new Texture(Gdx.files.internal("Adam_back.png")); <-- Needs doing, obviously not like this
 
         if(keycode == Input.Keys.NUM_1)
             tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
