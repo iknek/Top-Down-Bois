@@ -16,6 +16,15 @@ import static com.badlogic.gdx.Gdx.files;
 
 public class Player extends Sprite {
     TextureAtlas textureAtlas;
+    boolean leftMove;
+    boolean rightMove;
+    boolean UpMove;
+    boolean DownMove;
+
+    int speed = 80;
+
+    float x;
+    float y;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
 
@@ -23,6 +32,8 @@ public class Player extends Sprite {
         textureAtlas = atlas;
         this.setPosition(posX, posY);
         this.setScale(scale);
+        this.x = posX;
+        this.y = posY;
         setRegion(textureAtlas.findRegion("Adam_back"));
 
 
@@ -31,40 +42,109 @@ public class Player extends Sprite {
     public float getX() {
         return super.getX();
     }
-
     public float getY(){
         return super.getY();
     }
-
     public void setPosition(float posX, float posY){
         this.setX(posX);
         this.setY(posY);
     }
 
+    public void updateMotion()
+    {
+        if (leftMove)
+        {
+            x = getX();
+            x -= speed * Gdx.graphics.getDeltaTime();
+            setX(x);
+        }
+        if (rightMove)
+        {
+            x = getX();
+            x += speed * Gdx.graphics.getDeltaTime();
+            setX(x);
+        }
+        if (UpMove)
+        {
+            y = getY();
+            y += speed * Gdx.graphics.getDeltaTime();
+            setY(y);
+        }
+        if (DownMove)
+        {
+            y = getY();
+            y -= speed * Gdx.graphics.getDeltaTime();
+            setY(y);
+        }
+    }
+
+    public void setLeftMove(boolean t)
+    {
+        if(rightMove && t) rightMove = false;
+        leftMove = t;
+
+    }
+    public void setRightMove(boolean t)
+    {
+        if(leftMove && t) leftMove = false;
+        rightMove = t;
+    }
+
+    public void setUpMove(boolean t)
+    {
+        if(DownMove && t) DownMove = false;
+        UpMove = t;
+    }
+
+    public void setDownMove(boolean t)
+    {
+        if(UpMove && t) UpMove = false;
+        DownMove = t;
+    }
+
 
     private final InputProcessor inputProcessor = new InputAdapter() {
-
         @Override
-
         public boolean keyDown(int keycode) {
-            if (keycode == Input.Keys.LEFT)
-                translateX(-16);
-
-            if (keycode == Input.Keys.RIGHT)
-                translateX(16);
-
-            if (keycode == Input.Keys.UP)
-                translateY(16);
-
-            if (keycode == Input.Keys.DOWN)
-                translateY(-16);
-
-            return false;
+            switch (keycode)
+            {
+                case Input.Keys.LEFT:
+                    setLeftMove(true);
+                    break;
+                case Input.Keys.RIGHT:
+                    setRightMove(true);
+                    break;
+                case Input.Keys.UP:
+                    setUpMove(true);
+                    break;
+                case Input.Keys.DOWN:
+                    setDownMove(true);
+                    break;
+                case Input.Keys.G:
+                    //Shoot();
+                    break;
+            }
+            return true;
         }
 
         @Override
         public boolean keyUp(int keycode) {
-            return false;
+            switch (keycode)
+            {
+                case Input.Keys.LEFT:
+                    setLeftMove(false);
+                    break;
+                case Input.Keys.RIGHT:
+                    setRightMove(false);
+                    break;
+                case Input.Keys.UP:
+                    setUpMove(false);
+                    break;
+                case Input.Keys.DOWN:
+                    setDownMove(false);
+                    break;
+            }
+            return true;
         }
 
         @Override
@@ -97,6 +177,11 @@ public class Player extends Sprite {
             return false;
         }
     };
+
+    private void Shoot(float angle) {
+        //Mabye trigger a shoot method in a gun class instead to allow for different guns, projectile speed, better oop and such
+        Projectile projectile = new Projectile(200, angle);
+    }
 
     public InputProcessor getInputProcessor(){
         return inputProcessor;

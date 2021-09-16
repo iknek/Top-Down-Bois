@@ -54,6 +54,11 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
+        player.updateMotion();
+
+        // Sets sprite for player (add diagonal sprites?)
+
         if(ispressed == 21){
             player.setRegion(player.textureAtlas.findRegion("Adam_left"));
         }
@@ -66,6 +71,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         if(ispressed == 20){
             player.setRegion(player.textureAtlas.findRegion("Adam_back"));
         }
+
     }
 
     @Override
@@ -75,7 +81,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     }
 
     @Override public boolean keyUp(int keycode) {
-        return false;
+        return player.getInputProcessor().keyUp(keycode);
     }
 
     @Override public boolean keyTyped(char character) {
