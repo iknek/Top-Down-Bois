@@ -10,11 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-
-
 import static com.badlogic.gdx.Gdx.files;
-
-
 
 public class Player extends Sprite {
     TextureAtlas textureAtlas;
@@ -22,6 +18,7 @@ public class Player extends Sprite {
     boolean rightMove;
     boolean UpMove;
     boolean DownMove;
+    Weapon weapon;
 
     int speed = 80;
 
@@ -36,8 +33,11 @@ public class Player extends Sprite {
         this.setScale(scale);
         this.x = posX;
         this.y = posY;
+        this.weapon = new Weapon();
         setRegion(textureAtlas.findRegion("Adam_back"));
     }
+
+    public Weapon getWeapon() {return this.weapon;}
 
     public float getX() {
         return super.getX();
@@ -76,6 +76,10 @@ public class Player extends Sprite {
             y -= speed * Gdx.graphics.getDeltaTime();
             setY(y);
         }
+        for (Projectile p: weapon.projectileList) {
+            p.updateMotion();
+        }
+
     }
 
     public void setLeftMove(boolean t)
@@ -180,7 +184,7 @@ public class Player extends Sprite {
 
     private void Shoot(float angle) {
         //Mabye trigger a shoot method in a gun class instead to allow for different guns, projectile speed, better oop and such
-        Projectile projectile = new Projectile(200, angle);
+        weapon.fireWeapon(angle, x, y);
     }
 
     public InputProcessor getInputProcessor(){

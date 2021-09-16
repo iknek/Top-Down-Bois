@@ -98,6 +98,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
+        //Should we call every movable object here through an interface?
         player.updateMotion();
 
         // Sets sprite for player (add diagonal sprites?)
@@ -115,6 +116,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
             player.setRegion(player.textureAtlas.findRegion("Adam_back"));
         }
         checkCollisionRectangle();
+
+        for (Projectile p: player.getWeapon().projectileList) {
+            if(!tiledMapRenderer.getSprites().contains(p)){
+                tiledMapRenderer.addSprite(p);
+            }
+        }
     }
 
     @Override
