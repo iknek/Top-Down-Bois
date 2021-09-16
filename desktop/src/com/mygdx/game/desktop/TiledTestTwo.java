@@ -9,10 +9,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
@@ -40,10 +46,47 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
 
-        tiledMap = new TmxMapLoader().load("mapOne.tmx");
+        tiledMap = new TmxMapLoader().load("proto.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap, 2);
         tiledMapRenderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
+
+    }
+
+    public void checkCollisionRectangle(){
+        int objectLayerId = 2;
+        MapLayer collisionObjectLayer = tiledMap.getLayers().get(objectLayerId);
+        MapObjects objects = collisionObjectLayer.getObjects();
+        // there are several other types, Rectangle is probably the most common one
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+
+            Rectangle rectangle = rectangleObject.getRectangle();
+            System.out.println(rectangle.y);
+            System.out.println(player.getBoundingRectangle().y);
+            rectangle = scaleRectangle(rectangle);
+
+            if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
+                player.setX(0);
+                player.setY(0);
+            }
+            rectangle = scaleBackRectangle(rectangle);
+        }
+    }
+
+    private Rectangle scaleRectangle(Rectangle rect){
+        rect.x = rect.x*2;
+        rect.y = rect.y*2;
+        rect.width = rect.width*2;
+        rect.height = rect.height*2;
+        return rect;
+    }
+
+    private Rectangle scaleBackRectangle(Rectangle rect){
+        rect.x = rect.x/2;
+        rect.y = rect.y/2;
+        rect.width = rect.width/2;
+        rect.height = rect.height/2;
+        return rect;
     }
 
     @Override
@@ -71,7 +114,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         if(ispressed == 20){
             player.setRegion(player.textureAtlas.findRegion("Adam_back"));
         }
-
+        checkCollisionRectangle();
     }
 
     @Override

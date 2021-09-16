@@ -8,7 +8,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
 
 import static com.badlogic.gdx.Gdx.files;
 
@@ -35,8 +37,6 @@ public class Player extends Sprite {
         this.x = posX;
         this.y = posY;
         setRegion(textureAtlas.findRegion("Adam_back"));
-
-
     }
 
     public float getX() {
