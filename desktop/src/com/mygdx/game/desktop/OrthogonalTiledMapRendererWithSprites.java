@@ -24,6 +24,10 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
         sprites.add(sprite);
     }
 
+    public List<Sprite> getSprites(){
+        return sprites;
+    }
+
     @Override
     public void render() {
         beginRender();
