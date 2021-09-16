@@ -61,13 +61,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
 
             Rectangle rectangle = rectangleObject.getRectangle();
-            System.out.println(rectangle.y);
-            System.out.println(player.getBoundingRectangle().y);
+            //System.out.println(rectangle.y);
+            //System.out.println(player.getBoundingRectangle().y);
             rectangle = scaleRectangle(rectangle);
-
             if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
-                player.setX(0);
-                player.setY(0);
+                player.translateX(-3);
+                player.translateY(-3);
             }
             rectangle = scaleBackRectangle(rectangle);
         }
