@@ -4,35 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public class Projectile extends Sprite {
+public class Projectile extends Sprite implements Movable {
     TextureAtlas textureAtlas;
-    TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
-    int projectileSpeed;
-    float angleOfDirection;
-    float xPos;
-    float yPos;
-
     static float xSpeed;
     static float ySpeed;
 
-    public Projectile(double projectileSpeed, float angleOfDirection, float posX, float posY) {
+    public Projectile(double projectileSpeed, float angleOfDirection, float posX, float posY, TextureAtlas atlas) {
+        super(atlas.getRegions().get(0));
         textureAtlas = atlas;
-        setRegion(textureAtlas.findRegion("bullet"));
-        this.setPosition(posX, posY);
-        spawnProjectile();
+        setRegion(textureAtlas.findRegion("Adam_left"));
+        this.setX(posX);
+        this.setY(posY);
         xSpeed = (float) Math.cos(projectileSpeed);
         ySpeed = (float) Math.sin(projectileSpeed);
+        Renderer renderer = Renderer.getInstance();
+        renderer.addSprite(this);
+        MovableSubject movableSubject = MovableSubject.getInstance();
+        movableSubject.attach(this);
     }
-
-    private void spawnProjectile() {
-
-    }
-
-    public void updateMotion(){
-        xPos += xSpeed * Gdx.graphics.getDeltaTime();
-        yPos += ySpeed * Gdx.graphics.getDeltaTime();
-    }
-
 
     public float getX() {
         return super.getX();
@@ -40,8 +29,10 @@ public class Projectile extends Sprite {
     public float getY(){
         return super.getY();
     }
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
+
+    @Override
+    public void update() {
+        setX(getX() + 100 * Gdx.graphics.getDeltaTime());
+        setY(getY() + 100 * Gdx.graphics.getDeltaTime());
     }
 }

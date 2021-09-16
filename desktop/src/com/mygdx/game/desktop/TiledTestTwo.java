@@ -1,22 +1,17 @@
 package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -26,40 +21,36 @@ import com.badlogic.gdx.math.Vector3;
 
 public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     Texture img;
-    TiledMap tiledMap;
     OrthographicCamera camera;
-    OrthogonalTiledMapRendererWithSprites tiledMapRenderer;
+    Renderer renderer;
     Player player;
     private SpriteBatch batch;
     private int ispressed = 0;
+    MovableSubject movableSubject = MovableSubject.getInstance();
+
 
     @Override
     public void create () {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
-
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
-
-        tiledMap = new TmxMapLoader().load("proto.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap, 2);
-        tiledMapRenderer.addSprite(player);
+        renderer = Renderer.getInstance();
+        renderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
-
     }
 
     public void checkCollisionRectangle(){
+
         int objectLayerId = 2;
-        MapLayer collisionObjectLayer = tiledMap.getLayers().get(objectLayerId);
+        MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
         MapObjects objects = collisionObjectLayer.getObjects();
         // there are several other types, Rectangle is probably the most common one
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
-
             Rectangle rectangle = rectangleObject.getRectangle();
             //System.out.println(rectangle.y);
             //System.out.println(player.getBoundingRectangle().y);
@@ -94,12 +85,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
+        renderer.setView(camera);
+        renderer.render();
+        //Notifies all movable objects about next render
+        movableSubject.notifyUpdate();
 
-        //Should we call every movable object here through an interface?
-        player.updateMotion();
-
+        //Det här ska definitivt vara i player klassen!
         // Sets sprite for player (add diagonal sprites?)
 
         if(ispressed == 21){
@@ -115,12 +106,6 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
             player.setRegion(player.textureAtlas.findRegion("Adam_back"));
         }
         checkCollisionRectangle();
-
-        for (Projectile p: player.getWeapon().projectileList) {
-            if(!tiledMapRenderer.getSprites().contains(p)){
-                tiledMapRenderer.addSprite(p);
-            }
-        }
     }
 
     @Override

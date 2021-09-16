@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import static com.badlogic.gdx.Gdx.files;
 
-public class Player extends Sprite {
+public class Player extends Sprite implements Movable{
     TextureAtlas textureAtlas;
     boolean leftMove;
     boolean rightMove;
@@ -26,7 +26,6 @@ public class Player extends Sprite {
     float y;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
-
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
         this.setPosition(posX, posY);
@@ -35,6 +34,8 @@ public class Player extends Sprite {
         this.y = posY;
         this.weapon = new Weapon();
         setRegion(textureAtlas.findRegion("Adam_back"));
+        MovableSubject movableSubject = MovableSubject.getInstance();
+        movableSubject.attach(this);
     }
 
     public Weapon getWeapon() {return this.weapon;}
@@ -48,38 +49,6 @@ public class Player extends Sprite {
     public void setPosition(float posX, float posY){
         this.setX(posX);
         this.setY(posY);
-    }
-
-    public void updateMotion()
-    {
-        if (leftMove)
-        {
-            x = getX();
-            x -= speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
-        if (rightMove)
-        {
-            x = getX();
-            x += speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
-        if (UpMove)
-        {
-            y = getY();
-            y += speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
-        if (DownMove)
-        {
-            y = getY();
-            y -= speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
-        for (Projectile p: weapon.projectileList) {
-            p.updateMotion();
-        }
-
     }
 
     public void setLeftMove(boolean t)
@@ -125,7 +94,7 @@ public class Player extends Sprite {
                     setDownMove(true);
                     break;
                 case Input.Keys.G:
-                    //Shoot();
+                    Shoot(0);
                     break;
             }
             return true;
@@ -183,11 +152,38 @@ public class Player extends Sprite {
     };
 
     private void Shoot(float angle) {
-        //Mabye trigger a shoot method in a gun class instead to allow for different guns, projectile speed, better oop and such
-        weapon.fireWeapon(angle, x, y);
+        weapon.fireWeapon(angle, getX(), getY());
     }
 
     public InputProcessor getInputProcessor(){
         return inputProcessor;
+    }
+
+    @Override
+    public void update() {
+        if (leftMove)
+        {
+            x = getX();
+            x -= speed * Gdx.graphics.getDeltaTime();
+            setX(x);
+        }
+        if (rightMove)
+        {
+            x = getX();
+            x += speed * Gdx.graphics.getDeltaTime();
+            setX(x);
+        }
+        if (UpMove)
+        {
+            y = getY();
+            y += speed * Gdx.graphics.getDeltaTime();
+            setY(y);
+        }
+        if (DownMove)
+        {
+            y = getY();
+            y -= speed * Gdx.graphics.getDeltaTime();
+            setY(y);
+        }
     }
 }

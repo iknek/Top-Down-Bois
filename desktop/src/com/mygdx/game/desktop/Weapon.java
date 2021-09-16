@@ -1,11 +1,12 @@
 package com.mygdx.game.desktop;
-
-import java.awt.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.ArrayList;
 
 public class Weapon {
     public ArrayList<Projectile> projectileList;
 
+    //add weapon characteristics
 
     public Weapon()
     {
@@ -13,7 +14,7 @@ public class Weapon {
     }
 
     public void fireWeapon(float angle, float x, float y){
-        Projectile p = new Projectile(200, angle, x, y);
+        Projectile p = new Projectile(200, angle, x, y, new TextureAtlas(Gdx.files.internal("sprites.atlas")));
         projectileList.add(p);
     }
 }
