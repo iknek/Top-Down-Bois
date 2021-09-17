@@ -16,6 +16,9 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
 //albeit with certain reworks to fit for this project.
 
@@ -23,6 +26,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     Texture img;
     OrthographicCamera camera;
     Renderer renderer;
+    Zombie zombie;
     Player player;
     private SpriteBatch batch;
     private int ispressed = 0;
@@ -35,11 +39,14 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
+        TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
+        zombie = new Zombie(atlasEric, w/3, h/3, 3);
         renderer = Renderer.getInstance();
+        renderer.addSprite(zombie);
         renderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
     }
@@ -56,7 +63,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
             //System.out.println(player.getBoundingRectangle().y);
             rectangle = scaleRectangle(rectangle);
             for (Movable observer : movableSubject.getObservers()){
-                if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
+                if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
                     observer.collide(rectangle);
                 }
             }
@@ -96,11 +103,19 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         // Sets sprite for player (add diagonal sprites?)
 
         player.changePlayerSprite(ispressed);
-
         checkCollisionRectangle();
+        checkZombieCollisions();
     }
 
-
+    private void checkZombieCollisions(){
+        for(Movable movable : movableSubject.getInstance().getObservers()){
+            if(movable instanceof Zombie){
+                if(Intersector.overlaps(player.getBoundingRectangle(), movable.getBoundingRectangle())){
+                    player.getHit();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean keyDown(int keycode) {
