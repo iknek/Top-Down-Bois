@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
-    TextureAtlas textureAtlas;
-    static float xSpeed;
-    static float ySpeed;
+    private TextureAtlas textureAtlas;
+    private static float xSpeed;
+    private static float ySpeed;
 
     public Projectile(double projectileSpeed, float angleOfDirection, float posX, float posY, TextureAtlas atlas) {
         super(atlas.getRegions().get(0));

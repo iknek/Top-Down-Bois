@@ -13,24 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import static com.badlogic.gdx.Gdx.files;
 
 public class Zombie extends Sprite implements Movable{
-    TextureAtlas textureAtlas;
-    boolean leftMove;
-    boolean rightMove;
-    boolean UpMove;
-    boolean DownMove;
+    private TextureAtlas textureAtlas;
+    private boolean leftMove;
+    private boolean rightMove;
+    private boolean UpMove;
+    private boolean DownMove;
 
-    int speed = 80;
+    private int speed = 80;
 
-    float x;
-    float y;
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
         this.setPosition(posX, posY);
         this.setScale(scale);
-        this.x = posX;
-        this.y = posY;
+        this.setX(posX);
+        this.setY(posY);
         setRegion(textureAtlas.findRegion("Eric_back"));
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);

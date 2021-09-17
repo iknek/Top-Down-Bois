@@ -23,14 +23,14 @@ import java.util.List;
 //albeit with certain reworks to fit for this project.
 
 public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
-    Texture img;
-    OrthographicCamera camera;
-    Renderer renderer;
-    Zombie zombie;
-    Player player;
+    private Texture img;
+    private OrthographicCamera camera;
+    private Renderer renderer;
+    private Zombie zombie;
+    private Player player;
     private SpriteBatch batch;
     private int ispressed = 0;
-    MovableSubject movableSubject = MovableSubject.getInstance();
+    private MovableSubject movableSubject = MovableSubject.getInstance();
 
 
     @Override
@@ -51,7 +51,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
-    public void checkCollisionRectangle(){
+    private void checkCollisionRectangle(){
 
         int objectLayerId = 2;
         MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
@@ -98,9 +98,6 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         renderer.render();
         //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
-
-        //Det här ska definitivt vara i player klassen!
-        // Sets sprite for player (add diagonal sprites?)
 
         player.changePlayerSprite(ispressed);
         checkCollisionRectangle();
@@ -157,7 +154,4 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         return false;
     }
 
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }

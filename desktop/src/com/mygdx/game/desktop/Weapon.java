@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.ArrayList;
 
 public class Weapon {
-    public ArrayList<Projectile> projectileList;
+    private ArrayList<Projectile> projectileList;
 
     //add weapon characteristics
 
