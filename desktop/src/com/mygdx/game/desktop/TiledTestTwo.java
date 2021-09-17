@@ -23,6 +23,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     Texture img;
     OrthographicCamera camera;
     Renderer renderer;
+    Zombie zombie;
     Player player;
     private SpriteBatch batch;
     private int ispressed = 0;
@@ -35,12 +36,15 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
+        TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
+        zombie = new Zombie(atlasEric, w/3, h/3, 3);
         renderer = Renderer.getInstance();
         renderer.addSprite(player);
+        renderer.addSprite(zombie);
         Gdx.input.setInputProcessor(this);
     }
 
