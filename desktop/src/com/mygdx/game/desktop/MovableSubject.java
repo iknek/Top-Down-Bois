@@ -14,6 +14,10 @@ public class MovableSubject {
     }
     private List<Movable> observers = new ArrayList<>();
 
+    public List<Movable> getObservers(){
+        return observers;
+    }
+
     public void attach(Movable o) {
         observers.add(o);
     }
@@ -27,4 +31,5 @@ public class MovableSubject {
             o.update();
         }
     }
+
 }

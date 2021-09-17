@@ -55,10 +55,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
             //System.out.println(rectangle.y);
             //System.out.println(player.getBoundingRectangle().y);
             rectangle = scaleRectangle(rectangle);
-            if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
-                player.translateX(-3);
-                player.translateY(-3);
+            for (Movable observer : movableSubject.getObservers()){
+                if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
+                    observer.collide(rectangle);
+                }
             }
+
             rectangle = scaleBackRectangle(rectangle);
         }
     }

@@ -3,6 +3,7 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
     TextureAtlas textureAtlas;
@@ -34,5 +35,13 @@ public class Projectile extends Sprite implements Movable {
     public void update() {
         setX(getX() + 100 * Gdx.graphics.getDeltaTime());
         setY(getY() + 100 * Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void collide(Rectangle rectangle) {
+        Renderer renderer = Renderer.getInstance();
+        MovableSubject movableSubject = MovableSubject.getInstance();
+        movableSubject.detach(this);
+        renderer.removeSprite(this);
     }
 }
