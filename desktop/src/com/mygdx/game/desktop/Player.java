@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -51,30 +50,44 @@ public class Player extends Sprite implements Movable{
         this.setY(posY);
     }
 
-    public void setLeftMove(boolean t)
+    private void setLeftMove(boolean t)
     {
         if(rightMove && t) rightMove = false;
         leftMove = t;
 
     }
-    public void setRightMove(boolean t)
+    private void setRightMove(boolean t)
     {
         if(leftMove && t) leftMove = false;
         rightMove = t;
     }
 
-    public void setUpMove(boolean t)
+    private void setUpMove(boolean t)
     {
         if(DownMove && t) DownMove = false;
         UpMove = t;
     }
 
-    public void setDownMove(boolean t)
+    private void setDownMove(boolean t)
     {
         if(UpMove && t) UpMove = false;
         DownMove = t;
     }
 
+    public void changePlayerSprite(int ispresssed){
+        if(ispresssed == 21){
+            this.setRegion(this.textureAtlas.findRegion("Adam_left"));
+        }
+        if(ispresssed == 22){
+            this.setRegion(this.textureAtlas.findRegion("Adam_right"));
+        }
+        if(ispresssed == 19){
+            this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
+        }
+        if(ispresssed == 20){
+            this.setRegion(this.textureAtlas.findRegion("Adam_back"));
+        }
+    }
 
     private final InputProcessor inputProcessor = new InputAdapter() {
         @Override
@@ -119,36 +132,6 @@ public class Player extends Sprite implements Movable{
             }
             return true;
         }
-
-        @Override
-        public boolean keyTyped(char character) {
-            return false;
-        }
-
-        @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
-        @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
-            return false;
-        }
-
-        @Override
-        public boolean mouseMoved(int screenX, int screenY) {
-            return false;
-        }
-
-        @Override
-        public boolean scrolled(float amountX, float amountY) {
-            return false;
-        }
     };
 
     private void Shoot(float angle) {
@@ -162,28 +145,12 @@ public class Player extends Sprite implements Movable{
     @Override
     public void update() {
         if (leftMove)
-        {
-            x = getX();
-            x -= speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
+            translateX(-speed * Gdx.graphics.getDeltaTime());
         if (rightMove)
-        {
-            x = getX();
-            x += speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
+            translateX(speed * Gdx.graphics.getDeltaTime());
         if (UpMove)
-        {
-            y = getY();
-            y += speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
+            translateY(speed * Gdx.graphics.getDeltaTime());
         if (DownMove)
-        {
-            y = getY();
-            y -= speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
+            translateY(-speed * Gdx.graphics.getDeltaTime());
     }
 }
