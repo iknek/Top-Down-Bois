@@ -59,18 +59,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
         player.changePlayerSprite(ispressed);
-        collisionController.checkCollisionRectangle(renderer);
-        checkZombieCollisions();
-    }
-
-    private void checkZombieCollisions(){
-        for(Movable movable : movableSubject.getInstance().getObservers()){
-            if(movable instanceof Zombie){
-                if(Intersector.overlaps(player.getBoundingRectangle(), movable.getBoundingRectangle())){
-                    player.getHit();
-                }
-            }
-        }
+        collisionController.checkCollisionRectangle(renderer, player);
     }
 
     @Override

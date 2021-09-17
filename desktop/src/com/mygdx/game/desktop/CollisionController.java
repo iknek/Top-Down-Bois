@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class CollisionController {
 
-    public void checkCollisionRectangle(Renderer renderer){
+    public void checkCollisionRectangle(Renderer renderer, Player player){
         MovableSubject movableSubject = MovableSubject.getInstance();
         int objectLayerId = 2;
         MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
@@ -26,6 +26,7 @@ public class CollisionController {
             }
             rectangle = scaleBackRectangle(rectangle);
         }
+        checkZombieCollisions(player);
     }
 
     private Rectangle scaleRectangle(Rectangle rect){
@@ -42,5 +43,16 @@ public class CollisionController {
         rect.width = rect.width/2;
         rect.height = rect.height/2;
         return rect;
+    }
+
+    private void checkZombieCollisions(Player player){
+
+        for(Movable movable : MovableSubject.getInstance().getObservers()){
+            if(movable instanceof Zombie){
+                if(Intersector.overlaps(player.getBoundingRectangle(), movable.getBoundingRectangle())){
+                    player.getHit();
+                }
+            }
+        }
     }
 }
