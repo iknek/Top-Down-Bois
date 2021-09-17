@@ -16,6 +16,9 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
 //albeit with certain reworks to fit for this project.
 
@@ -56,7 +59,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
             //System.out.println(player.getBoundingRectangle().y);
             rectangle = scaleRectangle(rectangle);
             for (Movable observer : movableSubject.getObservers()){
-                if (Intersector.overlaps(rectangle, player.getBoundingRectangle())){
+                if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
                     observer.collide(rectangle);
                 }
             }

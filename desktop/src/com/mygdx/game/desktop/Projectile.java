@@ -40,8 +40,11 @@ public class Projectile extends Sprite implements Movable {
     @Override
     public void collide(Rectangle rectangle) {
         Renderer renderer = Renderer.getInstance();
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        movableSubject.detach(this);
         renderer.removeSprite(this);
+    }
+
+    @Override
+    public Rectangle getBoundingRectangle() {
+        return super.getBoundingRectangle();
     }
 }
