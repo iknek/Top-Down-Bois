@@ -27,6 +27,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private SpriteBatch batch;
     private int ispressed = 0;
     private MovableSubject movableSubject = MovableSubject.getInstance();
+    private CollisionController collisionController = new CollisionController();
 
 
     @Override
@@ -47,43 +48,6 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
-    private void checkCollisionRectangle(){
-
-        int objectLayerId = 2;
-        MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
-        MapObjects objects = collisionObjectLayer.getObjects();
-        // there are several other types, Rectangle is probably the most common one
-        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            //System.out.println(rectangle.y);
-            //System.out.println(player.getBoundingRectangle().y);
-            rectangle = scaleRectangle(rectangle);
-            for (Movable observer : movableSubject.getObservers()){
-                if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
-                    observer.collide(rectangle);
-                }
-            }
-
-            rectangle = scaleBackRectangle(rectangle);
-        }
-    }
-
-    private Rectangle scaleRectangle(Rectangle rect){
-        rect.x = rect.x*2;
-        rect.y = rect.y*2;
-        rect.width = rect.width*2;
-        rect.height = rect.height*2;
-        return rect;
-    }
-
-    private Rectangle scaleBackRectangle(Rectangle rect){
-        rect.x = rect.x/2;
-        rect.y = rect.y/2;
-        rect.width = rect.width/2;
-        rect.height = rect.height/2;
-        return rect;
-    }
-
     @Override
     public void render () {
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -94,9 +58,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         renderer.render();
         //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
-
         player.changePlayerSprite(ispressed);
-        checkCollisionRectangle();
+        collisionController.checkCollisionRectangle(renderer);
         checkZombieCollisions();
     }
 
