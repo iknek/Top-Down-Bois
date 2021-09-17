@@ -40,6 +40,7 @@ public class Renderer extends OrthogonalTiledMapRenderer {
     public void addSprite(Sprite sprite){
         sprites.add(sprite);
     }
+    public void removeSprite(Sprite sprite){ sprites.remove(sprite); }
 
     public List<Sprite> getSprites(){
         return sprites;

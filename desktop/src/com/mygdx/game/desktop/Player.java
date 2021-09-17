@@ -153,4 +153,20 @@ public class Player extends Sprite implements Movable{
         if (DownMove)
             translateY(-speed * Gdx.graphics.getDeltaTime());
     }
+
+    @Override
+    public void collide(Rectangle rectangle) {
+        if(leftMove){
+            translateX(speed*Gdx.graphics.getDeltaTime());
+        }
+        if(rightMove){
+            translateX(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(UpMove){
+            translateY(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(DownMove){
+            translateY(speed*Gdx.graphics.getDeltaTime());
+        }
+    }
 }
