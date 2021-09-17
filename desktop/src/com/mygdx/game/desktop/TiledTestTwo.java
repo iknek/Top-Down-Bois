@@ -95,20 +95,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         //Det här ska definitivt vara i player klassen!
         // Sets sprite for player (add diagonal sprites?)
 
-        if(ispressed == 21){
-            player.setRegion(player.textureAtlas.findRegion("Adam_left"));
-        }
-        if(ispressed == 22){
-            player.setRegion(player.textureAtlas.findRegion("Adam_right"));
-        }
-        if(ispressed == 19){
-            player.setRegion(player.textureAtlas.findRegion("Adam_forward"));
-        }
-        if(ispressed == 20){
-            player.setRegion(player.textureAtlas.findRegion("Adam_back"));
-        }
+        player.changePlayerSprite(ispressed);
+
         checkCollisionRectangle();
     }
+
+
 
     @Override
     public boolean keyDown(int keycode) {
