@@ -14,7 +14,7 @@ public class Weapon {
     }
 
     public void fireWeapon(float angle, float x, float y){
-        Projectile p = new Projectile(200, angle, x, y, new TextureAtlas(Gdx.files.internal("sprites.atlas")));
+        Projectile p = new Projectile(1000, angle, x, y);
         projectileList.add(p);
     }
 }
