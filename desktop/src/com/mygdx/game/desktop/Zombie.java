@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import static com.badlogic.gdx.Gdx.files;
@@ -17,7 +18,6 @@ public class Zombie extends Sprite implements Movable{
     boolean rightMove;
     boolean UpMove;
     boolean DownMove;
-    Weapon weapon;
 
     int speed = 80;
 
@@ -31,13 +31,11 @@ public class Zombie extends Sprite implements Movable{
         this.setScale(scale);
         this.x = posX;
         this.y = posY;
-        this.weapon = new Weapon();
         setRegion(textureAtlas.findRegion("Eric_back"));
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
     }
 
-    public Weapon getWeapon() {return this.weapon;}
 
     public float getX() {
         return super.getX();
@@ -67,7 +65,6 @@ public class Zombie extends Sprite implements Movable{
     }
 
 
-
     @Override
     public void update() {
         if (leftMove)
@@ -79,4 +76,21 @@ public class Zombie extends Sprite implements Movable{
         if (DownMove)
             translateY(-speed * Gdx.graphics.getDeltaTime());
     }
+
+    @Override
+    public void collide(Rectangle rectangle) {
+        if(leftMove){
+            translateX(speed*Gdx.graphics.getDeltaTime());
+        }
+        if(rightMove){
+            translateX(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(UpMove){
+            translateY(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(DownMove){
+            translateY(speed*Gdx.graphics.getDeltaTime());
+        }
+    }
+
 }

@@ -9,32 +9,38 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.badlogic.gdx.Gdx.files;
 
 public class Player extends Sprite implements Movable{
-    TextureAtlas textureAtlas;
-    boolean leftMove;
-    boolean rightMove;
-    boolean UpMove;
-    boolean DownMove;
-    Weapon weapon;
+    private TextureAtlas textureAtlas;
+    private boolean leftMove;
+    private boolean rightMove;
+    private boolean UpMove;
+    private boolean DownMove;
+    private Weapon weapon;
+    private int health;
+    private boolean invincible;
+    private Timer timer;
 
-    int speed = 80;
+    private int speed = 80;
 
-    float x;
-    float y;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
         this.setPosition(posX, posY);
         this.setScale(scale);
-        this.x = posX;
-        this.y = posY;
+        this.setX(posX);
+        this.setY(posY);
         this.weapon = new Weapon();
         setRegion(textureAtlas.findRegion("Adam_back"));
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
+        health = 3;
     }
 
     public Weapon getWeapon() {return this.weapon;}
@@ -168,5 +174,26 @@ public class Player extends Sprite implements Movable{
         if(DownMove){
             translateY(speed*Gdx.graphics.getDeltaTime());
         }
+    }
+
+    public void getHit(){
+        if(!invincible) {
+            timer = new Timer();
+            health -= 1;
+            invincible = true;
+            timer.schedule(new RemindTask(), 5*1000);
+            System.out.println("oof");
+        }
+    }
+
+    class RemindTask extends TimerTask {
+        public void run() {
+            invincible = false;
+            timer.cancel(); //Terminate the timer thread
+        }
+    }
+
+    public int getHealth(){
+        return health;
     }
 }

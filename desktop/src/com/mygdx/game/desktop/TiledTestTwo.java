@@ -46,8 +46,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         player = new Player(atlas,w/2,h/2,3);
         zombie = new Zombie(atlasEric, w/3, h/3, 3);
         renderer = Renderer.getInstance();
-        renderer.addSprite(player);
         renderer.addSprite(zombie);
+        renderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -103,11 +103,19 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         // Sets sprite for player (add diagonal sprites?)
 
         player.changePlayerSprite(ispressed);
-
         checkCollisionRectangle();
+        checkZombieCollisions();
     }
 
-
+    private void checkZombieCollisions(){
+        for(Movable movable : movableSubject.getInstance().getObservers()){
+            if(movable instanceof Zombie){
+                if(Intersector.overlaps(player.getBoundingRectangle(), movable.getBoundingRectangle())){
+                    player.getHit();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean keyDown(int keycode) {
