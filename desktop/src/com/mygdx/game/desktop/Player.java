@@ -16,12 +16,6 @@ import java.util.TimerTask;
 import static com.badlogic.gdx.Gdx.files;
 
 public class Player extends Sprite implements Movable{
-    TextureAtlas textureAtlas;
-    boolean leftMove;
-    boolean rightMove;
-    boolean UpMove;
-    boolean DownMove;
-    Weapon weapon;
     private int angle;
     private TextureAtlas textureAtlas;
     private boolean leftMove;
