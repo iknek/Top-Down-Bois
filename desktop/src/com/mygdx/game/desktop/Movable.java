@@ -6,4 +6,6 @@ public interface Movable {
     void update();
     void collide(Rectangle rectangle);
     Rectangle getBoundingRectangle();
+    float getX();
+    float getY();
 }
