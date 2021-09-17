@@ -1,23 +1,21 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
-    TextureAtlas textureAtlas;
-    static float xSpeed;
-    static float ySpeed;
+    int xSpeed;
+    int ySpeed;
 
-    public Projectile(double projectileSpeed, float angleOfDirection, float posX, float posY, TextureAtlas atlas) {
-        super(atlas.getRegions().get(0));
-        textureAtlas = atlas;
-        setRegion(textureAtlas.findRegion("Adam_left"));
+    public Projectile(int projectileSpeed, float angle, float posX, float posY) {
+        super(new Texture(Gdx.files.internal("bullet.png")));
+        rotate(angle);
         this.setX(posX);
         this.setY(posY);
-        xSpeed = (float) Math.cos(projectileSpeed);
-        ySpeed = (float) Math.sin(projectileSpeed);
+        xSpeed = (int) Math.sin(Math.toRadians(angle)) * projectileSpeed;
+        ySpeed = (int) -(Math.cos(Math.toRadians(angle)) * projectileSpeed);
         Renderer renderer = Renderer.getInstance();
         renderer.addSprite(this);
         MovableSubject movableSubject = MovableSubject.getInstance();
@@ -33,8 +31,8 @@ public class Projectile extends Sprite implements Movable {
 
     @Override
     public void update() {
-        setX(getX() + 100 * Gdx.graphics.getDeltaTime());
-        setY(getY() + 100 * Gdx.graphics.getDeltaTime());
+        setX(getX() + xSpeed * Gdx.graphics.getDeltaTime());
+        setY(getY() + ySpeed * Gdx.graphics.getDeltaTime());
     }
 
     @Override

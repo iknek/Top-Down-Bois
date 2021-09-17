@@ -18,6 +18,7 @@ public class Player extends Sprite implements Movable{
     boolean UpMove;
     boolean DownMove;
     Weapon weapon;
+    private int angle;
 
     int speed = 80;
 
@@ -77,15 +78,19 @@ public class Player extends Sprite implements Movable{
     public void changePlayerSprite(int ispresssed){
         if(ispresssed == 21){
             this.setRegion(this.textureAtlas.findRegion("Adam_left"));
+            angle = 270;
         }
         if(ispresssed == 22){
             this.setRegion(this.textureAtlas.findRegion("Adam_right"));
+            angle = 90;
         }
         if(ispresssed == 19){
             this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
+            angle = 180;
         }
         if(ispresssed == 20){
             this.setRegion(this.textureAtlas.findRegion("Adam_back"));
+            angle = 0;
         }
     }
 
@@ -107,7 +112,7 @@ public class Player extends Sprite implements Movable{
                     setDownMove(true);
                     break;
                 case Input.Keys.G:
-                    Shoot(0);
+                    Shoot();
                     break;
             }
             return true;
@@ -134,7 +139,7 @@ public class Player extends Sprite implements Movable{
         }
     };
 
-    private void Shoot(float angle) {
+    private void Shoot() {
         weapon.fireWeapon(angle, getX(), getY());
     }
 
