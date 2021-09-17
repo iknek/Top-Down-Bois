@@ -4,29 +4,29 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.Vector2;
 
 public class ConnectionWrapper implements Connection<Movable> {
-    Movable player;
-    Movable zombie;
+    Movable playerNode;
+    Movable zombieNode;
 
     float cost;
 
-    public ConnectionWrapper(Movable zombie, Movable player){
-        this.zombie = zombie;
-        this.player = player;
-        cost = Vector2.dst(zombie.getX(), zombie.getY(), player.getX(), player.getY());
+    public ConnectionWrapper(Movable zombieNode, Movable playerNode){
+        this.zombieNode = zombieNode;
+        this.playerNode = playerNode;
+        cost = Vector2.dst(zombieNode.getX(), zombieNode.getY(), playerNode.getX(), playerNode.getY());
     }
 
     @Override
     public float getCost() {
-        return 0;
+        return cost;
     }
 
     @Override
     public Movable getFromNode() {
-        return null;
+        return zombieNode;
     }
 
     @Override
     public Movable getToNode() {
-        return null;
+        return playerNode;
     }
 }
