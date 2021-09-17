@@ -3,12 +3,13 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
     private TextureAtlas textureAtlas;
-    private static float xSpeed;
-    private static float ySpeed;
+    private float xSpeed;
+    private float ySpeed;
 
     public Projectile(int projectileSpeed, float angle, float posX, float posY) {
         super(new Texture(Gdx.files.internal("bullet.png")));

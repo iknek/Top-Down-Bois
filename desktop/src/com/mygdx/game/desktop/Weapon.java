@@ -1,6 +1,4 @@
 package com.mygdx.game.desktop;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.ArrayList;
 
 public class Weapon {

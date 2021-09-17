@@ -6,14 +6,11 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.badlogic.gdx.Gdx.files;
 
 public class Player extends Sprite implements Movable{
     private int angle;
