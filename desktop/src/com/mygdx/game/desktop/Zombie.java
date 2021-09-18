@@ -11,6 +11,7 @@ public class Zombie extends Sprite implements Movable{
     private boolean rightMove;
     private boolean UpMove;
     private boolean DownMove;
+    private int health;
 
     private int speed = 80;
 
@@ -25,6 +26,7 @@ public class Zombie extends Sprite implements Movable{
         setRegion(textureAtlas.findRegion("Eric_back"));
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
+        health = 2;
     }
 
 
@@ -85,8 +87,11 @@ public class Zombie extends Sprite implements Movable{
     }
 
     public void getHit(){
-        Renderer.getInstance().removeSprite(this);
-        MovableSubject.getInstance().delete(this);
+        health -=1;
+        if (health == 0){
+            Renderer.getInstance().removeSprite(this);
+            MovableSubject.getInstance().delete(this);
+        }
     }
 
 }
