@@ -8,16 +8,16 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
     private TextureAtlas textureAtlas;
-    private float xSpeed;
-    private float ySpeed;
+    private int xSpeed;
+    private int ySpeed;
 
-    public Projectile(int projectileSpeed, float angle, float posX, float posY) {
+    public Projectile(int projectileSpeed, int angle, float posX, float posY) {
         super(new Texture(Gdx.files.internal("bullet.png")));
         rotate(angle);
         this.setX(posX);
         this.setY(posY);
-        xSpeed = (int) Math.sin(Math.toRadians(angle)) * projectileSpeed;
-        ySpeed = (int) -(Math.cos(Math.toRadians(angle)) * projectileSpeed);
+        xSpeed = (int) (Math.sin(Math.toRadians(angle)) * projectileSpeed);
+        ySpeed = (int) (Math.cos(Math.toRadians(angle)) * projectileSpeed);
         Renderer renderer = Renderer.getInstance();
         renderer.addSprite(this);
         MovableSubject movableSubject = MovableSubject.getInstance();
@@ -41,6 +41,11 @@ public class Projectile extends Sprite implements Movable {
     public void collide(Rectangle rectangle) {
         Renderer.getInstance().removeSprite(this);
         MovableSubject.getInstance().delete(this);
+    }
+
+    @Override
+    public void playerLocation(int x, int y) {
+
     }
 
     @Override

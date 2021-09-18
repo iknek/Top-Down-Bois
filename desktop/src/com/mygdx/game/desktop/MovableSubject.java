@@ -42,4 +42,9 @@ public class MovableSubject {
         }
     }
 
+    public void playerLocation(int x, int y) {
+        for(Movable o: observers) {
+            o.playerLocation(x, y);
+        }
+    }
 }

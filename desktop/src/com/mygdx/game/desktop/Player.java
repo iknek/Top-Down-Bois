@@ -15,16 +15,16 @@ import java.util.TimerTask;
 public class Player extends Sprite implements Movable{
     private int angle;
     private TextureAtlas textureAtlas;
-    private boolean leftMove;
-    private boolean rightMove;
-    private boolean UpMove;
-    private boolean DownMove;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
     private Weapon weapon;
     private int health;
     private boolean invincible;
     private Timer timer;
 
-    private int speed = 80;
+    private int speed = 130;
 
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
@@ -54,93 +54,47 @@ public class Player extends Sprite implements Movable{
         this.setY(posY);
     }
 
-    private void setLeftMove(boolean t)
-    {
-        if(rightMove && t) rightMove = false;
-        leftMove = t;
-
-    }
-    private void setRightMove(boolean t)
-    {
-        if(leftMove && t) leftMove = false;
-        rightMove = t;
-    }
-
-    private void setUpMove(boolean t)
-    {
-        if(DownMove && t) DownMove = false;
-        UpMove = t;
-    }
-
-    private void setDownMove(boolean t)
-    {
-        if(UpMove && t) UpMove = false;
-        DownMove = t;
-    }
-
-    public void changePlayerSprite(int ispresssed){
-        if(ispresssed == 21){
-            this.setRegion(this.textureAtlas.findRegion("Adam_left"));
-            angle = 270;
+    public void changePlayerSprite() {
+        if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
+        this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
         }
-        if(ispresssed == 22){
+        if (45 <= angle && angle < 135) {
             this.setRegion(this.textureAtlas.findRegion("Adam_right"));
-            angle = 90;
         }
-        if(ispresssed == 19){
-            this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
-            angle = 180;
-        }
-        if(ispresssed == 20){
+        if (135 <= angle && angle < 225) {
             this.setRegion(this.textureAtlas.findRegion("Adam_back"));
+        }
+        if (225 <= angle && angle < 315) {
+            this.setRegion(this.textureAtlas.findRegion("Adam_left"));
+        }
+    }
+
+    private void updateAngle() {
+        if (up&&!right&&!left&&!down) {
             angle = 0;
         }
+        if (up&&right&&!left&&!down) {
+            angle = 45;
+        }
+        if (!up&&right&&!left&&!down) {
+            angle = 90;
+        }
+        if (!up&&right&&!left&&down) {
+            angle = 135;
+        }
+        if (!up&&!right&&!left&&down) {
+            angle = 180;
+        }
+        if (!up&&!right&&left&&down) {
+            angle = 225;
+        }
+        if (!up&&!right&&left&&!down) {
+            angle = 270;
+        }
+        if (up&&!right&&left&&!down) {
+            angle = 315;
+        }
     }
-
-    private final InputProcessor inputProcessor = new InputAdapter() {
-        @Override
-        public boolean keyDown(int keycode) {
-            switch (keycode)
-            {
-                case Input.Keys.LEFT:
-                    setLeftMove(true);
-                    break;
-                case Input.Keys.RIGHT:
-                    setRightMove(true);
-                    break;
-                case Input.Keys.UP:
-                    setUpMove(true);
-                    break;
-                case Input.Keys.DOWN:
-                    setDownMove(true);
-                    break;
-                case Input.Keys.G:
-                    Shoot();
-                    break;
-            }
-            return true;
-        }
-
-        @Override
-        public boolean keyUp(int keycode) {
-            switch (keycode)
-            {
-                case Input.Keys.LEFT:
-                    setLeftMove(false);
-                    break;
-                case Input.Keys.RIGHT:
-                    setRightMove(false);
-                    break;
-                case Input.Keys.UP:
-                    setUpMove(false);
-                    break;
-                case Input.Keys.DOWN:
-                    setDownMove(false);
-                    break;
-            }
-            return true;
-        }
-    };
 
     private void Shoot() {
         weapon.fireWeapon(angle, getX(), getY());
@@ -152,30 +106,23 @@ public class Player extends Sprite implements Movable{
 
     @Override
     public void update() {
-        if (leftMove)
-            translateX(-speed * Gdx.graphics.getDeltaTime());
-        if (rightMove)
-            translateX(speed * Gdx.graphics.getDeltaTime());
-        if (UpMove)
-            translateY(speed * Gdx.graphics.getDeltaTime());
-        if (DownMove)
-            translateY(-speed * Gdx.graphics.getDeltaTime());
+        updateAngle();
+        changePlayerSprite();
+        if (left||right||up||down) {
+            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        }
     }
 
     @Override
     public void collide(Rectangle rectangle) {
-        if(leftMove){
-            translateX(speed*Gdx.graphics.getDeltaTime());
-        }
-        if(rightMove){
-            translateX(-speed*Gdx.graphics.getDeltaTime());
-        }
-        if(UpMove){
-            translateY(-speed*Gdx.graphics.getDeltaTime());
-        }
-        if(DownMove){
-            translateY(speed*Gdx.graphics.getDeltaTime());
-        }
+        translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+    }
+
+    @Override
+    public void playerLocation(int x, int y) {
+
     }
 
     public void getHit(){
@@ -198,4 +145,47 @@ public class Player extends Sprite implements Movable{
     public int getHealth(){
         return health;
     }
+
+    private final InputProcessor inputProcessor = new InputAdapter() {
+        @Override
+        public boolean keyDown(int keycode) {
+            switch (keycode) {
+                case Input.Keys.LEFT:
+                    left = true;
+                    break;
+                case Input.Keys.RIGHT:
+                    right = true;
+                    break;
+                case Input.Keys.UP:
+                    up = true;
+                    break;
+                case Input.Keys.DOWN:
+                    down = true;
+                    break;
+                case Input.Keys.G:
+                    Shoot();
+                    break;
+            }
+            return true;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            switch (keycode) {
+                case Input.Keys.LEFT:
+                    left = false;
+                    break;
+                case Input.Keys.RIGHT:
+                    right = false;
+                    break;
+                case Input.Keys.UP:
+                    up = false;
+                    break;
+                case Input.Keys.DOWN:
+                    down = false;
+                    break;
+            }
+            return true;
+        }
+    };
 }

@@ -23,6 +23,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private OrthographicCamera camera;
     private Renderer renderer;
     private Zombie zombie;
+    private Zombie zombie2;
+    private Zombie zombie3;
     private Player player;
     private SpriteBatch batch;
     private int ispressed = 0;
@@ -42,8 +44,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
         zombie = new Zombie(atlasEric, w/3, h/3, 3);
+        zombie2 = new Zombie(atlasEric, w/51, h/16, 4);
+        zombie3 = new Zombie(atlasEric, w/32, h/74, 5);
         renderer = Renderer.getInstance();
         renderer.addSprite(zombie);
+        renderer.addSprite(zombie2);
+        renderer.addSprite(zombie3);
         renderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
     }
@@ -58,8 +64,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         renderer.render();
         //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
-        player.changePlayerSprite(ispressed);
         collisionController.checkCollisionRectangle(renderer, player);
+        movableSubject.playerLocation((int) player.getX(),(int) player.getY());
     }
 
     @Override

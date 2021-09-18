@@ -7,13 +7,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Zombie extends Sprite implements Movable{
     private TextureAtlas textureAtlas;
-    private boolean leftMove;
-    private boolean rightMove;
-    private boolean UpMove;
-    private boolean DownMove;
+    private int angle;
+    private int playerX;
+    private int playerY;
     private int health;
 
-    private int speed = 80;
+    private int speed = 100;
 
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
@@ -41,49 +40,47 @@ public class Zombie extends Sprite implements Movable{
         this.setY(posY);
     }
 
-
-    public void changePlayerSprite(int ispresssed){
-        if(ispresssed == 21){
-            this.setRegion(this.textureAtlas.findRegion("Eric_left"));
-        }
-        if(ispresssed == 22){
-            this.setRegion(this.textureAtlas.findRegion("Eric_right"));
-        }
-        if(ispresssed == 19){
-            this.setRegion(this.textureAtlas.findRegion("Eric_forward"));
-        }
-        if(ispresssed == 20){
-            this.setRegion(this.textureAtlas.findRegion("Eric_back"));
+    private void updateAngle() {
+        angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
+        angle = angle - 90;
+        if(angle < 0){
+            angle += 360;
         }
     }
 
+    public void changeSpriteAngle() {
+        if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
+            this.setRegion(this.textureAtlas.findRegion("Eric_forward"));
+        }
+        if (45 <= angle && angle < 135) {
+            this.setRegion(this.textureAtlas.findRegion("Eric_right"));
+        }
+        if (135 <= angle && angle < 225) {
+            this.setRegion(this.textureAtlas.findRegion("Eric_back"));
+        }
+        if (225 <= angle && angle < 315) {
+            this.setRegion(this.textureAtlas.findRegion("Eric_left"));
+        }
+    }
 
     @Override
     public void update() {
-        if (leftMove)
-            translateX(-speed * Gdx.graphics.getDeltaTime());
-        if (rightMove)
-            translateX(speed * Gdx.graphics.getDeltaTime());
-        if (UpMove)
-            translateY(speed * Gdx.graphics.getDeltaTime());
-        if (DownMove)
-            translateY(-speed * Gdx.graphics.getDeltaTime());
+        updateAngle();
+        changeSpriteAngle();
+        translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
     }
 
     @Override
     public void collide(Rectangle rectangle) {
-        if(leftMove){
-            translateX(speed*Gdx.graphics.getDeltaTime());
-        }
-        if(rightMove){
-            translateX(-speed*Gdx.graphics.getDeltaTime());
-        }
-        if(UpMove){
-            translateY(-speed*Gdx.graphics.getDeltaTime());
-        }
-        if(DownMove){
-            translateY(speed*Gdx.graphics.getDeltaTime());
-        }
+        translateX(-((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        translateY(-((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+    }
+
+    @Override
+    public void playerLocation(int x, int y) {
+        playerX = x;
+        playerY = y;
     }
 
     public void getHit(){
@@ -93,5 +90,4 @@ public class Zombie extends Sprite implements Movable{
             MovableSubject.getInstance().delete(this);
         }
     }
-
 }
