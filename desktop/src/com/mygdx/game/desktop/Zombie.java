@@ -84,4 +84,9 @@ public class Zombie extends Sprite implements Movable{
         }
     }
 
+    public void getHit(){
+        Renderer.getInstance().removeSprite(this);
+        MovableSubject.getInstance().delete(this);
+    }
+
 }

@@ -13,6 +13,7 @@ public class MovableSubject {
         return single_instance;
     }
     private List<Movable> observers = new ArrayList<>();
+    private List<Movable> toBeDeleted = new ArrayList<>();
 
     public List<Movable> getObservers(){
         return observers;
@@ -22,8 +23,17 @@ public class MovableSubject {
         observers.add(o);
     }
 
-    public void detach(Movable o) {
+    public void delete(Movable o){
+        toBeDeleted.add(o);
+    }
+    private void detach(Movable o) {
         observers.remove(o);
+    }
+
+    public void removeDeleted(){
+        for (Movable o : toBeDeleted) {
+            detach(o);
+        }
     }
 
     public void notifyUpdate() {

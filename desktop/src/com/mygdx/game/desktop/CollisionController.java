@@ -23,10 +23,13 @@ public class CollisionController {
                 if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
                     observer.collide(rectangle);
                 }
+                if(observer instanceof Zombie){
+                    checkZombieCollisions(player, (Zombie)observer);
+                }
             }
+            movableSubject.removeDeleted();
             rectangle = scaleBackRectangle(rectangle);
         }
-        checkZombieCollisions(player);
     }
 
     private Rectangle scaleRectangle(Rectangle rect){
@@ -45,14 +48,17 @@ public class CollisionController {
         return rect;
     }
 
-    private void checkZombieCollisions(Player player){
-
-        for(Movable movable : MovableSubject.getInstance().getObservers()){
-            if(movable instanceof Zombie){
-                if(Intersector.overlaps(player.getBoundingRectangle(), movable.getBoundingRectangle())){
-                    player.getHit();
+    private void checkZombieCollisions(Player player, Zombie zombie){
+        for (Movable bullet: MovableSubject.getInstance().getObservers()) {
+            if(bullet instanceof Projectile){
+                if(Intersector.overlaps(bullet.getBoundingRectangle(), zombie.getBoundingRectangle())) {
+                    zombie.getHit();
+                    bullet.collide(zombie.getBoundingRectangle());
                 }
             }
+        }
+        if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
+            player.getHit();
         }
     }
 }
