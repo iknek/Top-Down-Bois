@@ -4,37 +4,41 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import static com.badlogic.gdx.Gdx.files;
 
-public class Player extends Sprite {
-    TextureAtlas textureAtlas;
-    boolean leftMove;
-    boolean rightMove;
-    boolean UpMove;
-    boolean DownMove;
-    Weapon weapon;
+import java.util.Timer;
+import java.util.TimerTask;
 
-    int speed = 80;
 
-    float x;
-    float y;
+public class Player extends Sprite implements Movable{
+    private int angle;
+    private TextureAtlas textureAtlas;
+    private boolean leftMove;
+    private boolean rightMove;
+    private boolean UpMove;
+    private boolean DownMove;
+    private Weapon weapon;
+    private int health;
+    private boolean invincible;
+    private Timer timer;
+
+    private int speed = 80;
+
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
-
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
         this.setPosition(posX, posY);
         this.setScale(scale);
-        this.x = posX;
-        this.y = posY;
+        this.setX(posX);
+        this.setY(posY);
         this.weapon = new Weapon();
         setRegion(textureAtlas.findRegion("Adam_back"));
+        MovableSubject movableSubject = MovableSubject.getInstance();
+        movableSubject.attach(this);
+        health = 3;
     }
 
     public Weapon getWeapon() {return this.weapon;}
@@ -50,62 +54,48 @@ public class Player extends Sprite {
         this.setY(posY);
     }
 
-    public void updateMotion()
-    {
-        if (leftMove)
-        {
-            x = getX();
-            x -= speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
-        if (rightMove)
-        {
-            x = getX();
-            x += speed * Gdx.graphics.getDeltaTime();
-            setX(x);
-        }
-        if (UpMove)
-        {
-            y = getY();
-            y += speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
-        if (DownMove)
-        {
-            y = getY();
-            y -= speed * Gdx.graphics.getDeltaTime();
-            setY(y);
-        }
-        for (Projectile p: weapon.projectileList) {
-            p.updateMotion();
-        }
-
-    }
-
-    public void setLeftMove(boolean t)
+    private void setLeftMove(boolean t)
     {
         if(rightMove && t) rightMove = false;
         leftMove = t;
 
     }
-    public void setRightMove(boolean t)
+    private void setRightMove(boolean t)
     {
         if(leftMove && t) leftMove = false;
         rightMove = t;
     }
 
-    public void setUpMove(boolean t)
+    private void setUpMove(boolean t)
     {
         if(DownMove && t) DownMove = false;
         UpMove = t;
     }
 
-    public void setDownMove(boolean t)
+    private void setDownMove(boolean t)
     {
         if(UpMove && t) UpMove = false;
         DownMove = t;
     }
 
+    public void changePlayerSprite(int ispresssed){
+        if(ispresssed == 21){
+            this.setRegion(this.textureAtlas.findRegion("Adam_left"));
+            angle = 270;
+        }
+        if(ispresssed == 22){
+            this.setRegion(this.textureAtlas.findRegion("Adam_right"));
+            angle = 90;
+        }
+        if(ispresssed == 19){
+            this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
+            angle = 180;
+        }
+        if(ispresssed == 20){
+            this.setRegion(this.textureAtlas.findRegion("Adam_back"));
+            angle = 0;
+        }
+    }
 
     private final InputProcessor inputProcessor = new InputAdapter() {
         @Override
@@ -125,7 +115,7 @@ public class Player extends Sprite {
                     setDownMove(true);
                     break;
                 case Input.Keys.G:
-                    //Shoot();
+                    Shoot();
                     break;
             }
             return true;
@@ -150,44 +140,62 @@ public class Player extends Sprite {
             }
             return true;
         }
-
-        @Override
-        public boolean keyTyped(char character) {
-            return false;
-        }
-
-        @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
-        @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
-            return false;
-        }
-
-        @Override
-        public boolean mouseMoved(int screenX, int screenY) {
-            return false;
-        }
-
-        @Override
-        public boolean scrolled(float amountX, float amountY) {
-            return false;
-        }
     };
 
-    private void Shoot(float angle) {
-        //Mabye trigger a shoot method in a gun class instead to allow for different guns, projectile speed, better oop and such
-        weapon.fireWeapon(angle, x, y);
+    private void Shoot() {
+        weapon.fireWeapon(angle, getX(), getY());
     }
 
     public InputProcessor getInputProcessor(){
         return inputProcessor;
+    }
+
+    @Override
+    public void update() {
+        if (leftMove)
+            translateX(-speed * Gdx.graphics.getDeltaTime());
+        if (rightMove)
+            translateX(speed * Gdx.graphics.getDeltaTime());
+        if (UpMove)
+            translateY(speed * Gdx.graphics.getDeltaTime());
+        if (DownMove)
+            translateY(-speed * Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void collide(Rectangle rectangle) {
+        if(leftMove){
+            translateX(speed*Gdx.graphics.getDeltaTime());
+        }
+        if(rightMove){
+            translateX(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(UpMove){
+            translateY(-speed*Gdx.graphics.getDeltaTime());
+        }
+        if(DownMove){
+            translateY(speed*Gdx.graphics.getDeltaTime());
+        }
+    }
+
+    public void getHit(){
+        if(!invincible) {
+            timer = new Timer();
+            health -= 1;
+            invincible = true;
+            timer.schedule(new RemindTask(), 5*1000);
+            System.out.println("oof");
+        }
+    }
+
+    class RemindTask extends TimerTask {
+        public void run() {
+            invincible = false;
+            timer.cancel(); //Terminate the timer thread
+        }
+    }
+
+    public int getHealth(){
+        return health;
     }
 }

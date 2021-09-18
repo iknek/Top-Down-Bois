@@ -1,38 +1,28 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 
-public class Projectile extends Sprite {
-    TextureAtlas textureAtlas;
-    TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
-    int projectileSpeed;
-    float angleOfDirection;
-    float xPos;
-    float yPos;
+public class Projectile extends Sprite implements Movable {
+    private TextureAtlas textureAtlas;
+    private float xSpeed;
+    private float ySpeed;
 
-    static float xSpeed;
-    static float ySpeed;
-
-    public Projectile(double projectileSpeed, float angleOfDirection, float posX, float posY) {
-        textureAtlas = atlas;
-        setRegion(textureAtlas.findRegion("bullet"));
-        this.setPosition(posX, posY);
-        spawnProjectile();
-        xSpeed = (float) Math.cos(projectileSpeed);
-        ySpeed = (float) Math.sin(projectileSpeed);
+    public Projectile(int projectileSpeed, float angle, float posX, float posY) {
+        super(new Texture(Gdx.files.internal("bullet.png")));
+        rotate(angle);
+        this.setX(posX);
+        this.setY(posY);
+        xSpeed = (int) Math.sin(Math.toRadians(angle)) * projectileSpeed;
+        ySpeed = (int) -(Math.cos(Math.toRadians(angle)) * projectileSpeed);
+        Renderer renderer = Renderer.getInstance();
+        renderer.addSprite(this);
+        MovableSubject movableSubject = MovableSubject.getInstance();
+        movableSubject.attach(this);
     }
-
-    private void spawnProjectile() {
-
-    }
-
-    public void updateMotion(){
-        xPos += xSpeed * Gdx.graphics.getDeltaTime();
-        yPos += ySpeed * Gdx.graphics.getDeltaTime();
-    }
-
 
     public float getX() {
         return super.getX();
@@ -40,8 +30,21 @@ public class Projectile extends Sprite {
     public float getY(){
         return super.getY();
     }
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
+
+    @Override
+    public void update() {
+        setX(getX() + xSpeed * Gdx.graphics.getDeltaTime());
+        setY(getY() + ySpeed * Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void collide(Rectangle rectangle) {
+        Renderer renderer = Renderer.getInstance();
+        renderer.removeSprite(this);
+    }
+
+    @Override
+    public Rectangle getBoundingRectangle() {
+        return super.getBoundingRectangle();
     }
 }
