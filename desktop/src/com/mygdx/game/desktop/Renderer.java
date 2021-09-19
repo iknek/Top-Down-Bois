@@ -19,7 +19,7 @@ public class Renderer extends OrthogonalTiledMapRenderer {
     private static Renderer single_instance = null;
     public static Renderer getInstance() {
         if (single_instance == null)
-            single_instance = new Renderer(new TmxMapLoader().load("proto.tmx"), 2);
+            single_instance = new Renderer(new TmxMapLoader().load("houseCollisionTest.tmx"), 2);
         return single_instance;
     }
 
@@ -55,7 +55,6 @@ public class Renderer extends OrthogonalTiledMapRenderer {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
                     if(currentLayer == drawSpritesAfterLayer){
-
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }

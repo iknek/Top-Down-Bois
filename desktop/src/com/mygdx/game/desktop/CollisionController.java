@@ -10,8 +10,8 @@ public class CollisionController {
 
     public void checkCollisionRectangle(Renderer renderer, Player player){
         MovableSubject movableSubject = MovableSubject.getInstance();
-        int objectLayerId = 2;
-        MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
+        int objectLayerId = 2; // ID For Object Layer
+        MapLayer collisionObjectLayer = renderer.getMap().getLayers().get("collision");
         MapObjects objects = collisionObjectLayer.getObjects();
         // there are several other types, Rectangle is probably the most common one
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
