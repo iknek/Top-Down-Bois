@@ -18,9 +18,6 @@ public class Zombie extends Sapien{
 
         this.speed = 100;
 
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        movableSubject.attach(this);
-
         health = 2;
     }
 

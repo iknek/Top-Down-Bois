@@ -25,14 +25,12 @@ public abstract class Sapien extends Sprite implements Movable{
         movableSubject.attach(this);
     }
 
-    @Override
-    public void update() {
-        updateAngle();
-        changeSprite();
-        if (moving()) {
-            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        }
+    public float getX() {
+        return super.getX();
+    }
+
+    public float getY(){
+        return super.getY();
     }
 
     public abstract boolean moving();
@@ -41,17 +39,18 @@ public abstract class Sapien extends Sprite implements Movable{
 
     public abstract void changeSprite();
 
+    public abstract void playerLocation(int x, int y);
+
+    public abstract void getHit();
+
     @Override
-    public void playerLocation(int x, int y) {
-
-    }
-
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
+    public void update() {
+        updateAngle();
+        changeSprite();
+        if (moving()) {
+            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        }
     }
 
     public void setPosition(float posX, float posY){
@@ -80,6 +79,4 @@ public abstract class Sapien extends Sprite implements Movable{
             this.setRegion(this.textureAtlas.findRegion("Eric_left"));
         }
     }*/
-
-    public abstract void getHit();
 }

@@ -32,9 +32,6 @@ public class Player extends Sapien{
 
         this.weapon = new Weapon();
 
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        movableSubject.attach(this);
-
         health = 3;
     }
 
