@@ -12,49 +12,31 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Player extends Sprite implements Movable{
-    private int angle;
-    private TextureAtlas textureAtlas;
+public class Player extends Sapien{
+
     private boolean left;
     private boolean right;
     private boolean up;
     private boolean down;
     private Weapon weapon;
-    private int health;
+
     private boolean invincible;
     private Timer timer;
 
-    private int speed = 130;
-
-
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
-        super(atlas.getRegions().get(0));
+        super(atlas, posX, posY, scale);
         textureAtlas = atlas;
-        this.setPosition(posX, posY);
-        this.setScale(scale);
-        this.setX(posX);
-        this.setY(posY);
+        setRegion(atlas.findRegion("Adam_back"));
+
+        this.speed = 110;
+
         this.weapon = new Weapon();
-        setRegion(textureAtlas.findRegion("Adam_back"));
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        movableSubject.attach(this);
+
         health = 3;
     }
 
-    public Weapon getWeapon() {return this.weapon;}
-
-    public float getX() {
-        return super.getX();
-    }
-    public float getY(){
-        return super.getY();
-    }
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
-    }
-
-    public void changePlayerSprite() {
+    //PLS FIX måste finnas bättre sätt, som inte får imad's huvud att göra ont
+    public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
         this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
         }
@@ -69,29 +51,29 @@ public class Player extends Sprite implements Movable{
         }
     }
 
-    private void updateAngle() {
-        if (up&&!right&&!left&&!down) {
+    protected void updateAngle() {
+        if (up && !down && !right && !left) {
             angle = 0;
         }
-        if (up&&right&&!left&&!down) {
+        if (up && !down && right && !left) {
             angle = 45;
         }
-        if (!up&&right&&!left&&!down) {
+        if (!up && !down && right && !left) {
             angle = 90;
         }
-        if (!up&&right&&!left&&down) {
+        if (!up && down && right && !left) {
             angle = 135;
         }
-        if (!up&&!right&&!left&&down) {
+        if (!up && down && !right && !left) {
             angle = 180;
         }
-        if (!up&&!right&&left&&down) {
+        if (!up && down && !right && left) {
             angle = 225;
         }
-        if (!up&&!right&&left&&!down) {
+        if (!up && !down && !right && left) {
             angle = 270;
         }
-        if (up&&!right&&left&&!down) {
+        if (up && !down && !right && left) {
             angle = 315;
         }
     }
@@ -105,25 +87,12 @@ public class Player extends Sprite implements Movable{
     }
 
     @Override
-    public void update() {
-        updateAngle();
-        changePlayerSprite();
-        if (left||right||up||down) {
-            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        }
+    public boolean moving(){
+        return up || down || right || left;
     }
 
     @Override
-    public void collide(Rectangle rectangle) {
-        translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-    }
-
-    @Override
-    public void playerLocation(int x, int y) {
-
-    }
+    public void playerLocation(int x, int y) {    }
 
     public void getHit(){
         if(!invincible) {
@@ -174,13 +143,11 @@ public class Player extends Sprite implements Movable{
             switch (keycode) {
                 case Input.Keys.LEFT:
                     left = false;
-                    break;
                 case Input.Keys.RIGHT:
                     right = false;
                     break;
                 case Input.Keys.UP:
                     up = false;
-                    break;
                 case Input.Keys.DOWN:
                     down = false;
                     break;

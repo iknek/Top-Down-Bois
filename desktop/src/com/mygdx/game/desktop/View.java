@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -13,20 +14,26 @@ import java.util.List;
 
 // Kan vi byta namn?? Kanske till Renderer?
 
-public class Renderer extends OrthogonalTiledMapRenderer {
+public class View extends OrthogonalTiledMapRenderer {
 
     // Singleton mönster
-    private static Renderer single_instance = null;
-    public static Renderer getInstance() {
-        if (single_instance == null)
-            single_instance = new Renderer(new TmxMapLoader().load("houseCollisionTest.tmx"), 2);
-        return single_instance;
-    }
-
+    private static View single_instance = null;
     private List<Sprite> sprites;
     private int drawSpritesAfterLayer = 1;
 
-    public Renderer(TiledMap map, int scale) {
+    public static View getInstance() {
+        if (single_instance == null)
+            single_instance = new View(new TmxMapLoader().load("proto.tmx"), 2);
+        return single_instance;
+    }
+
+    public void addSprite(ArrayList<Zombie> zombies) {
+        for (Zombie zombie : zombies) {
+            addSprite(zombie);
+        }
+    }
+
+    public View(TiledMap map, int scale) {
         super(map, scale);
         sprites = new ArrayList<Sprite>();
     }
@@ -55,6 +62,7 @@ public class Renderer extends OrthogonalTiledMapRenderer {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
                     if(currentLayer == drawSpritesAfterLayer){
+
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
@@ -67,5 +75,15 @@ public class Renderer extends OrthogonalTiledMapRenderer {
             }
         }
         endRender();
+    }
+
+    public OrthographicCamera createCamera(float w, float h){
+
+        OrthographicCamera camera = new OrthographicCamera();
+        camera.position.set(w/2,0,0);
+        camera.setToOrtho(false,w,h);
+        camera.update();
+
+        return camera;
     }
 }
