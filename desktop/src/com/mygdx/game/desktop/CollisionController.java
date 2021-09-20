@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class CollisionController {
 
-    public void checkCollisionRectangle(Renderer renderer, Player player){
+    public void checkCollisionRectangle(View view, Player player){
         MovableSubject movableSubject = MovableSubject.getInstance();
         int objectLayerId = 2;
 
-        MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
+        MapLayer collisionObjectLayer = view.getMap().getLayers().get(objectLayerId);
         MapObjects objects = collisionObjectLayer.getObjects();
 
         // there are several other types, Rectangle is probably the most common one

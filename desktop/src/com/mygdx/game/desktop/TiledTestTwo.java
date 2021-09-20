@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector3;
+
 import java.util.ArrayList;
 
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private OrthographicCamera camera;
-    private Renderer renderer;
     private MovableSubject movableSubject = MovableSubject.getInstance();
     private CollisionController collisionController = new CollisionController();
     private ZombieFactory zombiefactory = new ZombieFactory();
@@ -26,16 +25,13 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
 
         TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false,w,h);
-        camera.update();
+        camera = View.getInstance().createCamera(w, h);
 
         player = new Player(playerAtlas,w/2,h/2,3);
         ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, 4);
 
-        renderer = Renderer.getInstance();
-        renderer.addSprite(zombieList);
-        renderer.addSprite(player);
+        View.getInstance().addSprite(zombieList);
+        View.getInstance().addSprite(player);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -45,12 +41,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        renderer.setView(camera);
-        renderer.render();
+        View.getInstance().setView(camera);
+        View.getInstance().render();
 
         //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
-        collisionController.checkCollisionRectangle(renderer, player);
+        collisionController.checkCollisionRectangle(View.getInstance(), player);
         movableSubject.playerLocation((int) player.getX(),(int) player.getY());
     }
 

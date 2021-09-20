@@ -23,7 +23,6 @@ public class MovableSubject {
     public void attach(Movable o) {
         observers.add(o);
     }
-
     private void detach(Movable o) {
         observers.remove(o);
     }
