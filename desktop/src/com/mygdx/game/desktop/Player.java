@@ -13,30 +13,37 @@ import java.util.TimerTask;
 
 
 public class Player extends Sprite implements Movable{
-    private int angle;
     private TextureAtlas textureAtlas;
+
+    private int angle;
     private boolean left;
     private boolean right;
     private boolean up;
     private boolean down;
+
+    private int speed = 130;
+
     private Weapon weapon;
+
     private int health;
     private boolean invincible;
     private Timer timer;
 
-    private int speed = 130;
-
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
+        setRegion(textureAtlas.findRegion("Adam_back"));
+
         this.setPosition(posX, posY);
         this.setScale(scale);
         this.setX(posX);
         this.setY(posY);
+
         this.weapon = new Weapon();
-        setRegion(textureAtlas.findRegion("Adam_back"));
+
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
+
         health = 3;
     }
 
@@ -55,6 +62,7 @@ public class Player extends Sprite implements Movable{
         this.setY(posY);
     }
 
+    //PLS FIX måste finnas bättre sätt, som inte får imad's huvud att göra ont
     public void changePlayerSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
         this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
