@@ -11,10 +11,13 @@ public class ZombieFactory {
 
     public ArrayList<Zombie> createZombie(int amount, float W, float H, int scale){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
+
         ArrayList<Zombie> zombies = new ArrayList<>();
-        for (int i = 0; i <= amount+1; i++) {
+
+        for (int i = -1; i <= amount; i++) {
             Random random = new Random();
             int randomInt = random.nextInt(8);
+
             zombies.add(new Zombie(atlasEric, W/randomInt, H/randomInt, scale));
         }
         return zombies;

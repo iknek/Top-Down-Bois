@@ -11,23 +11,27 @@ public class CollisionController {
     public void checkCollisionRectangle(Renderer renderer, Player player){
         MovableSubject movableSubject = MovableSubject.getInstance();
         int objectLayerId = 2;
+
         MapLayer collisionObjectLayer = renderer.getMap().getLayers().get(objectLayerId);
         MapObjects objects = collisionObjectLayer.getObjects();
+
         // there are several other types, Rectangle is probably the most common one
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
             Rectangle rectangle = rectangleObject.getRectangle();
-            //System.out.println(rectangle.y);
-            //System.out.println(player.getBoundingRectangle().y);
             rectangle = scaleRectangle(rectangle);
+
             for (Movable observer : movableSubject.getObservers()){
                 if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
                     observer.collide(rectangle);
                 }
+
                 if(observer instanceof Zombie){
                     checkZombieCollisions(player, (Zombie)observer);
                 }
             }
+
             movableSubject.removeDeleted();
+
             rectangle = scaleBackRectangle(rectangle);
         }
     }
@@ -57,6 +61,7 @@ public class CollisionController {
                 }
             }
         }
+
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
             player.getHit();
         }

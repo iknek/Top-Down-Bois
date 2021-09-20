@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovableSubject {
+    private List<Movable> observers = new ArrayList<>();
+    private List<Movable> toBeDeleted = new ArrayList<>();
 
     // Singleton mönster
     private static MovableSubject single_instance = null;
+
     public static MovableSubject getInstance() {
         if (single_instance == null)
             single_instance = new MovableSubject();
         return single_instance;
     }
-    private List<Movable> observers = new ArrayList<>();
-    private List<Movable> toBeDeleted = new ArrayList<>();
 
     public List<Movable> getObservers(){
         return observers;
@@ -23,12 +24,12 @@ public class MovableSubject {
         observers.add(o);
     }
 
+    private void detach(Movable o) {
+        observers.remove(o);
+    }
 
     public void delete(Movable o){
         toBeDeleted.add(o);
-    }
-    private void detach(Movable o) {
-        observers.remove(o);
     }
 
     public void removeDeleted(){

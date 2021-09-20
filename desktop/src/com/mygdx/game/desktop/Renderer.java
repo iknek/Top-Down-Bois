@@ -18,21 +18,20 @@ public class Renderer extends OrthogonalTiledMapRenderer {
 
     // Singleton mönster
     private static Renderer single_instance = null;
+    private List<Sprite> sprites;
+    private int drawSpritesAfterLayer = 1;
+
     public static Renderer getInstance() {
         if (single_instance == null)
             single_instance = new Renderer(new TmxMapLoader().load("proto.tmx"), 2);
         return single_instance;
     }
 
-    public void addSprite(ArrayList<Zombie> zombies){
+    public void addSprite(ArrayList<Zombie> zombies) {
         for (Zombie zombie : zombies) {
             addSprite(zombie);
-
         }
     }
-
-    private List<Sprite> sprites;
-    private int drawSpritesAfterLayer = 1;
 
     public Renderer(TiledMap map, int scale) {
         super(map, scale);

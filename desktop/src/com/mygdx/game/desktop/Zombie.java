@@ -18,16 +18,16 @@ public class Zombie extends Sprite implements Movable{
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
+        setRegion(atlas.findRegion("Eric_back"));
+
         this.setPosition(posX, posY);
         this.setScale(scale);
-        this.setX(posX);
-        this.setY(posY);
-        setRegion(textureAtlas.findRegion("Eric_back"));
+
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
+
         health = 2;
     }
-
 
     public float getX() {
         return super.getX();
@@ -44,7 +44,7 @@ public class Zombie extends Sprite implements Movable{
 
     private void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
-        angle = angle - 90;
+        angle -= 90;
         if(angle < 0){
             angle += 360;
         }

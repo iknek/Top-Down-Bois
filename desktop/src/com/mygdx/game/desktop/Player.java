@@ -26,7 +26,6 @@ public class Player extends Sprite implements Movable{
 
     private int speed = 130;
 
-
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
         textureAtlas = atlas;
@@ -46,9 +45,11 @@ public class Player extends Sprite implements Movable{
     public float getX() {
         return super.getX();
     }
+
     public float getY(){
         return super.getY();
     }
+
     public void setPosition(float posX, float posY){
         this.setX(posX);
         this.setY(posY);
@@ -70,28 +71,28 @@ public class Player extends Sprite implements Movable{
     }
 
     private void updateAngle() {
-        if (up&&!right&&!left&&!down) {
+        if (up && !down && !right && !left) {
             angle = 0;
         }
-        if (up&&right&&!left&&!down) {
+        if (up && !down && right && !left) {
             angle = 45;
         }
-        if (!up&&right&&!left&&!down) {
+        if (!up && !down && right && !left) {
             angle = 90;
         }
-        if (!up&&right&&!left&&down) {
+        if (!up && down && right && !left) {
             angle = 135;
         }
-        if (!up&&!right&&!left&&down) {
+        if (!up && down && !right && !left) {
             angle = 180;
         }
-        if (!up&&!right&&left&&down) {
+        if (!up && down && !right && left) {
             angle = 225;
         }
-        if (!up&&!right&&left&&!down) {
+        if (!up && !down && !right && left) {
             angle = 270;
         }
-        if (up&&!right&&left&&!down) {
+        if (up && !down && !right && left) {
             angle = 315;
         }
     }
@@ -108,7 +109,7 @@ public class Player extends Sprite implements Movable{
     public void update() {
         updateAngle();
         changePlayerSprite();
-        if (left||right||up||down) {
+        if (up || down || right || left) {
             translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
         }
@@ -121,9 +122,7 @@ public class Player extends Sprite implements Movable{
     }
 
     @Override
-    public void playerLocation(int x, int y) {
-
-    }
+    public void playerLocation(int x, int y) {    }
 
     public void getHit(){
         if(!invincible) {
@@ -174,13 +173,11 @@ public class Player extends Sprite implements Movable{
             switch (keycode) {
                 case Input.Keys.LEFT:
                     left = false;
-                    break;
                 case Input.Keys.RIGHT:
                     right = false;
                     break;
                 case Input.Keys.UP:
                     up = false;
-                    break;
                 case Input.Keys.DOWN:
                     down = false;
                     break;
