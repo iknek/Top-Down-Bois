@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,13 @@ public class Renderer extends OrthogonalTiledMapRenderer {
         if (single_instance == null)
             single_instance = new Renderer(new TmxMapLoader().load("proto.tmx"), 2);
         return single_instance;
+    }
+
+    public void addSprite(ArrayList<Zombie> zombies){
+        for (Zombie zombie : zombies) {
+            addSprite(zombie);
+
+        }
     }
 
     private List<Sprite> sprites;

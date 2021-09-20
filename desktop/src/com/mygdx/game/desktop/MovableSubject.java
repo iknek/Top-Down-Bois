@@ -23,6 +23,7 @@ public class MovableSubject {
         observers.add(o);
     }
 
+
     public void delete(Movable o){
         toBeDeleted.add(o);
     }

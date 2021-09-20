@@ -14,6 +14,9 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
 //albeit with certain reworks to fit for this project.
@@ -30,6 +33,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private int ispressed = 0;
     private MovableSubject movableSubject = MovableSubject.getInstance();
     private CollisionController collisionController = new CollisionController();
+    private ZombieFactory zombiefactory = new ZombieFactory();
 
 
     @Override
@@ -43,13 +47,9 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.setToOrtho(false,w,h);
         camera.update();
         player = new Player(atlas,w/2,h/2,3);
-        zombie = new Zombie(atlasEric, w/3, h/3, 3);
-        zombie2 = new Zombie(atlasEric, w/51, h/16, 4);
-        zombie3 = new Zombie(atlasEric, w/32, h/74, 5);
         renderer = Renderer.getInstance();
-        renderer.addSprite(zombie);
-        renderer.addSprite(zombie2);
-        renderer.addSprite(zombie3);
+        ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, 4);
+        renderer.addSprite(zombieList);
         renderer.addSprite(player);
         Gdx.input.setInputProcessor(this);
     }

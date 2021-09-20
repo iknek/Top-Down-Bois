@@ -32,9 +32,11 @@ public class Zombie extends Sprite implements Movable{
     public float getX() {
         return super.getX();
     }
+
     public float getY(){
         return super.getY();
     }
+
     public void setPosition(float posX, float posY){
         this.setX(posX);
         this.setY(posY);
