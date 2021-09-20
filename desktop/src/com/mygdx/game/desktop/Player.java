@@ -12,32 +12,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Player extends Sprite implements Movable{
-    private TextureAtlas textureAtlas;
+public class Player extends Sapien{
 
-    private int angle;
     private boolean left;
     private boolean right;
     private boolean up;
     private boolean down;
-
-    private int speed = 130;
-
     private Weapon weapon;
 
-    private int health;
     private boolean invincible;
     private Timer timer;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
-        super(atlas.getRegions().get(0));
+        super(atlas, posX, posY, scale);
         textureAtlas = atlas;
-        setRegion(textureAtlas.findRegion("Adam_back"));
+        setRegion(atlas.findRegion("Adam_back"));
 
-        this.setPosition(posX, posY);
-        this.setScale(scale);
-        this.setX(posX);
-        this.setY(posY);
+        this.speed = 110;
 
         this.weapon = new Weapon();
 
@@ -47,23 +38,8 @@ public class Player extends Sprite implements Movable{
         health = 3;
     }
 
-    public Weapon getWeapon() {return this.weapon;}
-
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
-    }
-
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
-    }
-
     //PLS FIX måste finnas bättre sätt, som inte får imad's huvud att göra ont
-    public void changePlayerSprite() {
+    public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
         this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
         }
@@ -78,7 +54,7 @@ public class Player extends Sprite implements Movable{
         }
     }
 
-    private void updateAngle() {
+    protected void updateAngle() {
         if (up && !down && !right && !left) {
             angle = 0;
         }
@@ -114,19 +90,8 @@ public class Player extends Sprite implements Movable{
     }
 
     @Override
-    public void update() {
-        updateAngle();
-        changePlayerSprite();
-        if (up || down || right || left) {
-            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        }
-    }
-
-    @Override
-    public void collide(Rectangle rectangle) {
-        translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+    public boolean moving(){
+        return up || down || right || left;
     }
 
     @Override

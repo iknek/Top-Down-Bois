@@ -5,23 +5,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Zombie extends Sprite implements Movable{
-    private TextureAtlas textureAtlas;
-    private int angle;
+public class Zombie extends Sapien{
+
     private int playerX;
     private int playerY;
-    private int health;
-
-    private int speed = 100;
 
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
-        super(atlas.getRegions().get(0));
+        super(atlas, posX, posY, scale);
         textureAtlas = atlas;
         setRegion(atlas.findRegion("Eric_back"));
 
-        this.setPosition(posX, posY);
-        this.setScale(scale);
+        this.speed = 100;
 
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(this);
@@ -29,20 +24,7 @@ public class Zombie extends Sprite implements Movable{
         health = 2;
     }
 
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
-    }
-
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
-    }
-
-    private void updateAngle() {
+    protected void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
         angle -= 90;
         if(angle < 0){
@@ -50,7 +32,8 @@ public class Zombie extends Sprite implements Movable{
         }
     }
 
-    public void changeSpriteAngle() {
+    @Override
+    public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
             this.setRegion(this.textureAtlas.findRegion("Eric_forward"));
         }
@@ -66,17 +49,8 @@ public class Zombie extends Sprite implements Movable{
     }
 
     @Override
-    public void update() {
-        updateAngle();
-        changeSpriteAngle();
-        translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-    }
-
-    @Override
-    public void collide(Rectangle rectangle) {
-        translateX(-((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        translateY(-((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+    public boolean moving(){
+        return true;
     }
 
     @Override
