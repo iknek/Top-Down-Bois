@@ -13,8 +13,9 @@ public class Zombie extends Sapien{
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
+        this.name = "Eric";
         textureAtlas = atlas;
-        setRegion(atlas.findRegion("Eric_back"));
+        setRegion(atlas.findRegion(name + "_back"));
 
         this.speed = 100;
 
@@ -26,22 +27,6 @@ public class Zombie extends Sapien{
         angle -= 90;
         if(angle < 0){
             angle += 360;
-        }
-    }
-
-    @Override
-    public void changeSprite() {
-        if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
-            this.setRegion(this.textureAtlas.findRegion("Eric_forward"));
-        }
-        if (45 <= angle && angle < 135) {
-            this.setRegion(this.textureAtlas.findRegion("Eric_right"));
-        }
-        if (135 <= angle && angle < 225) {
-            this.setRegion(this.textureAtlas.findRegion("Eric_back"));
-        }
-        if (225 <= angle && angle < 315) {
-            this.setRegion(this.textureAtlas.findRegion("Eric_left"));
         }
     }
 
