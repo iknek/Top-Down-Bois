@@ -19,6 +19,7 @@ public class ZombieFactory {
             int randomInt = random.nextInt(8);
 
             zombies.add(new Zombie(atlasEric, W/randomInt, H/randomInt, scale));
+            //Replace with spawn points noobs
         }
         return zombies;
     }

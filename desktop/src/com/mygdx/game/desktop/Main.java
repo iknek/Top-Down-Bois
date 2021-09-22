@@ -5,10 +5,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
+        int scale = 3;
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "hello-world";
-        cfg.width = 1920;
-        cfg.height = 1080;
-        new LwjglApplication(new TiledTestTwo(), cfg);
+        cfg.width = 400*scale;
+        cfg.height = 400*scale;
+        new LwjglApplication(new TiledTestTwo(scale), cfg);
     }
 }

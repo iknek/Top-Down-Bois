@@ -19,11 +19,18 @@ public class View extends OrthogonalTiledMapRenderer {
     // Singleton mönster
     private static View single_instance = null;
     private List<Sprite> sprites;
-    private int drawSpritesAfterLayer = 1;
+    private int drawSpritesAfterLayer = 3;
+    private int scale;
 
     public static View getInstance() {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("proto.tmx"), 2);
+            single_instance = new View(new TmxMapLoader().load("outside.tmx"), 2);
+        return single_instance;
+    }
+
+    public static View createInstance(int scale) {
+        if (single_instance == null)
+            single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
         return single_instance;
     }
 

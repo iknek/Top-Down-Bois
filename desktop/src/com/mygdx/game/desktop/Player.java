@@ -1,12 +1,9 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,30 +22,16 @@ public class Player extends Sapien{
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
+        this.name = "Adam";
+
         textureAtlas = atlas;
-        setRegion(atlas.findRegion("Adam_back"));
+        setRegion(atlas.findRegion(name + "_back"));
 
         this.speed = 110;
 
         this.weapon = new Weapon();
 
         health = 3;
-    }
-
-    //PLS FIX måste finnas bättre sätt, som inte får imad's huvud att göra ont
-    public void changeSprite() {
-        if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
-        this.setRegion(this.textureAtlas.findRegion("Adam_forward"));
-        }
-        if (45 <= angle && angle < 135) {
-            this.setRegion(this.textureAtlas.findRegion("Adam_right"));
-        }
-        if (135 <= angle && angle < 225) {
-            this.setRegion(this.textureAtlas.findRegion("Adam_back"));
-        }
-        if (225 <= angle && angle < 315) {
-            this.setRegion(this.textureAtlas.findRegion("Adam_left"));
-        }
     }
 
     protected void updateAngle() {

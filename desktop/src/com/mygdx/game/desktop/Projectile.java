@@ -12,7 +12,7 @@ public class Projectile extends Sprite implements Movable {
 
     public Projectile(int projectileSpeed, int angle, float posX, float posY) {
         super(new Texture(Gdx.files.internal("bullet.png")));
-        rotate(angle);
+        rotate(180-angle);
         this.setPosition(posX, posY);
         xSpeed = Math.sin(Math.toRadians(angle)) * projectileSpeed;
         ySpeed = Math.cos(Math.toRadians(angle)) * projectileSpeed;
