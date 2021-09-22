@@ -25,12 +25,14 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
 
     @Override
     public void create () {
+        View.createInstance(this.scale);
+
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
         TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("sprites.atlas"));
 
-        camera = View.createInstance(this.scale).createCamera(w, h);
+        camera = View.getInstance().createCamera(w, h);
 
         player = new Player(playerAtlas,w/2,h/2,this.scale);
         ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, this.scale);

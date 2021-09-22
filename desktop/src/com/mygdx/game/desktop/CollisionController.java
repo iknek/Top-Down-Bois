@@ -54,7 +54,7 @@ public class CollisionController {
 
     private void checkZombieCollisions(Player player, Zombie zombie){
         for (Movable bullet: MovableSubject.getInstance().getObservers()) {
-            if(bullet instanceof Projectile){
+            if(bullet instanceof Projectile && View.getInstance().getSprites().contains(bullet)){
                 if(Intersector.overlaps(bullet.getBoundingRectangle(), zombie.getBoundingRectangle())) {
                     zombie.getHit();
                     bullet.collide(zombie.getBoundingRectangle());
