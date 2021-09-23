@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Zombie extends Sapien{
+public class  Zombie extends Sapien{
 
     private int playerX;
     private int playerY;

@@ -18,6 +18,7 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private ZombieFactory zombiefactory = new ZombieFactory();
     private Player player;
     private int scale;
+    private Rounds rounds;
 
     public TiledTestTwo (int scale){
         this.scale = scale;
@@ -33,9 +34,10 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera = View.createInstance(this.scale).createCamera(w, h);
 
         player = new Player(playerAtlas,w/2,h/2,this.scale);
-        ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, this.scale);
+        //ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, this.scale);
+        //View.getInstance().addSprite(zombieList);
 
-        View.getInstance().addSprite(zombieList);
+        rounds = new Rounds(scale,w, h, player);
         View.getInstance().addSprite(player);
 
         Gdx.input.setInputProcessor(this);
