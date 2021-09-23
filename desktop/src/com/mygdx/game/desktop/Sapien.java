@@ -55,7 +55,7 @@ public abstract class Sapien extends Sprite implements Movable{
         this.setY(posY);
     }
 
-    //FIX
+
     @Override
     public void collide(Rectangle rectangle) {
         translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
