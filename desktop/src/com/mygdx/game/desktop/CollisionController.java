@@ -6,9 +6,13 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.Random;
+
+import static com.badlogic.gdx.math.MathUtils.random;
+
 public class CollisionController {
 
-    public void checkCollisionRectangle(View view, Player player, int scale){
+    public void checkCollisions(View view, Player player, int scale){
         MovableSubject movableSubject = MovableSubject.getInstance();
         //int objectLayerId = 2;
 
@@ -29,8 +33,6 @@ public class CollisionController {
                     checkZombieCollisions(player, (Zombie)observer);
                 }
             }
-
-            movableSubject.removeDeleted();
 
             rectangle = scaleBackRectangle(rectangle, scale);
         }
@@ -53,17 +55,38 @@ public class CollisionController {
     }
 
     private void checkZombieCollisions(Player player, Zombie zombie){
-        for (Movable bullet: MovableSubject.getInstance().getObservers()) {
-            if(bullet instanceof Projectile && View.getInstance().getSprites().contains(bullet)){
-                if(Intersector.overlaps(bullet.getBoundingRectangle(), zombie.getBoundingRectangle())) {
-                    zombie.getHit();
-                    bullet.collide(zombie.getBoundingRectangle());
-                }
+        for (Movable o: MovableSubject.getInstance().getObservers()) {
+            if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
+                zombieGetShot(o, zombie);
+            }
+
+            if(o instanceof Zombie && o != zombie){
+                zombieCollideZombie(o, zombie);
             }
         }
 
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
             player.getHit();
+        }
+    }
+
+    private void zombieGetShot(Movable o, Zombie zombie){
+        if(Intersector.overlaps(o.getBoundingRectangle(), zombie.getBoundingRectangle())) {
+            zombie.getHit();
+            o.collide(zombie.getBoundingRectangle());
+        }
+    }
+
+    private void zombieCollideZombie(Movable o, Zombie zombie){
+        if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
+            Random random = new Random();
+            int direction = random.nextInt(4);
+            switch(direction){
+                case 1: zombie.translateX(4);
+                case 2: zombie.translateX(-4);
+                case 3: zombie.translateY(4);
+                case 4: zombie.translateY(-4);
+            }
         }
     }
 }

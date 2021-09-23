@@ -33,7 +33,6 @@ public class ZombieFactory {
             Spawnpoint spawnpoint = spawnpoints.get(randomInt);
 
             zombies.add(new Zombie(atlasEric, spawnpoint.getX(), spawnpoint.getY(), scale));
-            //Replace with spawn points noobs
         }
         return zombies;
     }

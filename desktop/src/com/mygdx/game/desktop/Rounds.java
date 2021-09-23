@@ -26,12 +26,13 @@ public class Rounds {
             }
         }
         if(zombiesLeft == 0 && player.getHealth() != 0){
-            startNewRound();
+            startNewRound(player);
         }
     }
     
-    private void startNewRound(){
+    private void startNewRound(Player player){
         roundNumber++;
+        player.addHealth(1);
         zombiefactory.createZombie(roundNumber*5, w, h, scale);
     }
 }
