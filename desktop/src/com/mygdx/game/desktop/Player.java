@@ -126,11 +126,13 @@ public class Player extends Sapien{
             switch (keycode) {
                 case Input.Keys.LEFT:
                     left = false;
+                    break;
                 case Input.Keys.RIGHT:
                     right = false;
                     break;
                 case Input.Keys.UP:
                     up = false;
+                    break;
                 case Input.Keys.DOWN:
                     down = false;
                     break;
