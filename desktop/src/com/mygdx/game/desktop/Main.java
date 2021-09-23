@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        int scale = 4;
+        int scale = 2;
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "hello-world";
         cfg.width = 400*scale;

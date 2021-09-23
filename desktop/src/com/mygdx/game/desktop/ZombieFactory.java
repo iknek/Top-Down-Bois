@@ -14,7 +14,7 @@ public class ZombieFactory {
 
         ArrayList<Zombie> zombies = new ArrayList<>();
 
-        for (int i = -1; i <= amount; i++) {
+        for (int i = 0; i < amount; i++) {
             Random random = new Random();
             int randomInt = random.nextInt(8);
 

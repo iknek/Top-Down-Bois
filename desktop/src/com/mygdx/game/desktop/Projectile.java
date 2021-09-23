@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile extends Sprite implements Movable {
-    //Projectile has fucky angles, when fired at angle then it faces wrong way
     private double xSpeed;
     private double ySpeed;
 

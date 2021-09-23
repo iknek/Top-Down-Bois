@@ -16,14 +16,12 @@ public abstract class Sapien extends Sprite implements Movable{
 
     public Sapien(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
-        //textureAtlas = atlas;
-        //setRegion(atlas.findRegion("Eric_back"));
 
         this.setPosition(posX, posY);
         this.setScale(scale);
 
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        movableSubject.attach(this);
+        MovableSubject.getInstance().attach(this);
+        View.getInstance().addSprite(this);
     }
 
     public float getX() {
@@ -57,6 +55,7 @@ public abstract class Sapien extends Sprite implements Movable{
         this.setY(posY);
     }
 
+    //FIX
     @Override
     public void collide(Rectangle rectangle) {
         translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));

@@ -15,7 +15,6 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     private OrthographicCamera camera;
     private MovableSubject movableSubject = MovableSubject.getInstance();
     private CollisionController collisionController = new CollisionController();
-    private ZombieFactory zombiefactory = new ZombieFactory();
     private Player player;
     private int scale;
     private Rounds rounds;
@@ -36,11 +35,8 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera = View.getInstance().createCamera(w, h);
 
         player = new Player(playerAtlas,w/2,h/2,this.scale);
-        //ArrayList<Zombie> zombieList = zombiefactory.createZombie(10, w, h, this.scale);
-        //View.getInstance().addSprite(zombieList);
 
-        rounds = new Rounds(scale,w, h, player);
-        View.getInstance().addSprite(player);
+        rounds = new Rounds(scale,w, h);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -53,10 +49,11 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         View.getInstance().setView(camera);
         View.getInstance().render();
 
-        //Notifies all movable objects about next render
         movableSubject.notifyUpdate();
         collisionController.checkCollisionRectangle(View.getInstance(), player, this.scale);
         movableSubject.playerLocation((int) player.getX(),(int) player.getY());
+
+        rounds.checkNewRound(player);
     }
 
     @Override

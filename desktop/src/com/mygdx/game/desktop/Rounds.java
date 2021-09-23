@@ -1,27 +1,35 @@
 package com.mygdx.game.desktop;
 
-import java.util.ArrayList;
-
 public class Rounds {
     private ZombieFactory zombiefactory = new ZombieFactory();
     private int scale;
-    public int roundNumber;
+    private int roundNumber;
 
-    public Rounds (int scale, float w, float h, Player player){
+    public float w;
+    public float h;
+
+
+    public Rounds (int scale, float w, float h){
+        this.roundNumber = 0;
         this.scale = scale;
-        startRounds(player, w,h,scale);
+        this.w = w;
+        this.h = h;
     }
-
-    public void startRounds(Player player, float w, float h, int scale){
-        ArrayList<Zombie> zombieList = zombiefactory.createZombie(0, w, h, this.scale);
-        int round = 1;
-        if(player.getHealth() != 0 && zombieList.isEmpty()){
-            System.out.println("New Round!");
-            zombiefactory.createZombie(5*round, w, h, this.scale);
-            round++;
+    
+    public void checkNewRound(Player player){
+        int zombiesLeft = 0;
+        for (Movable o : MovableSubject.getInstance().getObservers()) {
+            if(o instanceof Zombie){
+                zombiesLeft++;
+            }
         }
-        else{
-            System.out.println("Sorry, you died 3 times!");
+        if(zombiesLeft == 0 && player.getHealth() != 0){
+            startNewRound();
         }
+    }
+    
+    private void startNewRound(){
+        roundNumber++;
+        zombiefactory.createZombie(roundNumber*5, w, h, scale);
     }
 }

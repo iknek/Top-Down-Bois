@@ -14,10 +14,11 @@ public class  Zombie extends Sapien{
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
+
         textureAtlas = atlas;
         setRegion(atlas.findRegion(name + "_back"));
 
-        this.speed = 100;
+        this.speed = 90;
 
         health = 2;
     }

@@ -31,7 +31,7 @@ public class Player extends Sapien{
 
         this.weapon = new Weapon();
 
-        health = 3;
+        health = 100;
     }
 
     protected void updateAngle() {
