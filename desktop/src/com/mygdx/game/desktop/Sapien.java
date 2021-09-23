@@ -61,10 +61,20 @@ public abstract class Sapien extends Sprite implements Movable{
         translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
         translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
 
+        boolean insideX = true;
+        boolean insideY = true;
+
         if(getX() + getWidth() < rectangle.getX() || rectangle.getX() + rectangle.getWidth() < getX()){
-            translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        } else if(getY() + getHeight() < rectangle.getY() || rectangle.getY() + rectangle.getHeight() < getY()){
-            translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+            insideX = false;
+        }
+        if(getY() + getHeight() < rectangle.getY() || rectangle.getY() + rectangle.getHeight() < getY()){
+            insideY = false;
+        }
+
+        if(!insideX && insideY){
+            translateY((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+        } else if(!insideY && insideX){
+            translateX((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
         }
     }
 
