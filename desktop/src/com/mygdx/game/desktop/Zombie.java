@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.Random;
+
 public class  Zombie extends Sapien{
 
     private int playerX;
@@ -18,7 +20,10 @@ public class  Zombie extends Sapien{
         textureAtlas = atlas;
         setRegion(atlas.findRegion(name + "_back"));
 
-        this.speed = 90;
+        Random random = new Random();
+        int randomInt = random.nextInt(10);
+
+        this.speed = 50 + randomInt*4;
 
         health = 2;
     }
