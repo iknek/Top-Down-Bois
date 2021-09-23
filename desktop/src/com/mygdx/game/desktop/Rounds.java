@@ -1,7 +1,7 @@
 package com.mygdx.game.desktop;
 
 public class Rounds {
-    private ZombieFactory zombiefactory = new ZombieFactory();
+    private ZombieFactory zombiefactory;
     private int scale;
     private int roundNumber;
 
@@ -14,6 +14,8 @@ public class Rounds {
         this.scale = scale;
         this.w = w;
         this.h = h;
+
+        zombiefactory = new ZombieFactory(scale);
     }
     
     public void checkNewRound(Player player){
