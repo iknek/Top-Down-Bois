@@ -20,6 +20,8 @@ public class Player extends Sapien{
     private boolean invincible;
     private Timer timer;
 
+    private int maxHealth;
+
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Adam";
@@ -32,6 +34,7 @@ public class Player extends Sapien{
         this.weapon = new Weapon();
 
         health = 100;
+        maxHealth = 100;
     }
 
     protected void updateAngle() {
@@ -85,6 +88,10 @@ public class Player extends Sapien{
             timer.schedule(new RemindTask(), 5*1000);
             System.out.println("oof");
         }
+
+        if(health == 0){
+            die();
+        }
     }
 
     class RemindTask extends TimerTask {
@@ -94,8 +101,18 @@ public class Player extends Sapien{
         }
     }
 
+    private void die(){
+        View.getInstance().removeSprite(this);
+        MovableSubject.getInstance().delete(this);
+    }
+
     public int getHealth(){
         return health;
+    }
+
+    public void addHealth(int x){
+        health += x;
+        if(health > maxHealth){ health = maxHealth; }
     }
 
     private final InputProcessor inputProcessor = new InputAdapter() {

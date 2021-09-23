@@ -34,8 +34,6 @@ public class CollisionController {
                 }
             }
 
-            movableSubject.removeDeleted();
-
             rectangle = scaleBackRectangle(rectangle, scale);
         }
     }
