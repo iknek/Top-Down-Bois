@@ -8,7 +8,7 @@ public class  Zombie extends Sapien{
 
     private int playerX;
     private int playerY;
-
+    private int damage = 1;
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
@@ -33,6 +33,10 @@ public class  Zombie extends Sapien{
         }
     }
 
+    public int getDamage(){
+        return damage;
+    }
+
     @Override
     public boolean moving(){
         return true;
@@ -44,9 +48,9 @@ public class  Zombie extends Sapien{
         playerY = y;
     }
 
-    public void getHit(){
-        health -=1;
-        if (health == 0){
+    public void getHit(int damage){
+        health = health - damage;
+        if (health <= 0){
             View.getInstance().removeSprite(this);
             MovableSubject.getInstance().delete(this);
         }

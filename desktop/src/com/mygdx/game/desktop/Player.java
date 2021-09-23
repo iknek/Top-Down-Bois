@@ -15,8 +15,8 @@ public class Player extends Sapien{
     private boolean right;
     private boolean up;
     private boolean down;
-    private Weapon weapon;
-
+    private Firearm firearm;
+    private boolean triggerPulled;
     private boolean invincible;
     private Timer timer;
 
@@ -31,7 +31,7 @@ public class Player extends Sapien{
 
         this.speed = 110;
 
-        this.weapon = new Weapon();
+        this.firearm = new AutoRifle();
 
         health = 100;
         maxHealth = 100;
@@ -64,8 +64,8 @@ public class Player extends Sapien{
         }
     }
 
-    private void Shoot() {
-        weapon.fireWeapon(angle, getX(), getY());
+    public void Shoot() {
+        firearm.fire(angle, getX(), getY());
     }
 
     public InputProcessor getInputProcessor(){
@@ -80,10 +80,10 @@ public class Player extends Sapien{
     @Override
     public void playerLocation(int x, int y) {    }
 
-    public void getHit(){
+    public void getHit(int damage){
         if(!invincible) {
             timer = new Timer();
-            health -= 1;
+            health = health - damage;
             invincible = true;
             timer.schedule(new RemindTask(), 5*1000);
             System.out.println("oof");
@@ -132,7 +132,11 @@ public class Player extends Sapien{
                     down = true;
                     break;
                 case Input.Keys.G:
+                    triggerPulled = true;
                     Shoot();
+                    break;
+                case Input.Keys.R:
+                    firearm.reloadFirearm();
                     break;
             }
             return true;
@@ -152,6 +156,10 @@ public class Player extends Sapien{
                     break;
                 case Input.Keys.DOWN:
                     down = false;
+                    break;
+                case Input.Keys.G:
+                    Shoot();
+                    triggerPulled = false;
                     break;
             }
             return true;

@@ -57,7 +57,7 @@ public class CollisionController {
     private void checkZombieCollisions(Player player, Zombie zombie){
         for (Movable o: MovableSubject.getInstance().getObservers()) {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
-                zombieGetShot(o, zombie);
+                zombieGetShot(o, zombie, ((Projectile) o).getDamage());
             }
 
             if(o instanceof Zombie && o != zombie){
@@ -66,13 +66,13 @@ public class CollisionController {
         }
 
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
-            player.getHit();
+            player.getHit(zombie.getDamage());
         }
     }
 
-    private void zombieGetShot(Movable o, Zombie zombie){
+    private void zombieGetShot(Movable o, Zombie zombie, int damage){
         if(Intersector.overlaps(o.getBoundingRectangle(), zombie.getBoundingRectangle())) {
-            zombie.getHit();
+            zombie.getHit(damage);
             o.collide(zombie.getBoundingRectangle());
         }
     }
