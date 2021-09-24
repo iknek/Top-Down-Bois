@@ -46,14 +46,12 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         camera.update();
         View.getInstance().setView(camera);
         View.getInstance().render();
-
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
 
         movableSubject.removeDeleted();
 
         movableSubject.playerLocation((int) player.getX(),(int) player.getY());
-
         rounds.checkNewRound(player);
     }
 
