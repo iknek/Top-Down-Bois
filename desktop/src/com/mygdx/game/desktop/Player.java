@@ -1,9 +1,14 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.desktop.weapons.AutoRifle;
+import com.mygdx.game.desktop.weapons.Firearm;
+import com.mygdx.game.desktop.weapons.Revolver;
+import com.mygdx.game.desktop.weapons.Shotgun;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,7 +24,7 @@ public class Player extends Sapien{
     private boolean triggerPulled = false;
     private boolean invincible;
     private Timer timer;
-
+    private int aimAngle;
     private int maxHealth;
 
     public Player(TextureAtlas atlas, float posX, float posY, int scale) {
@@ -33,8 +38,8 @@ public class Player extends Sapien{
 
         this.firearm = new AutoRifle();
 
-        health = 100;
-        maxHealth = 100;
+        health = 2;
+        maxHealth = 2;
     }
 
     protected void updateAngle() {
@@ -114,7 +119,7 @@ public class Player extends Sapien{
     @Override
     public void updateAction() {
         if (triggerPulled) {
-            firearm.fire(angle, getX(), getY());
+            firearm.fire(aimAngle, getX(), getY());
         }
     }
 
@@ -122,16 +127,16 @@ public class Player extends Sapien{
         @Override
         public boolean keyDown(int keycode) {
             switch (keycode) {
-                case Input.Keys.LEFT:
+                case Input.Keys.A:
                     left = true;
                     break;
-                case Input.Keys.RIGHT:
+                case Input.Keys.D:
                     right = true;
                     break;
-                case Input.Keys.UP:
+                case Input.Keys.W:
                     up = true;
                     break;
-                case Input.Keys.DOWN:
+                case Input.Keys.S:
                     down = true;
                     break;
                 case Input.Keys.G:
@@ -140,6 +145,15 @@ public class Player extends Sapien{
                 case Input.Keys.R:
                     firearm.reloadFirearm();
                     break;
+                case Input.Keys.NUM_1 :
+                    firearm = new Revolver();
+                    break;
+                case Input.Keys.NUM_2 :
+                    firearm = new Shotgun();
+                    break;
+                case Input.Keys.NUM_3 :
+                    firearm = new AutoRifle();
+                    break;
             }
             return true;
         }
@@ -147,22 +161,47 @@ public class Player extends Sapien{
         @Override
         public boolean keyUp(int keycode) {
             switch (keycode) {
-                case Input.Keys.LEFT:
+                case Input.Keys.A:
                     left = false;
                     break;
-                case Input.Keys.RIGHT:
+                case Input.Keys.D:
                     right = false;
                     break;
-                case Input.Keys.UP:
+                case Input.Keys.W:
                     up = false;
                     break;
-                case Input.Keys.DOWN:
+                case Input.Keys.S:
                     down = false;
                     break;
                 case Input.Keys.G:
                     triggerPulled = false;
                     break;
             }
+            return true;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY,int pointer) {
+            //800 should be replaced by actual screen height
+
+            aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()-getY()-screenY, screenX-getX()));
+            aimAngle += 90;
+            if(aimAngle < 0){
+                aimAngle += 360;
+            }
+            System.out.println(Gdx.graphics.getHeight());
+            return true;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            triggerPulled = true;
+            return true;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            triggerPulled = false;
             return true;
         }
     };

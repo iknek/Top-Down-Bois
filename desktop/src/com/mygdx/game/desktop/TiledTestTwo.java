@@ -48,7 +48,6 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
         View.getInstance().render();
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
-
         movableSubject.removeDeleted();
 
         movableSubject.playerLocation((int) player.getX(),(int) player.getY());
@@ -69,15 +68,15 @@ public class TiledTestTwo extends ApplicationAdapter implements InputProcessor {
     }
 
     @Override public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        return player.getInputProcessor().touchDown(screenX,screenY,pointer,button);
     }
 
     @Override public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        return player.getInputProcessor().touchUp(screenX,screenY,pointer,button);
     }
 
     @Override public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+        return player.getInputProcessor().touchDragged(screenX,screenY,pointer);
     }
 
     @Override public boolean mouseMoved(int screenX, int screenY) {
