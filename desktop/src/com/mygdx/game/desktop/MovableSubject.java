@@ -2,9 +2,11 @@ package com.mygdx.game.desktop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MovableSubject {
-    private List<Movable> observers = new ArrayList<>();
+    //Copy on write list prevents exceptions when list is modified while being iterated on.
+    private List<Movable> observers = new CopyOnWriteArrayList<>();
     private List<Movable> toBeDeleted = new ArrayList<>();
 
     // Singleton mönster

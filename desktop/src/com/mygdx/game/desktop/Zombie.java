@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.Random;
 
-public class  Zombie extends Sapien{
+public class Zombie extends Sapien{
 
     private int playerX;
     private int playerY;
@@ -54,5 +54,10 @@ public class  Zombie extends Sapien{
             View.getInstance().removeSprite(this);
             MovableSubject.getInstance().delete(this);
         }
+    }
+
+    @Override
+    public void updateAction() {
+
     }
 }

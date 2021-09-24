@@ -40,10 +40,14 @@ public abstract class Sapien extends Sprite implements Movable{
 
     public abstract void getHit(int damage);
 
+    public abstract void updateAction();
+
     @Override
     public void update() {
         updateAngle();
         changeSprite();
+        //vet inte hur man ska göra det här, är kanske dåligt sätt.
+        updateAction();
         if (moving()) {
             translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));

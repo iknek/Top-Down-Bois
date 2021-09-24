@@ -16,7 +16,7 @@ public class Player extends Sapien{
     private boolean up;
     private boolean down;
     private Firearm firearm;
-    private boolean triggerPulled;
+    private boolean triggerPulled = false;
     private boolean invincible;
     private Timer timer;
 
@@ -31,7 +31,7 @@ public class Player extends Sapien{
 
         this.speed = 110;
 
-        this.firearm = new AutoRifle();
+        this.firearm = new Revolver();
 
         health = 100;
         maxHealth = 100;
@@ -62,10 +62,6 @@ public class Player extends Sapien{
         if (up && !down && !right && left) {
             angle = 315;
         }
-    }
-
-    public void Shoot() {
-        firearm.fire(angle, getX(), getY());
     }
 
     public InputProcessor getInputProcessor(){
@@ -115,6 +111,13 @@ public class Player extends Sapien{
         if(health > maxHealth){ health = maxHealth; }
     }
 
+    @Override
+    public void updateAction() {
+        if (triggerPulled) {
+            firearm.fire(angle, getX(), getY());
+        }
+    }
+
     private final InputProcessor inputProcessor = new InputAdapter() {
         @Override
         public boolean keyDown(int keycode) {
@@ -133,7 +136,6 @@ public class Player extends Sapien{
                     break;
                 case Input.Keys.G:
                     triggerPulled = true;
-                    Shoot();
                     break;
                 case Input.Keys.R:
                     firearm.reloadFirearm();
@@ -158,7 +160,6 @@ public class Player extends Sapien{
                     down = false;
                     break;
                 case Input.Keys.G:
-                    Shoot();
                     triggerPulled = false;
                     break;
             }
