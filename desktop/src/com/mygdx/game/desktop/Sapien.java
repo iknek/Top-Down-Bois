@@ -62,23 +62,25 @@ public abstract class Sapien extends Sprite implements Movable{
 
     @Override
     public void collide(Rectangle rectangle) {
-        translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        if(!(rectangle.getY() > this.getY()+(this.getHeight()/2))){
+            translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+            translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
 
-        boolean insideX = true;
-        boolean insideY = true;
+            boolean insideX = true;
+            boolean insideY = true;
 
-        if(getX() + getWidth() < rectangle.getX() || rectangle.getX() + rectangle.getWidth() < getX()){
-            insideX = false;
-        }
-        if(getY() + getHeight() < rectangle.getY() || rectangle.getY() + rectangle.getHeight() < getY()){
-            insideY = false;
-        }
+            if(getX() + getWidth() < rectangle.getX() || rectangle.getX() + rectangle.getWidth() < getX()){
+                insideX = false;
+            }
+            if(getY() + getHeight() < rectangle.getY() || rectangle.getY() + rectangle.getHeight() < getY()){
+                insideY = false;
+            }
 
-        if(!insideX && insideY){
-            translateY((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
-        } else if(!insideY && insideX){
-            translateX((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+            if(!insideX && insideY){
+                translateY((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+            } else if(!insideY && insideX){
+                translateX((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+            }
         }
     }
 

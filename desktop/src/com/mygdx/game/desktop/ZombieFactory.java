@@ -8,8 +8,12 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ZombieFactory {
+    Timer timer;
+    ArrayList<Zombie> zombies;
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
     public ZombieFactory(int scale){
@@ -19,15 +23,17 @@ public class ZombieFactory {
         for (RectangleMapObject spawnPointObject : spawnPointObjects.getByType(RectangleMapObject.class)) {
             spawnpoints.add(new Spawnpoint(spawnPointObject, scale));
         }
+
     }
 
     public ArrayList<Zombie> createZombie(int amount, float W, float H, int scale){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
 
-        ArrayList<Zombie> zombies = new ArrayList<>();
+        zombies = new ArrayList<>();
 
         for (int i = 0; i < amount; i++) {
             Random random = new Random();
+
             int randomInt = random.nextInt(4);
 
             Spawnpoint spawnpoint = spawnpoints.get(randomInt);

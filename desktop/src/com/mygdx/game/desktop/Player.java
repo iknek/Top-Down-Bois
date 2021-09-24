@@ -31,7 +31,7 @@ public class Player extends Sapien{
 
         this.speed = 110;
 
-        this.firearm = new Revolver();
+        this.firearm = new AutoRifle();
 
         health = 100;
         maxHealth = 100;
