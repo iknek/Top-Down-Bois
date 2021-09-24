@@ -10,7 +10,7 @@ public class Zombie extends Sapien{
     private int playerY;
     private int damage = 1;
 
-    public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
+    public Zombie(TextureAtlas atlas, float posX, float posY, int scale) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
 
@@ -20,7 +20,7 @@ public class Zombie extends Sapien{
         Random random = new Random();
         int randomInt = random.nextInt(10);
 
-        this.speed = 50 + randomInt*4;
+        this.speed = (25 + randomInt*2)*scale;
 
         health = 2;
     }

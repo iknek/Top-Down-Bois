@@ -22,14 +22,14 @@ public class Player extends Sapien{
 
     private int maxHealth;
 
-    public Player(TextureAtlas atlas, float posX, float posY, float scale) {
+    public Player(TextureAtlas atlas, float posX, float posY, int scale) {
         super(atlas, posX, posY, scale);
         this.name = "Adam";
 
         textureAtlas = atlas;
         setRegion(atlas.findRegion(name + "_back"));
 
-        this.speed = 110;
+        this.speed = 55*scale;
 
         this.firearm = new AutoRifle();
 
