@@ -58,10 +58,4 @@ public class Zombie extends Sapien implements Zombies{
             ZombieObserver.getInstance().detach(this);
         }
     }
-
-    //useless method
-    @Override
-    public void updateAction() {
-
-    }
 }

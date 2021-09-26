@@ -67,6 +67,8 @@ public class Player extends Sapien{
         if (up && !down && !right && left) {
             angle = 315;
         }
+
+        updateAction();
     }
 
     @Override
@@ -109,8 +111,7 @@ public class Player extends Sapien{
         if(health > maxHealth){ health = maxHealth; }
     }
 
-    @Override
-    public void updateAction() {
+    private void updateAction() {
         if (triggerPulled) {
             firearm.fire(aimAngle, getX(), getY());
         }
