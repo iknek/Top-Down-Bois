@@ -74,10 +74,6 @@ public class Player extends Sapien{
         return up || down || right || left;
     }
 
-    //useless method
-    @Override
-    public void playerLocation(int x, int y) {    }
-
     public void getHit(int damage){
         if(!invincible) {
             timer = new Timer();
@@ -101,7 +97,7 @@ public class Player extends Sapien{
 
     private void die(){
         View.getInstance().removeSprite(this);
-        MovableSubject.getInstance().delete(this);
+        MovableSubject.getInstance().detach(this);
     }
 
     public int getHealth(){
@@ -145,7 +141,7 @@ public class Player extends Sapien{
     }
 
     public void setFirearm(Firearm firearm){
-        firearm = firearm;
+        this.firearm = firearm;
     }
 
     public void reload(){

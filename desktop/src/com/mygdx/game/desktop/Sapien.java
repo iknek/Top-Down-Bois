@@ -36,8 +36,6 @@ public abstract class Sapien extends Sprite implements Movable{
 
     protected abstract void updateAngle();
 
-    public abstract void playerLocation(int x, int y);
-
     public abstract void getHit(int damage);
 
     public abstract void updateAction();

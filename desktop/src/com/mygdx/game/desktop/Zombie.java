@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.Random;
 
-public class Zombie extends Sapien{
+public class Zombie extends Sapien implements Zombies{
 
     private int playerX;
     private int playerY;
@@ -23,6 +23,8 @@ public class Zombie extends Sapien{
         this.speed = (25 + randomInt*2)*scale;
 
         health = 2;
+
+        ZombieObserver.getInstance().attach(this);
     }
 
     protected void updateAngle() {
@@ -52,7 +54,8 @@ public class Zombie extends Sapien{
         health = health - damage;
         if (health <= 0){
             View.getInstance().removeSprite(this);
-            MovableSubject.getInstance().delete(this);
+            MovableSubject.getInstance().detach(this);
+            ZombieObserver.getInstance().detach(this);
         }
     }
 

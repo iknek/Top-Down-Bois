@@ -49,9 +49,8 @@ public class TiledTestTwo extends ApplicationAdapter {
         View.getInstance().render();
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
-        movableSubject.removeDeleted();
 
-        movableSubject.playerLocation((int) player.getX(),(int) player.getY());
+        ZombieObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
     }
 
