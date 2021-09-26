@@ -38,8 +38,8 @@ public class Player extends Sapien{
 
         this.firearm = new AutoRifle();
 
-        health = 2;
-        maxHealth = 2;
+        health = 100;
+        maxHealth = 100;
     }
 
     protected void updateAngle() {
@@ -69,15 +69,12 @@ public class Player extends Sapien{
         }
     }
 
-    public InputProcessor getInputProcessor(){
-        return inputProcessor;
-    }
-
     @Override
     public boolean moving(){
         return up || down || right || left;
     }
 
+    //useless method
     @Override
     public void playerLocation(int x, int y) {    }
 
@@ -123,86 +120,35 @@ public class Player extends Sapien{
         }
     }
 
-    private final InputProcessor inputProcessor = new InputAdapter() {
-        @Override
-        public boolean keyDown(int keycode) {
-            switch (keycode) {
-                case Input.Keys.A:
-                    left = true;
-                    break;
-                case Input.Keys.D:
-                    right = true;
-                    break;
-                case Input.Keys.W:
-                    up = true;
-                    break;
-                case Input.Keys.S:
-                    down = true;
-                    break;
-                case Input.Keys.G:
-                    triggerPulled = true;
-                    break;
-                case Input.Keys.R:
-                    firearm.reloadFirearm();
-                    break;
-                case Input.Keys.NUM_1 :
-                    firearm = new Revolver();
-                    break;
-                case Input.Keys.NUM_2 :
-                    firearm = new Shotgun();
-                    break;
-                case Input.Keys.NUM_3 :
-                    firearm = new AutoRifle();
-                    break;
-            }
-            return true;
-        }
+    public void setLeft(boolean bool){
+        left = bool;
+    }
 
-        @Override
-        public boolean keyUp(int keycode) {
-            switch (keycode) {
-                case Input.Keys.A:
-                    left = false;
-                    break;
-                case Input.Keys.D:
-                    right = false;
-                    break;
-                case Input.Keys.W:
-                    up = false;
-                    break;
-                case Input.Keys.S:
-                    down = false;
-                    break;
-                case Input.Keys.G:
-                    triggerPulled = false;
-                    break;
-            }
-            return true;
-        }
+    public void setRight(boolean bool){
+        right = bool;
+    }
 
-        @Override
-        public boolean touchDragged(int screenX, int screenY,int pointer) {
-            //800 should be replaced by actual screen height
+    public void setUp(boolean bool){
+        up = bool;
+    }
 
-            aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()-getY()-screenY, screenX-getX()));
-            aimAngle += 90;
-            if(aimAngle < 0){
-                aimAngle += 360;
-            }
-            System.out.println(Gdx.graphics.getHeight());
-            return true;
-        }
+    public void setDown(boolean bool){
+        down = bool;
+    }
 
-        @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            triggerPulled = true;
-            return true;
-        }
+    public void setTriggerPulled(boolean bool){
+        triggerPulled = bool;
+    }
 
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            triggerPulled = false;
-            return true;
-        }
-    };
+    public void setAimAngle(int angle){
+        aimAngle = angle;
+    }
+
+    public void setFirearm(Firearm firearm){
+        firearm = firearm;
+    }
+
+    public void reload(){
+        firearm.reloadFirearm();
+    }
 }

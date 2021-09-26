@@ -56,6 +56,7 @@ public class Zombie extends Sapien{
         }
     }
 
+    //useless method
     @Override
     public void updateAction() {
 

@@ -44,6 +44,7 @@ public class Projectile extends Sprite implements Movable {
         MovableSubject.getInstance().delete(this);
     }
 
+    //useless method
     @Override
     public void playerLocation(int x, int y) {
 

@@ -5,8 +5,8 @@ public class Rounds {
     private int scale;
     private int roundNumber;
 
-    public float w;
-    public float h;
+    private float w;
+    private float h;
 
 
     public Rounds (int scale, float w, float h){

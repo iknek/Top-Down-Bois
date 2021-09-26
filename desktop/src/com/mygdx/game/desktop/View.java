@@ -18,7 +18,7 @@ public class View extends OrthogonalTiledMapRenderer {
 
     // Singleton mönster
     private static View single_instance = null;
-    private List<Sprite> sprites;
+    private ArrayList<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
     private int scale;
 
@@ -34,15 +34,9 @@ public class View extends OrthogonalTiledMapRenderer {
         return single_instance;
     }
 
-    public void addSprite(ArrayList<Zombie> zombies) {
-        for (Zombie zombie : zombies) {
-            addSprite(zombie);
-        }
-    }
-
     public View(TiledMap map, int scale) {
         super(map, scale);
-        sprites = new ArrayList<Sprite>();
+        sprites = new ArrayList<>();
     }
 
     @Override
