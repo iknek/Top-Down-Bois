@@ -91,6 +91,7 @@ public class PlayerController implements InputProcessor{
     }
 
     @Override
+    //Why is this not in mouseMoved rather than touchDragged
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()-player.getY()-screenY, screenX-player.getX()));
         aimAngle += 90;

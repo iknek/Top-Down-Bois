@@ -10,7 +10,7 @@ public abstract class Sapien extends Sprite implements Movable{
 
     protected int angle;
 
-    protected int speed;
+    protected float speed;
     protected int health;
     protected String name;
 
@@ -56,27 +56,24 @@ public abstract class Sapien extends Sprite implements Movable{
 
 
     @Override
-    //Why getting stuck on corners? want to just glide off
     public void collide(Rectangle rectangle) {
         if(!(rectangle.getY() > this.getY()+(this.getHeight()/2))){
-
             translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
 
-            boolean insideX = true;
-            boolean insideY = true;
-
-            if(getX()+getWidth() < rectangle.getX() || rectangle.getX() + rectangle.getWidth() < getX()){
-                insideX = false;
-            }
-            if(getY()+getHeight()/2 < rectangle.getY() || rectangle.getY() + rectangle.getHeight() < getY()){
-                insideY = false;
-            }
+            boolean insideX = !((getX()+getWidth())<rectangle.getX()||(rectangle.getX()+rectangle.getWidth())<getX());
+            boolean insideY = !(getY()+(getHeight()/2)<rectangle.getY()||rectangle.getY()+rectangle.getHeight()<getY());
 
             if(insideY && !insideX){
                 translateY((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
             } else if(insideX && !insideY){
                 translateX((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+            }
+            if(!insideX && !insideY){
+                if((getX()+getWidth()) < rectangle.getX()){ translateX(-1); }
+                if((rectangle.getX()+rectangle.getWidth()) < getX()){ translateX(1); }
+                if(getY()+(getHeight()/2) < rectangle.getY()){ translateY(-1); }
+                if(rectangle.getY()+rectangle.getHeight() < getY()){ translateY(1); }
             }
         }
     }

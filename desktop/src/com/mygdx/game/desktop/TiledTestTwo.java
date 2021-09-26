@@ -14,7 +14,7 @@ public class TiledTestTwo extends ApplicationAdapter {
     private MovableSubject movableSubject = MovableSubject.getInstance();
     private CollisionController collisionController = new CollisionController();
     private Player player;
-    private int scale;
+    private float scale;
     private Rounds rounds;
     private PlayerController playerController;
 

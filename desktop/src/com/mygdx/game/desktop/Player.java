@@ -27,7 +27,7 @@ public class Player extends Sapien{
     private int aimAngle;
     private int maxHealth;
 
-    public Player(TextureAtlas atlas, float posX, float posY, int scale) {
+    public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Adam";
 

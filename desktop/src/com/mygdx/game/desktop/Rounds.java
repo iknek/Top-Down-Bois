@@ -2,14 +2,14 @@ package com.mygdx.game.desktop;
 
 public class Rounds {
     private ZombieFactory zombiefactory;
-    private int scale;
+    private float scale;
     private int roundNumber;
 
     private float w;
     private float h;
 
 
-    public Rounds (int scale, float w, float h){
+    public Rounds (float scale, float w, float h){
         this.roundNumber = 0;
         this.scale = scale;
         this.w = w;

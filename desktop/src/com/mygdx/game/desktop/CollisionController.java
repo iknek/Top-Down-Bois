@@ -12,9 +12,8 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 public class CollisionController {
 
-    public void checkCollisions(View view, Player player, int scale){
+    public void checkCollisions(View view, Player player, float scale){
         MovableSubject movableSubject = MovableSubject.getInstance();
-        //int objectLayerId = 2;
 
         MapLayer collisionObjectLayer = view.getMap().getLayers().get("collision");
         MapObjects objects = collisionObjectLayer.getObjects();
@@ -38,7 +37,7 @@ public class CollisionController {
         }
     }
 
-    private Rectangle scaleRectangle(Rectangle rect, int scale){
+    private Rectangle scaleRectangle(Rectangle rect, float scale){
         rect.x = rect.x*scale;
         rect.y = rect.y*scale;
         rect.width = rect.width*scale;
@@ -46,7 +45,7 @@ public class CollisionController {
         return rect;
     }
 
-    private Rectangle scaleBackRectangle(Rectangle rect, int scale){
+    private Rectangle scaleBackRectangle(Rectangle rect, float scale){
         rect.x = rect.x/scale;
         rect.y = rect.y/scale;
         rect.width = rect.width/scale;

@@ -10,7 +10,7 @@ public class Zombie extends Sapien implements Zombies{
     private int playerY;
     private int damage = 1;
 
-    public Zombie(TextureAtlas atlas, float posX, float posY, int scale) {
+    public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
 

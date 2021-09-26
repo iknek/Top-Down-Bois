@@ -16,7 +16,7 @@ public class ZombieFactory {
     ArrayList<Zombie> zombies;
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
-    public ZombieFactory(int scale){
+    public ZombieFactory(float scale){
         MapLayer spawnPointLayer = View.getInstance().getMap().getLayers().get("spawntiles");
         MapObjects spawnPointObjects = spawnPointLayer.getObjects();
 
@@ -26,7 +26,7 @@ public class ZombieFactory {
 
     }
 
-    public ArrayList<Zombie> createZombie(int amount, float W, float H, int scale){
+    public ArrayList<Zombie> createZombie(int amount, float W, float H, float scale){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
 
         zombies = new ArrayList<>();

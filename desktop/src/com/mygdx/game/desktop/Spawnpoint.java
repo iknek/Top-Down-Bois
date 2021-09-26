@@ -6,7 +6,7 @@ public class Spawnpoint {
     private float x;
     private float y;
 
-    public Spawnpoint(RectangleMapObject rectangle, int scale){
+    public Spawnpoint(RectangleMapObject rectangle, float scale){
         this.x = (rectangle.getRectangle().getX() + rectangle.getRectangle().getWidth()/2)*scale;
         this.y = (rectangle.getRectangle().getY() + rectangle.getRectangle().getHeight()/2)*scale;
     }
