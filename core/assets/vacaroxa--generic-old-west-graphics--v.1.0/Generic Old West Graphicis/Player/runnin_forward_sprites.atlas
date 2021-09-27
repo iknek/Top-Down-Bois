@@ -1,0 +1,110 @@
+sprites.png
+size: 20, 453
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Player Front Sheet-0
+  rotate: false
+  xy: 1, 1
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-1
+  rotate: false
+  xy: 1, 145
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-2
+  rotate: false
+  xy: 1, 250
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-3
+  rotate: false
+  xy: 1, 285
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-4
+  rotate: false
+  xy: 1, 73
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-5
+  rotate: false
+  xy: 1, 1
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-6
+  rotate: false
+  xy: 1, 320
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-7
+  rotate: false
+  xy: 1, 109
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-8
+  rotate: false
+  xy: 1, 355
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-9
+  rotate: false
+  xy: 1, 422
+  size: 18, 30
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-10
+  rotate: false
+  xy: 1, 180
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-11
+  rotate: false
+  xy: 1, 37
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-12
+  rotate: false
+  xy: 1, 215
+  size: 18, 33
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-13
+  rotate: false
+  xy: 1, 390
+  size: 18, 30
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
+Player Front Sheet-14
+  rotate: false
+  xy: 1, 1
+  size: 18, 34
+  orig: 48, 44
+  offset: 14, 2
+  index: -1
