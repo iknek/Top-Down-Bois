@@ -18,9 +18,9 @@ public class View extends OrthogonalTiledMapRenderer {
 
     // Singleton mönster
     private static View single_instance = null;
-    private List<Sprite> sprites;
+    private ArrayList<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
-    private int scale;
+    private float scale;
 
     public static View getInstance() {
         if (single_instance == null)
@@ -28,21 +28,15 @@ public class View extends OrthogonalTiledMapRenderer {
         return single_instance;
     }
 
-    public static View createInstance(int scale) {
+    public static View createInstance(float scale) {
         if (single_instance == null)
             single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
         return single_instance;
     }
 
-    public void addSprite(ArrayList<Zombie> zombies) {
-        for (Zombie zombie : zombies) {
-            addSprite(zombie);
-        }
-    }
-
-    public View(TiledMap map, int scale) {
+    public View(TiledMap map, float scale) {
         super(map, scale);
-        sprites = new ArrayList<Sprite>();
+        sprites = new ArrayList<>();
     }
 
     @Override

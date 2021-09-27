@@ -1,9 +1,14 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.desktop.weapons.AutoRifle;
+import com.mygdx.game.desktop.weapons.Firearm;
+import com.mygdx.game.desktop.weapons.Revolver;
+import com.mygdx.game.desktop.weapons.Shotgun;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,7 +24,7 @@ public class Player extends Sapien{
     private boolean triggerPulled = false;
     private boolean invincible;
     private Timer timer;
-
+    private int aimAngle;
     private int maxHealth;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
@@ -29,9 +34,9 @@ public class Player extends Sapien{
         textureAtlas = atlas;
         setRegion(atlas.findRegion(name + "_back"));
 
-        this.speed = 110;
+        this.speed = 55*scale;
 
-        this.firearm = new Revolver();
+        this.firearm = new AutoRifle();
 
         health = 100;
         maxHealth = 100;
@@ -62,19 +67,14 @@ public class Player extends Sapien{
         if (up && !down && !right && left) {
             angle = 315;
         }
-    }
 
-    public InputProcessor getInputProcessor(){
-        return inputProcessor;
+        updateAction();
     }
 
     @Override
     public boolean moving(){
         return up || down || right || left;
     }
-
-    @Override
-    public void playerLocation(int x, int y) {    }
 
     public void getHit(int damage){
         if(!invincible) {
@@ -99,7 +99,7 @@ public class Player extends Sapien{
 
     private void die(){
         View.getInstance().removeSprite(this);
-        MovableSubject.getInstance().delete(this);
+        MovableSubject.getInstance().detach(this);
     }
 
     public int getHealth(){
@@ -111,59 +111,41 @@ public class Player extends Sapien{
         if(health > maxHealth){ health = maxHealth; }
     }
 
-    @Override
-    public void updateAction() {
+    private void updateAction() {
         if (triggerPulled) {
-            firearm.fire(angle, getX(), getY());
+            firearm.fire(aimAngle, getX(), getY());
         }
     }
 
-    private final InputProcessor inputProcessor = new InputAdapter() {
-        @Override
-        public boolean keyDown(int keycode) {
-            switch (keycode) {
-                case Input.Keys.LEFT:
-                    left = true;
-                    break;
-                case Input.Keys.RIGHT:
-                    right = true;
-                    break;
-                case Input.Keys.UP:
-                    up = true;
-                    break;
-                case Input.Keys.DOWN:
-                    down = true;
-                    break;
-                case Input.Keys.G:
-                    triggerPulled = true;
-                    break;
-                case Input.Keys.R:
-                    firearm.reloadFirearm();
-                    break;
-            }
-            return true;
-        }
+    public void setLeft(boolean bool){
+        left = bool;
+    }
 
-        @Override
-        public boolean keyUp(int keycode) {
-            switch (keycode) {
-                case Input.Keys.LEFT:
-                    left = false;
-                    break;
-                case Input.Keys.RIGHT:
-                    right = false;
-                    break;
-                case Input.Keys.UP:
-                    up = false;
-                    break;
-                case Input.Keys.DOWN:
-                    down = false;
-                    break;
-                case Input.Keys.G:
-                    triggerPulled = false;
-                    break;
-            }
-            return true;
-        }
-    };
+    public void setRight(boolean bool){
+        right = bool;
+    }
+
+    public void setUp(boolean bool){
+        up = bool;
+    }
+
+    public void setDown(boolean bool){
+        down = bool;
+    }
+
+    public void setTriggerPulled(boolean bool){
+        triggerPulled = bool;
+    }
+
+    public void setAimAngle(int angle){
+        aimAngle = angle;
+    }
+
+    public void setFirearm(Firearm firearm){
+        this.firearm = firearm;
+    }
+
+    public void reload(){
+        firearm.reloadFirearm();
+    }
 }

@@ -41,12 +41,7 @@ public class Projectile extends Sprite implements Movable {
     @Override
     public void collide(Rectangle rectangle) {
         View.getInstance().removeSprite(this);
-        MovableSubject.getInstance().delete(this);
-    }
-
-    @Override
-    public void playerLocation(int x, int y) {
-
+        MovableSubject.getInstance().detach(this);
     }
 
     @Override

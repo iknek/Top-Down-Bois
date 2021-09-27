@@ -1,16 +1,19 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.weapons;
+
+import com.mygdx.game.desktop.Projectile;
+import com.mygdx.game.desktop.weapons.Firearm;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Shotgun implements Firearm{
+public class AutoRifle implements Firearm {
 
-    int projectileSpeed = 1000;
-    int damage = 1;
+    int projectileSpeed = 1800;
+    int damage = 3;
     String texture = "bullet.png";
-    int AmmoInMagazine = 12;
+    int AmmoInMagazine = 25;
     //rounds per minute
-    float rateOfFire = 90;
+    float rateOfFire = 600;
     private Timer timer;
     private boolean readyToFire = true;
 
@@ -19,10 +22,6 @@ public class Shotgun implements Firearm{
         if (AmmoInMagazine > 0 && readyToFire) {
             timer = new Timer();
             new Projectile(projectileSpeed, angle, x,y, damage, texture);
-            new Projectile(projectileSpeed, angle + 4, x,y, damage, texture);
-            new Projectile(projectileSpeed, angle, x,y + 6, damage, texture);
-            new Projectile(projectileSpeed, angle - 4, x,y, damage, texture);
-            new Projectile(projectileSpeed, angle - 6, x,y, damage, texture);
             AmmoInMagazine = AmmoInMagazine - 1;
             timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
             readyToFire = false;
@@ -36,10 +35,9 @@ public class Shotgun implements Firearm{
         }
     }
 
-
     @Override
     public void reloadFirearm() {
-        AmmoInMagazine = 12;
+        AmmoInMagazine = 25;
     }
 }
 
