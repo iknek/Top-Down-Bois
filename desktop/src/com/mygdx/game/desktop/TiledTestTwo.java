@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import java.util.ArrayList;
+
 //This class has been taken from https://gamefromscratch.com/libgdx-tutorial-11-tiled-maps-part-2-adding-a-sprite-and-dealing-with-layers/
 //albeit with certain reworks to fit for this project.
 
@@ -38,6 +40,8 @@ public class TiledTestTwo extends ApplicationAdapter {
         playerController = new PlayerController(player);
 
         rounds = new Rounds(scale,w, h);
+
+        SectorGrid grid = new SectorGrid(w, h, scale);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
 
-        ZombieObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
+        ZombieObserver.getInstance().playerLocation(SectorGrid.getInstance().getCurrentSector(player.getX(), player.getY()));
         rounds.checkNewRound(player);
     }
 

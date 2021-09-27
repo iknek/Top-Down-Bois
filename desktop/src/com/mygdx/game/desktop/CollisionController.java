@@ -37,7 +37,7 @@ public class CollisionController {
         }
     }
 
-    private Rectangle scaleRectangle(Rectangle rect, float scale){
+    public static Rectangle scaleRectangle(Rectangle rect, float scale){
         rect.x = rect.x*scale;
         rect.y = rect.y*scale;
         rect.width = rect.width*scale;
@@ -45,7 +45,7 @@ public class CollisionController {
         return rect;
     }
 
-    private Rectangle scaleBackRectangle(Rectangle rect, float scale){
+    public static Rectangle scaleBackRectangle(Rectangle rect, float scale){
         rect.x = rect.x/scale;
         rect.y = rect.y/scale;
         rect.width = rect.width/scale;

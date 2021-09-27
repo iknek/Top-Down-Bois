@@ -24,20 +24,14 @@ public abstract class Sapien extends Sprite implements Movable{
         View.getInstance().addSprite(this);
     }
 
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
-    }
-
     public abstract boolean moving();
 
     protected abstract void updateAngle();
 
     public abstract void getHit(int damage);
 
+
+    //Could make so that if stuck in collision object it dies and spawns a new one.
     @Override
     public void update() {
         updateAngle();
