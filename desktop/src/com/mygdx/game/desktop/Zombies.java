@@ -1,6 +1,6 @@
 package com.mygdx.game.desktop;
 
 public interface Zombies {
-    void playerLocation(Sector sector);
-    public void findPath();
+    void playerLocation(float x, float y);
+    public void updatePath();
 }

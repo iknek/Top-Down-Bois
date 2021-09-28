@@ -21,11 +21,11 @@ public class SectorGrid {
     }
 
     public SectorGrid(float w, float h, float scale){
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < h; i+=16) {
             ArrayList<Sector> row = new ArrayList<>();
 
-            for (int j = 0; j < 16; j++) {
-                Sector sector = new Sector((int) (w/16)*j, (int) (h/16)*i, (int) w/16, (int) h/16);
+            for (int j = 0; j < w; j+=16) {
+                Sector sector = new Sector(j, i, 16, 16);
                 sector.checkMovable(scale);
                 row.add(sector);
             }

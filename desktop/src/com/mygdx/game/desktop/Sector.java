@@ -6,7 +6,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Sector implements Sectors{
@@ -55,8 +57,26 @@ public class Sector implements Sectors{
     }
 
     @Override
-    public List<Sector> getNeighbours() {
-        return null;
+    public List<Sector> getNeighbours(List<Sector> visited) {
+        int indexX=0;
+        int indexY=0;
+        List<Sector> neighbours = new ArrayList<>();
+        for (ArrayList<Sector> row: SectorGrid.getInstance().getMatrix()) {
+            if(row.contains(this)){
+                indexY = SectorGrid.getInstance().getMatrix().indexOf(row);
+                indexX = row.indexOf(this);
+            }
+        }
+
+        for (int i = indexX-1; i <= indexX+1; i++) {
+            for (int j = indexY-1; j <= indexY+1; j++) {
+                Sector neighbour = SectorGrid.getInstance().getMatrix().get(indexY).get(indexX);
+                if(neighbour.getMovable() && !visited.contains(neighbour)){
+                    neighbours.add(neighbour);
+                }
+            }
+        }
+        return neighbours;
     }
 
     public int getX(){

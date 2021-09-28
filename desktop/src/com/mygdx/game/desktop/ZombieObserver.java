@@ -25,9 +25,15 @@ public class ZombieObserver {
         observers.remove(o);
     }
 
-    public void playerLocation(Sector sector) {
+    public void playerLocation(float x, float y) {
         for(Zombies o: observers) {
-            o.playerLocation(sector);
+            o.playerLocation(x,y);
+        }
+    }
+
+    public void updatePath() {
+        for(Zombies o: observers) {
+            o.updatePath();
         }
     }
 }

@@ -8,5 +8,5 @@ public interface Sectors {
     public void setMovable(boolean movable);
     public boolean getMovable();
 
-    public List<Sector> getNeighbours();
+    public List<Sector> getNeighbours(List<Sector> visited);
 }

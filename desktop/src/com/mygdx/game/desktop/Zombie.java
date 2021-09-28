@@ -10,7 +10,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Zombie extends Sapien implements Zombies{
 
     private Sector playerSector;
+    private float playerX;
+    private float playerY;
     private int damage = 1;
+    private List<Sector> path = new CopyOnWriteArrayList<>();
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
@@ -31,11 +34,17 @@ public class Zombie extends Sapien implements Zombies{
 
     //Change so that it will follow the path (( ie. find next sector; ))
     protected void updateAngle() {
-        /*angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
-        angle -= 90;
-        if(angle < 0){
-            angle += 360;
-        }*/
+        if(path != null){
+            Sector nextGoal = path.get(0);
+
+            if(nextGoal == playerSector){
+                angle = (int) Math.tan((playerX-getX())/(playerY-getY()));
+            }else{
+                double xDifference = ((nextGoal.getX()+nextGoal.getWidth()/2) - getX());
+                double yDifference = ((nextGoal.getY()+nextGoal.getHeight()/2) - getY());
+                angle = (int) Math.tan(xDifference/yDifference);
+            }
+        }
     }
 
     public int getDamage(){
@@ -48,8 +57,10 @@ public class Zombie extends Sapien implements Zombies{
     }
 
     @Override
-    public void playerLocation(Sector sector) {
-        playerSector = sector;
+    public void playerLocation(float x, float y) {
+        playerSector = SectorGrid.getInstance().getCurrentSector(x,y);
+        playerX = x;
+        playerY = y;
     }
 
     public void getHit(int damage){
@@ -60,32 +71,74 @@ public class Zombie extends Sapien implements Zombies{
             ZombieObserver.getInstance().detach(this);
         }
     }
-
-    private List<Sector> path = new CopyOnWriteArrayList<>();
+    ///////////////////////////////////
 
     private Sector getCurrentSector(){
         return SectorGrid.getInstance().getCurrentSector(getX(), getY());
     }
 
-    //instead maybe get next sector; where it finds the closest movable sector which is closer to player
-    public void findPath(){
-        boolean found = false;
+    public void updatePath(){
         List<Sector> visited = new CopyOnWriteArrayList<>();
 
         path.add(getCurrentSector());
 
-        for (Sector sector : path) {
-            if (!found) {
-                for (Sector neighbour : sector.getNeighbours()) {
-                    if (neighbour == playerSector) {
-                        found = true;
-                    }
-                    if (neighbour.getMovable() && !visited.contains(neighbour)) {
-                        path.add(neighbour);
-                    }
-                }
-                visited.add(sector);
+        path = findPath(getCurrentSector(), path, visited);
+    }
+
+    private List<Sector> findPath(Sector current, List<Sector> path, List<Sector> visited){
+        List<Sector> neighbours = current.getNeighbours(visited);
+        if(neighbours.contains(playerSector)){
+            path.add(playerSector);
+            return path;
+        }
+        neighbours = sort(neighbours);
+        if(neighbours.isEmpty()){ return null;}
+
+        for(Sector sector : neighbours){
+            path.add(sector);
+            visited.add(sector);
+            if(findPath(sector, path, visited) == null){
+                path.remove(sector);
+                visited.remove(sector);
+            } else{
+                return path;
             }
         }
+        return null;
+    }
+
+    private List<Sector> sort(List<Sector> neighbours){
+        boolean sorted = false;
+        while(!sorted){
+            for (int i = 0; i < neighbours.size() - 1; i++) {
+                if (distanceFromPlayer(neighbours.get(i)) > distanceFromPlayer(neighbours.get(i + 1))) {
+                    neighbours = swap(neighbours, i);
+                    break;
+                }
+                sorted = true;
+            }
+        }
+        return neighbours;
+    }
+
+    private double distanceFromPlayer(Sector sector){
+        float x = sector.getX()+ sector.getWidth()/2;
+        float y = sector.getY()+ sector.getHeight()/2;
+
+        return Math.sqrt(Math.pow(playerSector.getX()-x, 2) + Math.pow(playerSector.getY()-y, 2));
+    }
+
+    private List<Sector> swap(List<Sector> neighbours, int i){
+        List<Sector> temp = new ArrayList<>();
+        for (int j = 0; j < neighbours.size(); j++) {
+            if(j == i){
+                temp.add(neighbours.get(i+1));
+                temp.add(neighbours.get(i));
+                i++;
+            }else{
+                temp.add(neighbours.get(i));
+            }
+        }
+        return temp;
     }
 }
