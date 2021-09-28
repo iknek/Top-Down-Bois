@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
@@ -32,7 +34,7 @@ public class Player extends Sapien{
         this.name = "Adam";
 
         textureAtlas = atlas;
-        setRegion(atlas.findRegion(name + "_back"));
+        //setRegion(atlas.findRegion(name + "_back"));
 
         this.speed = 55*scale;
 
@@ -41,6 +43,11 @@ public class Player extends Sapien{
         health = 100;
         maxHealth = 100;
     }
+
+    /*@Override
+    public void draw(SpriteBatch spriteBatch){
+
+    }*/
 
     protected void updateAngle() {
         if (up && !down && !right && !left) {

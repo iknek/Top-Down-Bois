@@ -1,6 +1,7 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -81,16 +82,16 @@ public abstract class Sapien extends Sprite implements Movable{
 
     public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
-            this.setRegion(this.textureAtlas.findRegion(name + "_forward"));
+            //this.setRegion(this.textureAtlas.findRegion(name + "_forward"));
         }
         if (45 <= angle && angle < 135) {
-            this.setRegion(this.textureAtlas.findRegion(name + "_right"));
+            //this.setRegion(this.textureAtlas.findRegion(name + "_right"));
         }
         if (135 <= angle && angle < 225) {
-            this.setRegion(this.textureAtlas.findRegion(name + "_back"));
+            //this.setRegion(this.textureAtlas.findRegion(name + "_back"));
         }
         if (225 <= angle && angle < 315) {
-            this.setRegion(this.textureAtlas.findRegion(name + "_left"));
+            //this.setRegion(this.textureAtlas.findRegion(name + "_left"));
         }
     }
 }

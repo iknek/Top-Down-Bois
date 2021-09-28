@@ -1,7 +1,9 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,12 +17,14 @@ import java.util.List;
 // Kan vi byta namn?? Kanske till Renderer?
 
 public class View extends OrthogonalTiledMapRenderer {
-
     // Singleton mönster
     private static View single_instance = null;
     private ArrayList<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
     private float scale;
+
+    //SpriteBatch batch;
+    public AnimationTest animationTest = new AnimationTest();
 
     public static View getInstance() {
         if (single_instance == null)
@@ -31,6 +35,7 @@ public class View extends OrthogonalTiledMapRenderer {
     public static View createInstance(float scale) {
         if (single_instance == null)
             single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
+
         return single_instance;
     }
 
@@ -62,11 +67,17 @@ public class View extends OrthogonalTiledMapRenderer {
                 if (layer instanceof TiledMapTileLayer) {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
-                    if(currentLayer == drawSpritesAfterLayer){
-
+                    if(currentLayer == 2){
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
+                        animationTest.createAnimation();
+                        animationTest.render();
+                        //elapsedTime += Gdx.graphics.getDeltaTime();
+                        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                        //batch.begin();
+                        //batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),400,400);
+                        //batch.end();
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
@@ -75,6 +86,7 @@ public class View extends OrthogonalTiledMapRenderer {
                 }
             }
         }
+        animationTest.dispose();
         endRender();
     }
 
