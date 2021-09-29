@@ -34,14 +34,23 @@ public class Zombie extends Sapien implements Zombies{
 
     protected void updateAngle() {
         if(path != null){
-            Sector nextGoal = path.get(0);
+            Sector nextGoal = path.get(1);
 
             if(nextGoal == playerSector){
                 angle = (int) Math.tan((playerX-getX())/(playerY-getY()));
             }else{
-                double xDifference = ((nextGoal.getX()+nextGoal.getWidth()/2) - getX());
-                double yDifference = ((nextGoal.getY()+nextGoal.getHeight()/2) - getY());
-                angle = (int) Math.tan(xDifference/yDifference);
+                float xDifference = ((nextGoal.getX()+nextGoal.getWidth()/2) - getX());
+                float yDifference = ((nextGoal.getY()+nextGoal.getHeight()/2) - getY());
+                angle = (float) Math.toDegrees(Math.tan(xDifference/yDifference));
+
+                if(xDifference<0 && yDifference>0){
+                    angle = 360-angle;
+                }else if(xDifference>0 && yDifference<0){
+                    angle = 180-angle;
+                }else if(xDifference<0 && yDifference<0){
+                    angle = 180+angle;
+                }
+
             }
         }
     }
@@ -78,14 +87,21 @@ public class Zombie extends Sapien implements Zombies{
     //////////////////////////////////////////
 
     public void updatePath(){
+        int cap = 0;
+
         List<Sector> visited = new CopyOnWriteArrayList<>();
         path = new CopyOnWriteArrayList<>();
-        path.add(getCurrentSector());//delete
+        path.add(getCurrentSector());
 
-        path = findPath(path.get(0), path, visited);
+        path = findPath(path.get(0), path, visited, cap);
     }
 
-    private List<Sector> findPath(Sector current, List<Sector> path, List<Sector> visited){
+    private List<Sector> findPath(Sector current, List<Sector> path, List<Sector> visited, int cap){
+        cap++;
+        if(cap == 5){
+            return path;
+        }
+
         if(current == null){ return null; }
 
         List<Sector> neighbours = current.getNeighbours(visited);
@@ -100,9 +116,10 @@ public class Zombie extends Sapien implements Zombies{
         for(Sector sector : neighbours){
             path.add(sector);
             visited.add(sector);
-            if(findPath(sector, path, visited) == null){
+            if(findPath(sector, path, visited, cap) == null){
                 path.remove(sector);
                 visited.remove(sector);
+                cap--;
             } else{
                 return path;
             }
@@ -140,7 +157,7 @@ public class Zombie extends Sapien implements Zombies{
             if(j == i){
                 temp.add(neighbours.get(i+1));
                 temp.add(neighbours.get(i));
-                i++;
+                j++;
             }else{
                 temp.add(neighbours.get(i));
             }

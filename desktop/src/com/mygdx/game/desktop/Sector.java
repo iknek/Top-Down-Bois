@@ -70,7 +70,7 @@ public class Sector implements Sectors{
 
         for (int i = indexX-1; i <= indexX+1; i++) {
             for (int j = indexY-1; j <= indexY+1; j++) {
-                Sector neighbour = SectorGrid.getInstance().getMatrix().get(indexY).get(indexX);
+                Sector neighbour = SectorGrid.getInstance().getMatrix().get(j).get(i);
                 if(neighbour.getMovable() && !visited.contains(neighbour)){
                     neighbours.add(neighbour);
                 }

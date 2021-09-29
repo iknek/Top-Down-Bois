@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class Sapien extends Sprite implements Movable{
     protected TextureAtlas textureAtlas;
 
-    protected int angle;
+    protected float angle;
 
     protected float speed;
     protected int health;
