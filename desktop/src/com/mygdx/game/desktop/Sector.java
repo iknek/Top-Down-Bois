@@ -24,8 +24,8 @@ public class Sector implements Sectors{
         this.X = x;
         this.Y = y;
 
-        this.width = w/16;
-        this.height = h/16;
+        this.width = w;
+        this.height = h;
 
         this.movable = true;
     }

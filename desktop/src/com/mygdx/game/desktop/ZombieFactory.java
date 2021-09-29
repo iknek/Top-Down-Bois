@@ -34,7 +34,7 @@ public class ZombieFactory {
         for (int i = 0; i < amount; i++) {
             Random random = new Random();
 
-            int randomInt = random.nextInt(4);
+            int randomInt = random.nextInt(spawnpoints.size());
 
             Spawnpoint spawnpoint = spawnpoints.get(randomInt);
 

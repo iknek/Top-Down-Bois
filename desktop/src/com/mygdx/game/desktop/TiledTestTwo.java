@@ -41,7 +41,7 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         rounds = new Rounds(scale,w, h);
 
-        SectorGrid grid = new SectorGrid(w, h, scale);
+        SectorGrid.createInstance(w, h, scale);
     }
 
     @Override

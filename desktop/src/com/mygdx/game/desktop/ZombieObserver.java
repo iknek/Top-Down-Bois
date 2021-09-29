@@ -14,10 +14,6 @@ public class ZombieObserver {
         return single_instance;
     }
 
-    public List<Zombies> getObservers(){
-        return observers;
-    }
-
     public void attach(Zombies o) {
         observers.add(o);
     }

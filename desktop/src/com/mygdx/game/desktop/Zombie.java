@@ -13,7 +13,7 @@ public class Zombie extends Sapien implements Zombies{
     private float playerX;
     private float playerY;
     private int damage = 1;
-    private List<Sector> path = new CopyOnWriteArrayList<>();
+    private List<Sector> path;
 
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
@@ -32,7 +32,6 @@ public class Zombie extends Sapien implements Zombies{
         ZombieObserver.getInstance().attach(this);
     }
 
-    //Change so that it will follow the path (( ie. find next sector; ))
     protected void updateAngle() {
         if(path != null){
             Sector nextGoal = path.get(0);
@@ -71,28 +70,32 @@ public class Zombie extends Sapien implements Zombies{
             ZombieObserver.getInstance().detach(this);
         }
     }
-    ///////////////////////////////////
 
     private Sector getCurrentSector(){
         return SectorGrid.getInstance().getCurrentSector(getX(), getY());
     }
 
+    //////////////////////////////////////////
+
     public void updatePath(){
         List<Sector> visited = new CopyOnWriteArrayList<>();
+        path = new CopyOnWriteArrayList<>();
+        path.add(getCurrentSector());//delete
 
-        path.add(getCurrentSector());
-
-        path = findPath(getCurrentSector(), path, visited);
+        path = findPath(path.get(0), path, visited);
     }
 
     private List<Sector> findPath(Sector current, List<Sector> path, List<Sector> visited){
+        if(current == null){ return null; }
+
         List<Sector> neighbours = current.getNeighbours(visited);
+        if(neighbours.isEmpty()){ return null;}
+
         if(neighbours.contains(playerSector)){
             path.add(playerSector);
             return path;
         }
         neighbours = sort(neighbours);
-        if(neighbours.isEmpty()){ return null;}
 
         for(Sector sector : neighbours){
             path.add(sector);
@@ -115,7 +118,10 @@ public class Zombie extends Sapien implements Zombies{
                     neighbours = swap(neighbours, i);
                     break;
                 }
-                sorted = true;
+                if(i == neighbours.size()-2){
+                    sorted = true;
+                    break;
+                }
             }
         }
         return neighbours;
