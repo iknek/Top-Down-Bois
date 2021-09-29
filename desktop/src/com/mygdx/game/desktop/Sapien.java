@@ -22,7 +22,6 @@ public abstract class Sapien extends Sprite implements Movable{
         this.setScale(scale);
 
         MovableSubject.getInstance().attach(this);
-        View.getInstance().addSprite(this);
     }
 
     public float getX() {

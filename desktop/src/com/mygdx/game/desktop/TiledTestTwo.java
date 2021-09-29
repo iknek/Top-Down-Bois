@@ -27,6 +27,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         player = new Player(animationTest.getTextureAtlas(),400,400,2);
         playerController = new PlayerController(player);
         camera = View.getInstance().createCamera(w, h);
+        animationTest.create(View.getInstance().getBatch(), "Player/Angle1/running/running.atlas");
 
         rounds = new Rounds(scale,w, h);
     }
@@ -38,7 +39,9 @@ public class TiledTestTwo extends ApplicationAdapter {
         //animationTest.render();
         camera.update();
         View.getInstance().setView(camera);
+
         View.getInstance().render();
+        animationTest.render();
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
 

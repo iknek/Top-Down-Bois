@@ -13,18 +13,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 // Kan vi byta namn?? Kanske till Renderer?
 
 public class View extends OrthogonalTiledMapRenderer {
     // Singleton mönster
     private static View single_instance = null;
-    private ArrayList<Sprite> sprites;
+    private List<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
     private float scale;
 
     //SpriteBatch batch;
-    public AnimationTest animationTest = new AnimationTest();
+    public AnimationTest animationTest;
 
     public static View getInstance() {
         if (single_instance == null)
@@ -35,13 +36,12 @@ public class View extends OrthogonalTiledMapRenderer {
     public static View createInstance(float scale) {
         if (single_instance == null)
             single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
-
         return single_instance;
     }
 
     public View(TiledMap map, float scale) {
         super(map, scale);
-        sprites = new ArrayList<>();
+        sprites = new CopyOnWriteArrayList<>();
     }
 
     @Override
@@ -58,6 +58,10 @@ public class View extends OrthogonalTiledMapRenderer {
         return sprites;
     }
 
+    public Batch getBatch(){
+        return batch;
+    }
+
     @Override
     public void render() {
         beginRender();
@@ -71,8 +75,6 @@ public class View extends OrthogonalTiledMapRenderer {
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
-                        animationTest.createAnimation();
-                        animationTest.render();
                         //elapsedTime += Gdx.graphics.getDeltaTime();
                         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                         //batch.begin();
@@ -86,7 +88,6 @@ public class View extends OrthogonalTiledMapRenderer {
                 }
             }
         }
-        animationTest.dispose();
         endRender();
     }
 
