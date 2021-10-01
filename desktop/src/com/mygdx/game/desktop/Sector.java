@@ -56,6 +56,7 @@ public class Sector implements Sectors{
         return movable;
     }
 
+
     @Override
     public List<Sector> getNeighbours(List<Sector> visited) {
         int indexX=0;
@@ -71,8 +72,36 @@ public class Sector implements Sectors{
         for (int i = indexX-1; i <= indexX+1; i++) {
             for (int j = indexY-1; j <= indexY+1; j++) {
                 Sector neighbour = SectorGrid.getInstance().getMatrix().get(j).get(i);
-                if(neighbour.getMovable() && !visited.contains(neighbour)){
+                if(neighbour.getMovable() && !visited.contains(neighbour) && !neighbour.equals(this)){
                     neighbours.add(neighbour);
+                }else{
+                    neighbours.add(null);
+                }
+            }
+        }
+        return neighbours;
+    }
+
+    public List<Sector> getNeighbours() {
+        int indexX=0;
+        int indexY=0;
+        List<Sector> neighbours = new ArrayList<>();
+        for (ArrayList<Sector> row: SectorGrid.getInstance().getMatrix()) {
+            if(row.contains(this)){
+                indexY = SectorGrid.getInstance().getMatrix().indexOf(row);
+                indexX = row.indexOf(this);
+            }
+        }
+
+        for (int i = indexX-1; i <= indexX+1; i++) {
+            for (int j = indexY-1; j <= indexY+1; j++) {
+                if(j < SectorGrid.getInstance().getMatrix().size() && j >= 0){
+                    if(i < SectorGrid.getInstance().getMatrix().get(j).size() && i >= 0){
+                        Sector neighbour = SectorGrid.getInstance().getMatrix().get(j).get(i);
+                        if(!neighbour.equals(this)){
+                            neighbours.add(neighbour);
+                        }
+                    }
                 }
             }
         }

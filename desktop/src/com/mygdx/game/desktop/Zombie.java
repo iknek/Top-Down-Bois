@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.ArrayList;
@@ -32,27 +33,51 @@ public class Zombie extends Sapien implements Zombies{
         ZombieObserver.getInstance().attach(this);
     }
 
+    //vinklar är fel kanske
     protected void updateAngle() {
-        if(path != null){
-            Sector nextGoal = path.get(1);
+        angle = (float) Math.toDegrees(Math.atan((playerX-getX())/(playerY-getY())));
+
+        float newX = ((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+        float newY = ((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime());
+
+        Sector newSector = SectorGrid.getInstance().getCurrentSector(newX, newY);
+
+        if(newSector != null && !newSector.getMovable()){
+            Sector currentShortest = getCurrentSector();
+            for (Sector sector : getCurrentSector().getNeighbours()){
+                if(sector.getMovable() && newSector.getNeighbours().contains(sector)){
+                    if(distanceFromPlayer(sector) < distanceFromPlayer(currentShortest)){
+                        currentShortest = sector;
+                    }
+                }
+            }
+
+            float goalCenterX = currentShortest.getX()+currentShortest.getWidth()/2;
+            float goalCenterY = currentShortest.getY()+currentShortest.getHeight()/2;
+
+            angle = (float) Math.toDegrees(Math.atan((goalCenterX-getX())/(goalCenterY-getY())));
+        }
+
+
+        /*if(path != null){
+            Sector nextGoal = path.get(0);
 
             if(nextGoal == playerSector){
-                angle = (int) Math.tan((playerX-getX())/(playerY-getY()));
+                angle = (float) Math.toDegrees(Math.atan((playerX-getX())/(playerY-getY())));
             }else{
                 float xDifference = ((nextGoal.getX()+nextGoal.getWidth()/2) - getX());
                 float yDifference = ((nextGoal.getY()+nextGoal.getHeight()/2) - getY());
-                angle = (float) Math.toDegrees(Math.tan(xDifference/yDifference));
+                angle = (float) Math.toDegrees(Math.atan(xDifference/yDifference));
 
                 if(xDifference<0 && yDifference>0){
-                    angle = 360-angle;
+                    angle = 360+angle;
                 }else if(xDifference>0 && yDifference<0){
-                    angle = 180-angle;
-                }else if(xDifference<0 && yDifference<0){
                     angle = 180+angle;
+                }else if(xDifference<0 && yDifference<0){
+                    angle = 180-angle;
                 }
-
             }
-        }
+        }*/
     }
 
     public int getDamage(){
@@ -91,9 +116,9 @@ public class Zombie extends Sapien implements Zombies{
 
         List<Sector> visited = new CopyOnWriteArrayList<>();
         path = new CopyOnWriteArrayList<>();
-        path.add(getCurrentSector());
+        visited.add(getCurrentSector());
 
-        path = findPath(path.get(0), path, visited, cap);
+        path = findPath(getCurrentSector(), path, visited, cap);
     }
 
     private List<Sector> findPath(Sector current, List<Sector> path, List<Sector> visited, int cap){
@@ -127,6 +152,7 @@ public class Zombie extends Sapien implements Zombies{
         return null;
     }
 
+    //fixa??
     private List<Sector> sort(List<Sector> neighbours){
         boolean sorted = false;
         while(!sorted){
