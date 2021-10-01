@@ -78,7 +78,7 @@ public abstract class Sapien extends Sprite implements Movable{
         }
     }
 
-
+//add the diagonal cases here so that we can use our diagonal sprites
     public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
             this.setRegion(this.textureAtlas.findRegion(name + "_forward"));

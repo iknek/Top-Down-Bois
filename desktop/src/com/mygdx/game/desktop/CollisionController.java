@@ -31,6 +31,13 @@ public class CollisionController {
                 if(observer instanceof Zombie){
                     checkZombieCollisions(player, (Zombie)observer);
                 }
+
+                if (observer instanceof Coin) {
+                    if(Intersector.overlaps(player.getBoundingRectangle(), observer.getBoundingRectangle())){
+                        player.coinGained();
+                        ((Coin) observer).remove();
+                    }
+                }
             }
 
             rectangle = scaleBackRectangle(rectangle, scale);

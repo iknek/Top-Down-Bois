@@ -23,7 +23,6 @@ public class ZombieFactory {
         for (RectangleMapObject spawnPointObject : spawnPointObjects.getByType(RectangleMapObject.class)) {
             spawnpoints.add(new Spawnpoint(spawnPointObject, scale));
         }
-
     }
 
     public ArrayList<Zombie> createZombie(int amount, float W, float H, float scale){

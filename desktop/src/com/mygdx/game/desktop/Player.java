@@ -26,6 +26,7 @@ public class Player extends Sapien{
     private Timer timer;
     private int aimAngle;
     private int maxHealth;
+    private int money;
 
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
@@ -115,6 +116,11 @@ public class Player extends Sapien{
         if (triggerPulled) {
             firearm.fire(aimAngle, getX(), getY());
         }
+    }
+
+    public void coinGained() {
+        money = money + 1;
+        System.out.println("Coin gained");
     }
 
     public void setLeft(boolean bool){
