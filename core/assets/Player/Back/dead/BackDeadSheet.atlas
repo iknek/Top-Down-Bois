@@ -1,0 +1,104 @@
+
+BackDeadSheet.png
+size: 1024, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Player Back Sheet-21
+  rotate: false
+  xy: 2, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-22
+  rotate: false
+  xy: 52, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-23
+  rotate: false
+  xy: 102, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-24
+  rotate: false
+  xy: 152, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-25
+  rotate: false
+  xy: 202, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-26
+  rotate: false
+  xy: 252, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-27
+  rotate: false
+  xy: 302, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-28
+  rotate: false
+  xy: 352, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-29
+  rotate: false
+  xy: 402, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-30
+  rotate: false
+  xy: 452, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-31
+  rotate: false
+  xy: 502, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-32
+  rotate: false
+  xy: 552, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-33
+  rotate: false
+  xy: 552, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-34
+  rotate: false
+  xy: 552, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1

@@ -22,12 +22,13 @@ public class TiledTestTwo extends ApplicationAdapter {
         View.createInstance(this.scale);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        //textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/running/running.atlas"));
 
         player = new Player(animationTest.getTextureAtlas(),400,400,2);
         playerController = new PlayerController(player);
         camera = View.getInstance().createCamera(w, h);
-        animationTest.create(View.getInstance().getBatch(), "Player/Angle1/running/running.atlas");
+
+        //animationTest.setAnimation("Player/Front/running/FrontRunningSheet.atlas");
+        //animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/angle1IdleSheet.atlas", player);
 
         rounds = new Rounds(scale,w, h);
     }

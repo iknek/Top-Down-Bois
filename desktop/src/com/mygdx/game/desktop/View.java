@@ -75,11 +75,6 @@ public class View extends OrthogonalTiledMapRenderer {
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
-                        //elapsedTime += Gdx.graphics.getDeltaTime();
-                        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                        //batch.begin();
-                        //batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),400,400);
-                        //batch.end();
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {

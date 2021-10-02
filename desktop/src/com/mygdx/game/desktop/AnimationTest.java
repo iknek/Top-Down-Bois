@@ -10,12 +10,13 @@ public class AnimationTest extends ApplicationAdapter {
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0f;
+    private Sapien player;
 
-    public void create (Batch batch, String string) {
+    public void create (Batch batch, String string, Sapien player) {
         this.batch = batch;
+        this.player = player;
         textureAtlas = new TextureAtlas(Gdx.files.internal(string));
         animation = new Animation(1f/10f, textureAtlas.getRegions());
-
     }
 
     public TextureAtlas getTextureAtlas(){
@@ -33,7 +34,7 @@ public class AnimationTest extends ApplicationAdapter {
         elapsedTime += Gdx.graphics.getDeltaTime();
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),400,400,75,75);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75,75);
         batch.end();
     }
 }

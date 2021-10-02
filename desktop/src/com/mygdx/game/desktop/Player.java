@@ -1,16 +1,8 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
-import com.mygdx.game.desktop.weapons.Revolver;
-import com.mygdx.game.desktop.weapons.Shotgun;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,11 +36,6 @@ public class Player extends Sapien{
         maxHealth = 100;
     }
 
-    /*@Override
-    public void draw(SpriteBatch spriteBatch){
-
-    }*/
-
     protected void updateAngle() {
         if (up && !down && !right && !left) {
             angle = 0;
@@ -61,6 +48,7 @@ public class Player extends Sapien{
         }
         if (!up && down && right && !left) {
             angle = 135;
+
         }
         if (!up && down && !right && !left) {
             angle = 180;
@@ -74,7 +62,6 @@ public class Player extends Sapien{
         if (up && !down && !right && left) {
             angle = 315;
         }
-
         updateAction();
     }
 

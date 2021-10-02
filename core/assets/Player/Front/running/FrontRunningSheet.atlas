@@ -1,76 +1,62 @@
 
-running.png
-size: 1024, 128
+FrontRunningSheet.png
+size: 512, 64
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Player Angle 1 Sheet-10
-  rotate: false
-  xy: 102, 2
-  size: 48, 44
-  orig: 48, 44
-  offset: 0, 0
-  index: -1
-Player Angle 1 Sheet-11
-  rotate: false
-  xy: 616, 68
-  size: 48, 44
-  orig: 48, 44
-  offset: 0, 0
-  index: -1
-Player Angle 1 Sheet-12
-  rotate: false
-  xy: 152, 2
-  size: 48, 44
-  orig: 48, 44
-  offset: 0, 0
-  index: -1
-Player Angle 1 Sheet-13
-  rotate: false
-  xy: 666, 68
-  size: 48, 44
-  orig: 48, 44
-  offset: 0, 0
-  index: -1
-Player Angle 1 Sheet-20
+Player Front Sheet-10
   rotate: false
   xy: 202, 2
   size: 48, 44
   orig: 48, 44
   offset: 0, 0
   index: -1
-Player Angle 1 Sheet-6
+Player Front Sheet-11
+  rotate: false
+  xy: 252, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Front Sheet-12
+  rotate: false
+  xy: 302, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Front Sheet-13
+  rotate: false
+  xy: 352, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Front Sheet-6
   rotate: false
   xy: 2, 2
   size: 48, 44
   orig: 48, 44
   offset: 0, 0
   index: -1
-Player Angle 1 Sheet-7
-  rotate: false
-  xy: 516, 68
-  size: 48, 44
-  orig: 48, 44
-  offset: 0, 0
-  index: -1
-Player Angle 1 Sheet-8
+Player Front Sheet-7
   rotate: false
   xy: 52, 2
   size: 48, 44
   orig: 48, 44
   offset: 0, 0
   index: -1
-Player Angle 1 Sheet-9
+Player Front Sheet-8
   rotate: false
-  xy: 566, 68
+  xy: 102, 2
   size: 48, 44
   orig: 48, 44
   offset: 0, 0
   index: -1
-running
+Player Front Sheet-9
   rotate: false
-  xy: 2, 48
-  size: 512, 64
-  orig: 512, 64
+  xy: 152, 2
+  size: 48, 44
+  orig: 48, 44
   offset: 0, 0
   index: -1
