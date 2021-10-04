@@ -27,8 +27,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         playerController = new PlayerController(player);
         camera = View.getInstance().createCamera(w, h);
 
-        //animationTest.setAnimation("Player/Front/running/FrontRunningSheet.atlas");
-        //animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/angle1IdleSheet.atlas", player);
+        animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/idle.atlas", player);
 
         rounds = new Rounds(scale,w, h);
     }
@@ -42,12 +41,11 @@ public class TiledTestTwo extends ApplicationAdapter {
         View.getInstance().setView(camera);
 
         View.getInstance().render();
-        animationTest.render();
+        animationTest.render(player);
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
 
         ZombieObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
     }
-
 }

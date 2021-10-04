@@ -14,7 +14,6 @@ public abstract class Sapien extends Sprite implements Movable{
     protected float speed;
     protected int health;
     protected String name;
-    public AnimationTest animationTest = new AnimationTest();
 
     public Sapien(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
@@ -82,8 +81,8 @@ public abstract class Sapien extends Sprite implements Movable{
 
     public void changeSprite() {
         if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
-            animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/angle1IdleSheet.atlas", this);
-
+            //animationTest.updateAnimation(View.getInstance().getBatch(),"Player/Angle1/idle/idle.atlas", this);
+            //animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/idle.atlas", this);
             //this.setRegion(this.textureAtlas.findRegion(name + "_forward"));
         }
         if (45 <= angle && angle < 135) {

@@ -26,7 +26,6 @@ public class Player extends Sapien{
         this.name = "Adam";
 
         textureAtlas = atlas;
-        //setRegion(atlas.findRegion(name + "_back"));
 
         this.speed = 55*scale;
 
@@ -48,7 +47,6 @@ public class Player extends Sapien{
         }
         if (!up && down && right && !left) {
             angle = 135;
-
         }
         if (!up && down && !right && !left) {
             angle = 180;
