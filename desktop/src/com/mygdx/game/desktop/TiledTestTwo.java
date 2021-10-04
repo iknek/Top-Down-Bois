@@ -19,7 +19,6 @@ public class TiledTestTwo extends ApplicationAdapter {
     private Player player;
     private float scale;
     private Rounds rounds;
-    private PlayerController playerController;
     FitViewport viewport;
 
 
@@ -39,7 +38,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         camera = View.getInstance().createCamera(w, h);
 
         player = new Player(playerAtlas,w/2,h/2,this.scale);
-        playerController = new PlayerController(player);
+
         viewport = new FitViewport(800, 800, camera);
         rounds = new Rounds(scale,w, h);
     }
@@ -60,5 +59,4 @@ public class TiledTestTwo extends ApplicationAdapter {
         ZombieObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
     }
-
 }

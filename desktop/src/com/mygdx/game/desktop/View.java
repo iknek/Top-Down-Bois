@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-// Kan vi byta namn?? Kanske till Renderer?
 
 public class View extends OrthogonalTiledMapRenderer {
 

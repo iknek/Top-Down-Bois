@@ -18,6 +18,7 @@ public class Coin extends Sprite implements Movable, Zombies{
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
         //Döp om zombie observer och Zombies till något mer passande, Coin vill också veta var player finns
+        //nej
         ZombieObserver.getInstance().attach(this);
     }
 

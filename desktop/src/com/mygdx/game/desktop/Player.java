@@ -28,6 +28,8 @@ public class Player extends Sapien{
     private int maxHealth;
     private int money;
 
+    private PlayerController playerController;
+
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Adam";
@@ -41,6 +43,8 @@ public class Player extends Sapien{
 
         health = 100;
         maxHealth = 100;
+
+        playerController = new PlayerController(this);
     }
 
     protected void updateAngle() {
