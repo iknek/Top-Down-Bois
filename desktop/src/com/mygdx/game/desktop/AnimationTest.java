@@ -123,13 +123,13 @@ public class AnimationTest extends ApplicationAdapter{
             renderRunning();
         }
         /** Shooting */
-        if(player.isShooting() && !collisionController.playerZombieCollision(player)){ //TODO doesn't render shooting if standing still??
+        if(player.isShooting() && !collisionController.playerZombieCollision(player)){ //TODO doesn't render shooting if standing still?? maybe
             renderShooting();
         }
 
         /** Hit */
         if(collisionController.playerZombieCollision(player)){
-            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead.atlas")); //TODO Controlls should be locked for length of animation!!! Otherwise they dont fully play
+            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead.atlas")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
         }
 
         /** Idle */
