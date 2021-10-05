@@ -16,6 +16,7 @@ public class Revolver implements Firearm {
     float rateOfFire = 200;
     private Timer timer;
     private boolean readyToFire = true;
+    private int reloadSpeed = 2000;
 
     @Override
     public void fire(int angle, float x, float y) {
@@ -38,6 +39,10 @@ public class Revolver implements Firearm {
 
     @Override
     public void reloadFirearm() {
+        timer.cancel();
+        readyToFire = false;
+        timer = new Timer();
+        timer.schedule(new RemindTask(), reloadSpeed);
         AmmoInMagazine = 6;
     }
 }
