@@ -109,6 +109,14 @@ public class Player extends Sapien{
         }
     }
 
+    public boolean isShooting(){
+        boolean shooting = false;
+        if(triggerPulled){
+            shooting = true;
+        }
+        return shooting;
+    }
+
     public void setLeft(boolean bool){
         left = bool;
     }

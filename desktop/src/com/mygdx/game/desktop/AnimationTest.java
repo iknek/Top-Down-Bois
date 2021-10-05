@@ -5,12 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class AnimationTest extends ApplicationAdapter{
-    Batch batch;
+    private Batch batch;
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0f;
     private Sapien player;
-    private Zombie zombie;
     private CollisionController collisionController = new CollisionController();
 
     public void create (Batch batch, String string, Sapien player) {
@@ -29,64 +28,118 @@ public class AnimationTest extends ApplicationAdapter{
         textureAtlas.dispose();
     }
 
+    private void renderRunning(){
+        switch(player.angle){
+            case 0:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/running/BackRunningSheet.atlas"));
+                break;
+            case 45:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/running/Angle2RunningSheet.atlas"));
+                break;
+            case 90:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/running/SideRunningSheet.atlas"));
+                break;
+            case 135:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/running/running.atlas"));
+                break;
+            case 180:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/running/FrontRunningSheet.atlas"));
+                break;
+            case 225:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle3/running/running.atlas"));
+                break;
+            case 270:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/running/running.atlas"));
+                break;
+            case 315:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle4/running/running.atlas"));
+                break;
+        }
+    }
+
+    private void renderShooting(){
+        switch(player.angle){
+            case 0:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/shooting/shooting.atlas"));
+                break;
+            case 45:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
+                break;
+            case 90:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/shooting/shooting.atlas"));
+                break;
+            case 135:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
+                break;
+            case 180:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/shooting/shooting.atlas"));
+                break;
+            case 225:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
+                break;
+            case 270:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/shooting/shooting.atlas"));
+                break;
+            case 315:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
+                break;
+        }
+    }
+
+    private void renderIdle(){
+        switch (player.angle){
+            case 0:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/idle/idle.atlas"));
+                break;
+            case 45:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/idle/idle.atlas"));
+                break;
+            case 90:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/idle/idle.atlas"));
+                break;
+            case 135:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/idle/idle.atlas"));
+                break;
+            case 180:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/idle/idle.atlas"));
+                break;
+            case 225:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle3/idle/idle.atlas"));
+                break;
+            case 270:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/idle/idle.atlas"));
+                break;
+            case 315:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle4/idle/idle.atlas"));
+                break;
+        }
+    }
+
     public void render (Player player) {
         elapsedTime += Gdx.graphics.getDeltaTime();
+        int width = 75;
+        float pos = player.getX();
         if(player.moving()){
-            switch(player.angle){
-                case 0:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/running/BackRunningSheet.atlas"));
-                    break;
-                case 45:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/running/Angle2RunningSheet.atlas"));
-                    break;
-                case 90:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/running/SideRunningSheet.atlas"));
-                    break;
-                case 135:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/running/running.atlas"));
-                    break;
-                case 180:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/running/FrontRunningSheet.atlas"));
-                    break;
-                case 225:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/running/running.atlas"));
-                    break;
-                case 270:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/running/running.atlas"));
-                    break;
-                case 315:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/running/running.atlas"));
-                    break;
-            }
+            renderRunning();
         }
-        if(collisionController.playerZombieCollision(player)){ // If player is hit
+        /** Shooting */
+        if(player.isShooting() && !collisionController.playerZombieCollision(player)){ //TODO doesn't render shooting if standing still??
+            renderShooting();
+        }
+
+        /** Hit */
+        if(collisionController.playerZombieCollision(player)){
             textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead.atlas")); //TODO Controlls should be locked for length of animation!!! Otherwise they dont fully play
         }
-        else if(!player.moving() && !collisionController.playerZombieCollision(player)){ //If not hit or moving
-            switch (player.angle){
-                case 0:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/idle/idle.atlas"));
-                    break;
-                case 45:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/idle/idle.atlas"));
-                    break;
-                case 90:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/idle/idle.atlas"));
-                    break;
-                case 135:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/idle/idle.atlas"));
-                    break;
-                case 180:
-                    textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/idle/idle.atlas"));
-                    break;
-                case 225:
-                case 270:
-                case 315:
-            }
+
+        /** Idle */
+        else if(!player.moving() && !collisionController.playerZombieCollision(player)){
+            renderIdle();
         }
+
         batch.begin();
         animation = new Animation(1f/10f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75,75);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),pos,player.getY(),width,75);
         batch.end();
     }
 }

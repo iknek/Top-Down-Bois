@@ -1,0 +1,48 @@
+
+Angle2shootingSheet.png
+size: 256, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Player Angle 2 Sheet-14
+  rotate: false
+  xy: 2, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Angle 2 Sheet-19
+  rotate: false
+  xy: 2, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Angle 2 Sheet-15
+  rotate: false
+  xy: 52, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Angle 2 Sheet-16
+  rotate: false
+  xy: 102, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Angle 2 Sheet-17
+  rotate: false
+  xy: 152, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Angle 2 Sheet-18
+  rotate: false
+  xy: 202, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1

@@ -27,7 +27,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         playerController = new PlayerController(player);
         camera = View.getInstance().createCamera(w, h);
 
-        animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/idle.atlas", player);
+        animationTest.create(View.getInstance().getBatch(), "Player/Angle1/running/running.atlas", player);
 
         rounds = new Rounds(scale,w, h);
     }
