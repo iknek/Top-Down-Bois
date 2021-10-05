@@ -16,6 +16,7 @@ public class AutoRifle implements Firearm {
     float rateOfFire = 600;
     private Timer timer;
     private boolean readyToFire = true;
+    private int reloadSpeed = 2000;
 
     @Override
     public void fire(int angle, float x, float y) {
@@ -30,13 +31,17 @@ public class AutoRifle implements Firearm {
 
     class RemindTask extends TimerTask {
         public void run(){
-            readyToFire = true;
             timer.cancel(); //Terminate the timer thread
+            readyToFire = true;
         }
     }
 
     @Override
     public void reloadFirearm() {
+        timer.cancel();
+        readyToFire = false;
+        timer = new Timer();
+        timer.schedule(new RemindTask(), reloadSpeed);
         AmmoInMagazine = 25;
     }
 }
