@@ -7,13 +7,12 @@ public class Revolver extends Firearm {
     String texture = "bullet.png";
 
     public Revolver(){
-        super(1000, 1, 6, 200, 2000);
+        super(1000, 1, 6, 200, 2000, 6);
     }
 
     @Override
     public void createBullet(int angle, float x, float y) {
         new Projectile(projectileSpeed, angle, x,y, damage, texture);
-        ammoInMagazine = ammoInMagazine - 1;
-
+        ammoInMagazine -= 1;
     }
 }

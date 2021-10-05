@@ -10,21 +10,23 @@ public abstract class Firearm {
     protected int damage;
     private String texture = "bullet.png";
     protected int ammoInMagazine;
+    private int maxAmmo;
     //rounds per minute
     protected float rateOfFire;
     private Timer timer;
     protected boolean readyToFire = true;
     protected int reloadSpeed;
 
-    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed){
+    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo){
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
         this.rateOfFire = rateOfFire;
         this.reloadSpeed = reloadSpeed;
+        this.maxAmmo = maxAmmo;
     }
 
-    public abstract void createBullet(int angle, float x, float y);
+    protected abstract void createBullet(int angle, float x, float y);
 
     public void fire(int angle, float x, float y) {
         if (readyToFire && ammoInMagazine > 0) {
@@ -42,12 +44,11 @@ public abstract class Firearm {
         }
     }
 
-
     public void reloadFirearm() {
         timer.cancel();
         readyToFire = false;
         timer = new Timer();
         timer.schedule(new RemindTask(), reloadSpeed);
-        ammoInMagazine = 6;
+        ammoInMagazine = maxAmmo;
     }
 }

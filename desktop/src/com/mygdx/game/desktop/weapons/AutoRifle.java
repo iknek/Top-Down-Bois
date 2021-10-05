@@ -7,7 +7,7 @@ public class AutoRifle extends Firearm {
     String texture = "bullet.png";
 
     public AutoRifle(){
-        super(1800, 3, 25, 600, 2000);
+        super(1800, 3, 25, 600, 2000, 50);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class Shotgun extends Firearm {
     String texture = "bullet.png";
 
     public Shotgun(){
-        super(1000, 1, 12, 90, 2000);
+        super(1000, 1, 12, 90, 2000, 10);
     }
 
     @Override
