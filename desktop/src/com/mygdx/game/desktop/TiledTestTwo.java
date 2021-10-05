@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class TiledTestTwo extends ApplicationAdapter {
     private OrthographicCamera camera;
     private MovableSubject movableSubject = MovableSubject.getInstance();
+    private ZombieObserver zombieObserver = ZombieObserver.getInstance();
     private CollisionController collisionController = new CollisionController();
     private Player player;
     private float scale;
@@ -56,7 +57,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         View.getInstance().render();
         movableSubject.notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
-        ZombieObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
+        zombieObserver.playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
     }
 }

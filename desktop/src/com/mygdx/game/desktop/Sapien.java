@@ -32,7 +32,7 @@ public abstract class Sapien extends Sprite implements Movable{
         return super.getY();
     }
 
-    public abstract boolean moving();
+    protected abstract boolean moving();
 
     protected abstract void updateAngle();
 

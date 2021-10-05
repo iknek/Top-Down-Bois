@@ -10,7 +10,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     private int angle;
     private int playerX;
     private int playerY;
-    private int magnetDistance = 100;
+    private int magnetDistance = 50;
 
     public Coin(float posX, float posY) {
         super(new Texture(Gdx.files.internal("editedCoin.png")));
