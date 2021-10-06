@@ -13,12 +13,14 @@ public abstract class Sapien extends Sprite implements Movable{
     protected float speed;
     protected int health;
     protected String name;
+    protected float scale;
 
     public Sapien(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
 
         this.setPosition(posX, posY);
         this.setScale(scale);
+        this.scale = scale;
 
         MovableSubject.getInstance().attach(this);
     }
