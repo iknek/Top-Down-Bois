@@ -1,7 +1,7 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,33 +9,37 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 
 public class View extends OrthogonalTiledMapRenderer {
-
     // Singleton mönster
     private static View single_instance = null;
-    private ArrayList<Sprite> sprites;
+    private List<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
-    private float scale;
+    private Animations animations;
 
     public static View getInstance() {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("outside.tmx"), 2);
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 2);
         return single_instance;
     }
 
     public static View createInstance(float scale) {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), scale);
         return single_instance;
     }
 
     public View(TiledMap map, float scale) {
         super(map, scale);
-        sprites = new ArrayList<>();
+        sprites = new CopyOnWriteArrayList<>();
+    }
+
+    public void setAnimations(Animations animations){
+        this.animations = animations;
     }
 
     @Override
@@ -52,6 +56,10 @@ public class View extends OrthogonalTiledMapRenderer {
         return sprites;
     }
 
+    public Batch getBatch(){
+        return batch;
+    }
+
     @Override
     public void render() {
         beginRender();
@@ -61,11 +69,11 @@ public class View extends OrthogonalTiledMapRenderer {
                 if (layer instanceof TiledMapTileLayer) {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
-                    if(currentLayer == drawSpritesAfterLayer){
-
+                    if(currentLayer == 8){
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
+                        animations.render();
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
@@ -76,7 +84,7 @@ public class View extends OrthogonalTiledMapRenderer {
         }
         endRender();
     }
-
+    /** Maybe move to main?  */
     public OrthographicCamera createCamera(float w, float h){
 
         OrthographicCamera camera = new OrthographicCamera();

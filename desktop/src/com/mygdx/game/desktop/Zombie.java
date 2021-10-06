@@ -1,7 +1,6 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import java.util.Random;
 
 public class Zombie extends Sapien implements Zombies{
@@ -25,6 +24,7 @@ public class Zombie extends Sapien implements Zombies{
         health = 2;
 
         ZombieObserver.getInstance().attach(this);
+        addSprite();
     }
 
     protected void updateAngle() {
@@ -33,6 +33,10 @@ public class Zombie extends Sapien implements Zombies{
         if(angle < 0){
             angle += 360;
         }
+    }
+
+    public void addSprite(){
+        View.getInstance().addSprite(this);
     }
 
     public int getDamage(){

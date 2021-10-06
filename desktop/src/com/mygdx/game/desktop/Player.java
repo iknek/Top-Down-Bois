@@ -1,14 +1,9 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
-import com.mygdx.game.desktop.weapons.Revolver;
-import com.mygdx.game.desktop.weapons.Shotgun;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,7 +30,6 @@ public class Player extends Sapien{
         this.name = "Adam";
 
         textureAtlas = atlas;
-        setRegion(atlas.findRegion(name + "_back"));
 
         this.speed = 55*scale;
 
@@ -72,7 +66,6 @@ public class Player extends Sapien{
         if (up && !down && !right && left) {
             angle = 315;
         }
-
         updateAction();
     }
 
@@ -122,6 +115,14 @@ public class Player extends Sapien{
         }
     }
 
+    public boolean isShooting(){
+        boolean shooting = false;
+        if(triggerPulled){
+            shooting = true;
+        }
+        return shooting;
+    }
+
     public void coinGained() {
         money = money + 1;
         System.out.println("Coin gained");
@@ -157,5 +158,13 @@ public class Player extends Sapien{
 
     public void reload(){
         firearm.reloadFirearm();
+    }
+
+    @Override
+    public Rectangle getBoundingRectangle(){
+        Rectangle rectangle = super.getBoundingRectangle();
+        float newX = rectangle.getX() + 15*scale;
+        float newY = rectangle.getY() + 3*scale;
+        return new Rectangle(newX,newY,rectangle.getWidth(),rectangle.getHeight());
     }
 }

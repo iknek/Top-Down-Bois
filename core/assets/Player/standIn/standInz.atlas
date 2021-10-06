@@ -1,0 +1,13 @@
+
+standInz.png
+size: 32, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Player Angle 1 Sheet-0
+  rotate: false
+  xy: 2, 2
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1

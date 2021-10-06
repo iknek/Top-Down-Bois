@@ -8,7 +8,6 @@ public class Rounds {
     private float w;
     private float h;
 
-
     public Rounds (float scale, float w, float h){
         this.roundNumber = 0;
         this.scale = scale;
@@ -33,6 +32,6 @@ public class Rounds {
     private void startNewRound(Player player){
         roundNumber++;
         player.addHealth(1);
-        zombiefactory.createZombie(roundNumber*5, w, h, scale);
+        zombiefactory.createZombie(roundNumber*5, scale);
     }
 }

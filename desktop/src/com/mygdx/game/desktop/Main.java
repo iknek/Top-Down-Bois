@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         int scale = 2;
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "hello-world";
-        cfg.width = 400*scale;
-        cfg.height = 400*scale;
+        cfg.title = "Wild West ";
+        cfg.width = 640*scale;
+        cfg.height = 640*scale;
         new LwjglApplication(new TiledTestTwo(scale), cfg);
     }
 }

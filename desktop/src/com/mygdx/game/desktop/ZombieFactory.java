@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 public class ZombieFactory {
 
-    ArrayList<Zombie> zombies;
+    private ArrayList<Zombie> zombies;
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
     public ZombieFactory(float scale){
@@ -25,7 +25,7 @@ public class ZombieFactory {
         }
     }
 
-    public ArrayList<Zombie> createZombie(int amount, float W, float H, float scale){
+    public ArrayList<Zombie> createZombie(int amount, float scale){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
 
         zombies = new ArrayList<>();
