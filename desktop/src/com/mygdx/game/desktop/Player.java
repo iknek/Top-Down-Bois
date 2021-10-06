@@ -111,7 +111,7 @@ public class Player extends Sapien{
 
     private void updateAction() {
         if (triggerPulled) {
-            firearm.fire(aimAngle, getX(), getY());
+            firearm.fire(aimAngle, getX() + 15 + getWidth()/2, getY() + 3 + getHeight()/2);
         }
     }
 
@@ -157,11 +157,11 @@ public class Player extends Sapien{
         }
     }
 
-    @Override
+    /*@Override
     public Rectangle getBoundingRectangle(){
         Rectangle rectangle = super.getBoundingRectangle();
         float newX = rectangle.getX() + 15*scale;
         float newY = rectangle.getY() + 3*scale;
         return new Rectangle(newX,newY,rectangle.getWidth(),rectangle.getHeight());
-    }
+    }*/
 }

@@ -18,8 +18,8 @@ public class View extends OrthogonalTiledMapRenderer {
     private Animations animations;
 
     public static View getInstance() {
-        if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 4);
+        /*if (single_instance == null)
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 4);*/
         return single_instance;
     }
 

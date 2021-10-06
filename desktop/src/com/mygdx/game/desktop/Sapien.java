@@ -58,6 +58,14 @@ public abstract class Sapien extends Sprite implements Movable{
     @Override
     public void collide(Rectangle rectangle) {
         if(!(rectangle.getY() > this.getY()+(this.getHeight()/2))){
+            /*Rectangle bounding = getBoundingRectangle();
+
+            float x = bounding.getX();
+            float y = bounding.getX();
+            float width = bounding.getX();
+            float height = bounding.getX();
+            */
+
             translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
 

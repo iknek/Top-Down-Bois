@@ -103,7 +103,7 @@ public class Animations extends ApplicationAdapter{
 
         //batch.begin();
         animation = new Animation(1f/10f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75/2,75/2);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75*player.scale/2,75*player.scale/2);
         //batch.end();
     }
 
