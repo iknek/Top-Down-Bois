@@ -4,22 +4,17 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 
-public class AnimationTest extends ApplicationAdapter{
+public class Animations extends ApplicationAdapter{
     private Batch batch;
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0f;
-    private Sapien player;
+    private Player player;
     private CollisionController collisionController = new CollisionController();
 
-    public void create (Batch batch, String string, Sapien player) {
+    public Animations (Batch batch, Player player) {
         this.batch = batch;
         this.player = player;
-        textureAtlas = new TextureAtlas(Gdx.files.internal(string));
-    }
-
-    public TextureAtlas getTextureAtlas(){
-        return new TextureAtlas(Gdx.files.internal("Player/Angle1/running/running.atlas"));
     }
 
     @Override
@@ -57,35 +52,6 @@ public class AnimationTest extends ApplicationAdapter{
         }
     }
 
-    private void renderShooting(){
-        switch(player.angle){
-            case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/shooting/shooting.atlas"));
-                break;
-            case 45:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-            case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/shooting/shooting.atlas"));
-                break;
-            case 135:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/shooting/shooting.atlas"));
-                break;
-            case 225:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/shooting/shooting.atlas"));
-                break;
-            case 315:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-        }
-    }
-
     private void renderIdle(){
         switch (player.angle){
             case 0:
@@ -115,17 +81,17 @@ public class AnimationTest extends ApplicationAdapter{
         }
     }
 
-    public void render (Player player) {
+    public void render () {
         elapsedTime += Gdx.graphics.getDeltaTime();
         int width = 75;
         float pos = player.getX();
         if(player.moving()){
             renderRunning();
         }
-        /** Shooting */
+        /* Shooting
         if(player.isShooting() && !collisionController.playerZombieCollision(player)){ //TODO doesn't render shooting if standing still?? maybe
             renderShooting();
-        }
+        }*/
 
         /** Hit */
         if(collisionController.playerZombieCollision(player)){
@@ -137,9 +103,40 @@ public class AnimationTest extends ApplicationAdapter{
             renderIdle();
         }
 
-        batch.begin();
+        //batch.begin();
         animation = new Animation(1f/10f, textureAtlas.getRegions());
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),pos,player.getY(),width,75);
-        batch.end();
+        //batch.end();
     }
+
+    /*
+    private void renderShooting(){
+        switch(player.angle){
+            case 0:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/shooting/shooting.atlas"));
+                break;
+            case 45:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
+                break;
+            case 90:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/shooting/shooting.atlas"));
+                break;
+            case 135:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
+                break;
+            case 180:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/shooting/shooting.atlas"));
+                break;
+            case 225:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
+                break;
+            case 270:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/shooting/shooting.atlas"));
+                break;
+            case 315:
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
+                break;
+        }
+    }*/
+
 }

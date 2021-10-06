@@ -1,7 +1,6 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import java.util.Random;
 
 public class Zombie extends Sapien implements Zombies{

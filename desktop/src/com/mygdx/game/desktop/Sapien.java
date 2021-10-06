@@ -10,7 +10,6 @@ public abstract class Sapien extends Sprite implements Movable{
     protected TextureAtlas textureAtlas;
 
     protected int angle;
-
     protected float speed;
     protected int health;
     protected String name;
@@ -41,7 +40,6 @@ public abstract class Sapien extends Sprite implements Movable{
     @Override
     public void update() {
         updateAngle();
-        changeSprite();
 
         if (moving()) {
             translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
@@ -75,24 +73,6 @@ public abstract class Sapien extends Sprite implements Movable{
                 if(getY()+(getHeight()/2) < rectangle.getY()){ translateY(-1); }
                 if(rectangle.getY()+rectangle.getHeight() < getY()){ translateY(1); }
             }
-        }
-    }
-
-
-    public void changeSprite() {
-        if (315 <= angle && angle <= 360 || 0 <= angle && angle < 45) {
-            //animationTest.updateAnimation(View.getInstance().getBatch(),"Player/Angle1/idle/idle.atlas", this);
-            //animationTest.create(View.getInstance().getBatch(), "Player/Angle1/idle/idle.atlas", this);
-            //this.setRegion(this.textureAtlas.findRegion(name + "_forward"));
-        }
-        if (45 <= angle && angle < 135) {
-            //this.setRegion(this.textureAtlas.findRegion(name + "_right"));
-        }
-        if (135 <= angle && angle < 225) {
-            //this.setRegion(this.textureAtlas.findRegion(name + "_back"));
-        }
-        if (225 <= angle && angle < 315) {
-            //this.setRegion(this.textureAtlas.findRegion(name + "_left"));
         }
     }
 }

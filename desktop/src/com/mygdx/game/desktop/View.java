@@ -14,31 +14,33 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 // Kan vi byta namn?? Kanske till Renderer?
 
+
 public class View extends OrthogonalTiledMapRenderer {
     // Singleton mönster
     private static View single_instance = null;
     private List<Sprite> sprites;
     private int drawSpritesAfterLayer = 3;
-    private float scale;
-
-    //SpriteBatch batch;
-    public AnimationTest animationTest;
+    private Animations animations;
 
     public static View getInstance() {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("outside.tmx"), 2);
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 2);
         return single_instance;
     }
 
     public static View createInstance(float scale) {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("outside.tmx"), scale);
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), scale);
         return single_instance;
     }
 
     public View(TiledMap map, float scale) {
         super(map, scale);
         sprites = new CopyOnWriteArrayList<>();
+    }
+
+    public void setAnimations(Animations animations){
+        this.animations = animations;
     }
 
     @Override
@@ -68,10 +70,11 @@ public class View extends OrthogonalTiledMapRenderer {
                 if (layer instanceof TiledMapTileLayer) {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
-                    if(currentLayer == 2){
+                    if(currentLayer == 8){
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
+                        animations.render();
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
@@ -82,7 +85,7 @@ public class View extends OrthogonalTiledMapRenderer {
         }
         endRender();
     }
-
+    /** Maybe move to main?  */
     public OrthographicCamera createCamera(float w, float h){
 
         OrthographicCamera camera = new OrthographicCamera();

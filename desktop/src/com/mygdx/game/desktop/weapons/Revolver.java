@@ -35,7 +35,6 @@ public class Revolver implements Firearm {
         }
     }
 
-
     @Override
     public void reloadFirearm() {
         AmmoInMagazine = 6;
