@@ -12,9 +12,11 @@ public class Coin extends Sprite implements Movable, Zombies{
     private int playerY;
     private int magnetDistance = 50;
 
-    public Coin(float posX, float posY) {
+    public Coin(float posX, float posY, float scale) {
         super(new Texture(Gdx.files.internal("editedCoin.png")));
         this.setPosition(posX,posY);
+        this.setScale(scale/2);
+
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
         //Döp om zombie observer och Zombies till något mer passande, Coin vill också veta var player finns

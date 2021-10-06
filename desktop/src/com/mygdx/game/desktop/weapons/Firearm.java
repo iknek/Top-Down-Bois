@@ -16,14 +16,16 @@ public abstract class Firearm {
     private Timer timer;
     protected boolean readyToFire = true;
     protected int reloadSpeed;
+    protected float scale;
 
-    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo){
+    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo, float scale){
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
         this.rateOfFire = rateOfFire;
         this.reloadSpeed = reloadSpeed;
         this.maxAmmo = maxAmmo;
+        this.scale = scale/2;
     }
 
     protected abstract void createBullet(int angle, float x, float y);

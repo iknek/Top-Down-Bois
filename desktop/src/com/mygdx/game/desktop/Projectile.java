@@ -10,9 +10,11 @@ public class Projectile extends Sprite implements Movable {
     private double ySpeed;
     private int damage;
 
-    public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, String texturePath) {
+    public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, String texturePath, float scale) {
         super(new Texture(Gdx.files.internal(texturePath)));
         rotate(180-angle);
+        this.setScale(scale);
+
         this.setPosition(posX, posY);
         this.damage = damage;
         xSpeed = Math.sin(Math.toRadians(angle)) * projectileSpeed;

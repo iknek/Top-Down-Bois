@@ -60,7 +60,7 @@ public class Zombie extends Sapien implements Zombies{
             View.getInstance().removeSprite(this);
             MovableSubject.getInstance().detach(this);
             ZombieObserver.getInstance().detach(this);
-            new Coin(this.getX(),this.getY());
+            new Coin(this.getX(),this.getY(), scale);
         }
     }
 }

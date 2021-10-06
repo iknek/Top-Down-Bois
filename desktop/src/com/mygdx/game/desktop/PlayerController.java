@@ -39,13 +39,13 @@ public class PlayerController implements InputProcessor{
                 player.reload();
                 break;
             case Input.Keys.NUM_1 :
-                player.setFirearm(new Revolver());
+                player.setFirearm(new Revolver(player.scale));
                 break;
             case Input.Keys.NUM_2 :
-                player.setFirearm(new Shotgun());
+                player.setFirearm(new Shotgun(player.scale));
                 break;
             case Input.Keys.NUM_3 :
-                player.setFirearm(new AutoRifle());
+                player.setFirearm(new AutoRifle(player.scale));
                 break;
         }
         return true;

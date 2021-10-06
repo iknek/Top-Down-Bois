@@ -83,8 +83,6 @@ public class Animations extends ApplicationAdapter{
 
     public void render () {
         elapsedTime += Gdx.graphics.getDeltaTime();
-        int width = 75;
-        float pos = player.getX();
         if(player.moving()){
             renderRunning();
         }
@@ -105,7 +103,7 @@ public class Animations extends ApplicationAdapter{
 
         //batch.begin();
         animation = new Animation(1f/10f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),pos,player.getY(),width,75);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75/2,75/2);
         //batch.end();
     }
 
