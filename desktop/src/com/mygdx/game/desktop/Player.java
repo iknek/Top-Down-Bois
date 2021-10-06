@@ -1,6 +1,7 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
 
@@ -147,5 +148,13 @@ public class Player extends Sapien{
 
     public void reload(){
         firearm.reloadFirearm();
+    }
+
+    @Override
+    public Rectangle getBoundingRectangle(){
+        Rectangle rectangle = super.getBoundingRectangle();
+        float newX = rectangle.getX() + 15*scale;
+        float newY = rectangle.getY() + 3*scale;
+        return new Rectangle(newX,newY,rectangle.getWidth(),rectangle.getHeight());
     }
 }

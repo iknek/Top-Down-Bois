@@ -24,6 +24,7 @@ public class CollisionController {
             rectangle = scaleRectangle(rectangle, scale);
 
             for (Movable observer : movableSubject.getObservers()){
+
                 if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
                     observer.collide(rectangle);
                 }
