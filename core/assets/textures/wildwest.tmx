@@ -606,16 +606,16 @@
   <object id="30" x="577.625" y="228.083" width="12.75" height="4.75"/>
   <object id="31" x="581.818" y="96.6364" width="22.0909" height="7.54545"/>
   <object id="32" x="355" y="7.3125" width="25.6875" height="17.8125"/>
-  <object id="33" x="48.7273" y="487.818" width="31.0909" height="13.7273"/>
-  <object id="34" x="442" y="325.364" width="60.4545" height="1.36364"/>
-  <object id="35" x="441.773" y="276.045" width="60.4545" height="1.36364"/>
+  <object id="33" x="49.3523" y="491.818" width="29.9034" height="17.0398"/>
+  <object id="34" x="441.545" y="325.364" width="60.909" height="6.18182"/>
+  <object id="35" x="441.773" y="277.045" width="60.4545" height="6.18182"/>
   <object id="36" x="179.545" y="449.409" width="25.1818" height="19.7727"/>
   <object id="37" x="51.5341" y="291.114" width="25.1818" height="18.2727"/>
   <object id="38" x="531.284" y="529.614" width="25.1818" height="20.0227"/>
-  <object id="39" x="441.636" y="276.364" width="5.45455" height="49.8182"/>
+  <object id="39" x="441.636" y="277.091" width="5.45455" height="49.0909"/>
   <object id="40" x="439.909" y="290" width="1.54545" height="19"/>
-  <object id="41" x="497.091" y="277.364" width="5" height="48"/>
+  <object id="41" x="497.091" y="277.364" width="5" height="49.1818"/>
   <object id="43" x="502.273" y="289.818" width="1.63636" height="18.7273"/>
-  <object id="48" x="323.455" y="383.653" width="24.5455" height="12.7784"/>
+  <object id="48" x="323.455" y="383.653" width="24.5455" height="16.0284"/>
  </objectgroup>
 </map>
