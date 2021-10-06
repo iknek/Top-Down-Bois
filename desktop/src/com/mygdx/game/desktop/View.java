@@ -34,8 +34,8 @@ public class View extends OrthogonalTiledMapRenderer {
         sprites = new CopyOnWriteArrayList<>();
     }
 
-    public void setAnimations(Animations animations){
-        this.animations = animations;
+    public void setAnimations(Player player){
+        this.animations = new Animations(getBatch(), player);
     }
 
     @Override

@@ -54,7 +54,7 @@ public abstract class Sapien extends Sprite implements Movable{
         this.setY(posY);
     }
 
-
+    //////////////////TODO FIX PLS//////////////////////////
     @Override
     public void collide(Rectangle rectangle) {
         if(!(rectangle.getY() > this.getY()+(this.getHeight()/2))){

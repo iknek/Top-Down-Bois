@@ -15,7 +15,6 @@ public class TiledTestTwo extends ApplicationAdapter {
     private Player player;
     private float scale;
     private Rounds rounds;
-    private Animations animations;
     FitViewport viewport;
 
 
@@ -32,8 +31,7 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),w/2,h/2,scale);
 
-        animations = new Animations(View.getInstance().getBatch(), player);
-        View.getInstance().setAnimations(animations);
+        View.getInstance().setAnimations(player);
 
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
@@ -47,7 +45,6 @@ public class TiledTestTwo extends ApplicationAdapter {
 
     @Override
     public void render () {
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         View.getInstance().setView(camera);
         View.getInstance().render();
