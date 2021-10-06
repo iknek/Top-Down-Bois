@@ -12,18 +12,14 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
-
 public class View extends OrthogonalTiledMapRenderer {
-    // Singleton mönster
     private static View single_instance = null;
     private List<Sprite> sprites;
-    private int drawSpritesAfterLayer = 3;
     private Animations animations;
 
     public static View getInstance() {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 2);
+            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), 4);
         return single_instance;
     }
 
@@ -69,7 +65,7 @@ public class View extends OrthogonalTiledMapRenderer {
                 if (layer instanceof TiledMapTileLayer) {
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
-                    if(currentLayer == 8){
+                    if(currentLayer == 9){
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }

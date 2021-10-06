@@ -115,14 +115,6 @@ public class Player extends Sapien{
         }
     }
 
-    public boolean isShooting(){
-        boolean shooting = false;
-        if(triggerPulled){
-            shooting = true;
-        }
-        return shooting;
-    }
-
     public void coinGained() {
         money = money + 1;
         System.out.println("Coin gained");
@@ -157,7 +149,12 @@ public class Player extends Sapien{
     }
 
     public void reload(){
-        firearm.reloadFirearm();
+        try{
+            firearm.reloadFirearm();
+        }
+        catch( Exception NullPointerException){
+            System.out.println("Reloading full mags doesn't work!");
+        }
     }
 
     @Override

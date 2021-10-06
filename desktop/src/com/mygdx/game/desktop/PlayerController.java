@@ -92,8 +92,8 @@ public class PlayerController implements InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        int adjustedX = (int) player.getX()*(Gdx.graphics.getWidth()/800);
-        int adjustedY = (int) player.getY()*(Gdx.graphics.getHeight()/800);
+        int adjustedX = (int) player.getX()*(Gdx.graphics.getWidth()/640);
+        int adjustedY = (int) player.getY()*(Gdx.graphics.getHeight()/640);
 
         int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()-adjustedY-screenY, screenX-adjustedX));
         aimAngle += 90;
@@ -106,8 +106,8 @@ public class PlayerController implements InputProcessor{
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        int adjustedX = (int) player.getX()*(Gdx.graphics.getWidth()/800);
-        int adjustedY = (int) player.getY()*(Gdx.graphics.getHeight()/800);
+        int adjustedX = (int) player.getX()*(Gdx.graphics.getWidth()/640);
+        int adjustedY = (int) player.getY()*(Gdx.graphics.getHeight()/640);
 
         int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()-adjustedY-screenY, screenX-adjustedX));
         aimAngle += 90;
