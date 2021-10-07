@@ -10,6 +10,16 @@ public class Projectile extends Sprite implements Movable {
     private double ySpeed;
     private int damage;
 
+    /**
+     * Constrcutor for projectiles (bullets)
+     * @param projectileSpeed = speed of projectile
+     * @param angle = angle it's fired at.
+     * @param posX = its X position
+     * @param posY = its Y position
+     * @param damage = amount of damage it deals
+     * @param texturePath = path to textureatlas (png)
+     * @param scale = scale of image/projectile
+     */
     public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, String texturePath, float scale) {
         super(new Texture(Gdx.files.internal(texturePath)));
         rotate(180-angle);
@@ -34,12 +44,19 @@ public class Projectile extends Sprite implements Movable {
         return damage;
     }
 
+    /**
+     * Moves projectile
+     */
     @Override
     public void update() {
         translateX((float) (xSpeed * Gdx.graphics.getDeltaTime()));
         translateY((float) (ySpeed * Gdx.graphics.getDeltaTime()));
     }
 
+    /**
+     * removes instance of projectile when it collides with something.
+     * @param rectangle = rectangle projectile collides with
+     */
     @Override
     public void collide(Rectangle rectangle) {
         View.getInstance().removeSprite(this);
