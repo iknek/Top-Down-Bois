@@ -31,6 +31,7 @@ public class View extends OrthogonalTiledMapRenderer {
 
     public View(TiledMap map, float scale) {
         super(map, scale);
+
         sprites = new CopyOnWriteArrayList<>();
     }
 

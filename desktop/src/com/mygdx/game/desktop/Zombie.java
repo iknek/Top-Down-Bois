@@ -9,6 +9,14 @@ public class Zombie extends Sapien implements Zombies{
     private int playerY;
     private int damage = 1;
 
+    /**
+     * @param atlas = textureatlas of zombie.
+     * @param posX = X coordinate to spawn it in on.
+     * @param posY = Y coordinate to spawn it in on.
+     * @param scale = Scale of atlas.
+     * Constructor for ZombieFactory.
+     */
+
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
@@ -27,6 +35,10 @@ public class Zombie extends Sapien implements Zombies{
         addSprite();
     }
 
+    /**
+     * Updates what angle the zombie is moving in.
+     */
+
     protected void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
         angle -= 90;
@@ -34,7 +46,9 @@ public class Zombie extends Sapien implements Zombies{
             angle += 360;
         }
     }
-
+    /**
+     * Adds sprite to instance of view.
+     */
     public void addSprite(){
         View.getInstance().addSprite(this);
     }
@@ -47,13 +61,22 @@ public class Zombie extends Sapien implements Zombies{
     public boolean moving(){
         return true;
     }
-
+    /**
+     * @param x
+     * @param y
+     * Gives zombie player location for pathfinding.
+     */
     @Override
     public void playerLocation(int x, int y) {
         playerX = x;
         playerY = y;
     }
 
+    /**
+     * @param damage
+     * Method for what happens when zombie gets hit. If damage excedes health, zombie is removed from instance
+     * and drops a coin.
+     */
     public void getHit(int damage){
         health = health - damage;
         if (health <= 0){

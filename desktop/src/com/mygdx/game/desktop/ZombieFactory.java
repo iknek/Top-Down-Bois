@@ -16,6 +16,10 @@ public class ZombieFactory {
     private ArrayList<Zombie> zombies;
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
 
+    /**
+     * @param scale = scale of spawnpoint rectangle object
+     * Constructor for ZombieFactory.
+     */
     public ZombieFactory(float scale){
         MapLayer spawnPointLayer = View.getInstance().getMap().getLayers().get("spawntiles");
         MapObjects spawnPointObjects = spawnPointLayer.getObjects();
@@ -25,6 +29,11 @@ public class ZombieFactory {
         }
     }
 
+    /**
+     * @param scale = scale of zombies
+     * @param amount = amount of zombies to loop thru
+     * Creates zombies by looping thru @param amount, assigning the zombie to a random spawnpoint
+     */
     public ArrayList<Zombie> createZombie(int amount, float scale){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
 
