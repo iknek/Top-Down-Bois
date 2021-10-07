@@ -151,7 +151,7 @@ public class Player extends Sapien{
      */
     private void updateAction() {
         if (triggerPulled) {
-            firearm.fire(aimAngle, getX() + getWidth()/2, getY() + getHeight()/2);
+            firearm.fire(aimAngle, getX() + 16/2, getY() + 16/2);
         }
     }
 

@@ -62,9 +62,9 @@ public class Zombie extends Sapien implements Zombies{
         return true;
     }
     /**
+     * Gives zombie player location for pathfinding.
      * @param x
      * @param y
-     * Gives zombie player location for pathfinding.
      */
     @Override
     public void playerLocation(int x, int y) {
