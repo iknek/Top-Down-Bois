@@ -12,17 +12,28 @@ public class Animations extends ApplicationAdapter{
     private Player player;
     private CollisionController collisionController = new CollisionController();
 
+    /**
+     * constructor for animations
+     * @param batch = animations batch
+     * @param player = player
+     */
     public Animations (Batch batch, Player player) {
         this.batch = batch;
         this.player = player;
     }
 
+    /**
+     * Disposes of textureatlas and batch
+     */
     @Override
     public void dispose() {
         batch.dispose();
         textureAtlas.dispose();
     }
 
+    /**
+     * Switch statement that sets textureatlas according to direction the player is running.
+     */
     private void renderRunning(){
         switch(player.angle){
             case 0:
@@ -52,6 +63,9 @@ public class Animations extends ApplicationAdapter{
         }
     }
 
+    /**
+     * Switch statement that sets textureatlas according to direction the player is standing idle in.
+     */
     private void renderIdle(){
         switch (player.angle){
             case 0:
@@ -81,22 +95,18 @@ public class Animations extends ApplicationAdapter{
         }
     }
 
+    /**
+     * Render method that sets the tetureatlas according to if the player is moving, idle, or hit.
+     * Starts a looping animation and draws a batch with it.
+     */
     public void render () {
         elapsedTime += Gdx.graphics.getDeltaTime();
         if(player.moving()){
             renderRunning();
         }
-        /* Shooting
-        if(player.isShooting() && !collisionController.playerZombieCollision(player)){ //TODO doesn't render shooting if standing still?? maybe
-            renderShooting();
-        }*/
-
-        /** Hit */
         if(collisionController.playerZombieCollision(player)){
             textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead.atlas")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
         }
-
-        /** Idle */
         else if(!player.moving() && !collisionController.playerZombieCollision(player)){
             renderIdle();
         }
