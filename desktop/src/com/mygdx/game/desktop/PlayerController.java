@@ -11,11 +11,20 @@ import com.mygdx.game.desktop.weapons.Shotgun;
 public class PlayerController implements InputProcessor{
     private Player player;
 
+    /**
+     * Constructor
+     * @param player = player
+     */
     public PlayerController(Player player){
         this.player = player;
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * Checks which key is being pressed and returns boolean for corresponding action
+     * @param keycode = input from keyboard
+     * @return boolean
+     */
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -51,6 +60,11 @@ public class PlayerController implements InputProcessor{
         return true;
     }
 
+    /**
+     *  Checks which key(s) has been released and sets boolean for corresponding action to false.
+     * @param keycode = keyboard input
+     * @return boolean
+     */
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode) {
@@ -73,23 +87,51 @@ public class PlayerController implements InputProcessor{
         return true;
     }
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
+    /**
+     * Checks if mouse button is clicked and returns true for firing projectiles.
+     * @param screenX = where on screen x plane
+     * @param screenY = where on screen y plane
+     * @param pointer = mouse pointer
+     * @param button = button pressed
+     * @return boolean
+     */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         player.setTriggerPulled(true);
         return true;
     }
 
+    /**
+     * LIBGDX default method
+     * @param character
+     * @return boolean
+     */
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    /**
+     * Checks if mouse button is let go and returns false for firing projectiles.
+     * @param screenX = where on screen x plane
+     * @param screenY = where on screen y plane
+     * @param pointer = mouse pointer
+     * @param button = button pressed
+     * @return boolean
+     */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         player.setTriggerPulled(false);
         return true;
     }
 
+    /**
+     * Checks if mouse is being dragged and updates angle projectiles are shot at
+     * @param screenX = where on screen x plane
+     * @param screenY = where on screen y plane
+     * @param pointer = mouse pointer
+     * @return
+     */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()- player.getY()-screenY, screenX-player.getX()));
@@ -101,6 +143,12 @@ public class PlayerController implements InputProcessor{
         return true;
     }
 
+    /**
+     * Checks if mouse is moved and updates angle projectiles are shot at
+     * @param screenX
+     * @param screenY
+     * @return
+     */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()- player.getY()-screenY, screenX-player.getX()));
@@ -112,6 +160,12 @@ public class PlayerController implements InputProcessor{
         return true;
     }
 
+    /**
+     * Default LIBGDX method
+     * @param amountX
+     * @param amountY
+     * @return boolean = false
+     */
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
