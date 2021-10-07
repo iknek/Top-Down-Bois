@@ -101,10 +101,8 @@ public class Animations extends ApplicationAdapter{
             renderIdle();
         }
 
-        //batch.begin();
         animation = new Animation(1f/13f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX(),player.getY(),75*player.scale/2,75*player.scale/2);
-        //batch.end();
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX()-15,player.getY()-3,(int)(75*player.scale/2),(int)(75*player.scale/2));
     }
 
     /*

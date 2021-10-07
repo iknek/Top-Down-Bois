@@ -22,6 +22,10 @@ public class TiledTestTwo extends ApplicationAdapter {
         this.scale = scale;
     }
 
+    /**
+     * Creates the bare essentials of the program such as the View the player and rounds
+     * Also gives the view the instance of player in order to create animations.
+     */
     @Override
     public void create () {
         View.createInstance(this.scale);
@@ -38,11 +42,24 @@ public class TiledTestTwo extends ApplicationAdapter {
         rounds = new Rounds(scale, w, h);
     }
 
+    /**
+     * When the window gets resized it configures the viewport so that the program does not glitch out.
+     * @param width the width of the window
+     * @param height the height of the window
+     */
     @Override
     public void resize(int width, int height) {
        viewport.update(width,height);
     }
 
+    /**
+     * The render method is called on loop. This is the continuous game loop.
+     * First the camera is updated and the render method is called in View(which renders the map and sprites)
+     * Then, using observer pattern, all movable subjects are told to update. This includes the player, zombies and projectiles.
+     * Collision controller is called to check al possible collisions and handle the logic behind that.
+     * All zombies are then notified of the players position so that they can find their way.
+     * Lastly rounds check if a new round needs to start and does if needed.
+     */
     @Override
     public void render () {
         camera.update();
