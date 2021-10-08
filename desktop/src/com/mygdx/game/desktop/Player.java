@@ -54,6 +54,8 @@ public class Player extends Sapien{
         playerController = new PlayerController(this);
 
         this.animations = new Animations(View.getInstance().getBatch(), this);
+        View.getInstance().addSprite(this);
+
     }
 
     /**

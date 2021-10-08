@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ public class Zombie extends Sapien implements Zombies{
     private int playerX;
     private int playerY;
     private int damage = 1;
+    private ZombieAnimations animations;
 
     /**
      * @param atlas = textureatlas of zombie.
@@ -31,27 +33,26 @@ public class Zombie extends Sapien implements Zombies{
 
         health = 2;
 
+        this.animations = new ZombieAnimations(View.getInstance().getBatch(), this);
+
         ZombieObserver.getInstance().attach(this);
-        addSprite();
+        View.getInstance().addSprite(this);
+    }
+
+    @Override
+    public void draw(Batch batch) {
+        animations.render();
     }
 
     /**
      * Updates what angle the zombie is moving in.
      */
-
     protected void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
         angle -= 90;
         if(angle < 0){
             angle += 360;
         }
-    }
-
-    /**
-     * Adds sprite to instance of view.
-     */
-    public void addSprite(){
-        View.getInstance().addSprite(this);
     }
 
     public int getDamage(){

@@ -105,7 +105,7 @@ public class Animations extends ApplicationAdapter{
             renderRunning();
         }
         if(collisionController.playerZombieCollision(player)){
-            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead.atlas")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
+            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
         }
         else if(!player.moving() && !collisionController.playerZombieCollision(player)){
             renderIdle();

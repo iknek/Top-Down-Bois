@@ -78,8 +78,8 @@ public class ZombieAnimations extends ApplicationAdapter{
     public void render () {
         elapsedTime += Gdx.graphics.getDeltaTime();
         renderRunning();
-        animation = new Animation(1f/15f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX()-15,zombie.getY()-3,(int)(75*zombie.scale/2),(int)(75*zombie.scale/2));
+        animation = new Animation(1f/20f, textureAtlas.getRegions());
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX()-15,zombie.getY()-3,(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
     }
 
     /*
