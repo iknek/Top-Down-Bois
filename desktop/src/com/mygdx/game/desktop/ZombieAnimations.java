@@ -18,7 +18,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     private float elapsedTime = 0f;
     private Zombie zombie;
     private CollisionController collisionController = new CollisionController();
-    private boolean running;
+    private float startHitTime;
 
     /**
      * Constructor for {@link ZombieAnimations} class.
@@ -80,15 +80,36 @@ public class ZombieAnimations extends ApplicationAdapter{
         }
     }
 
+    boolean hitting = false;
+
     /**
      * Sets the {@link TextureAtlas} depending on if the {@link Zombie} is moving, idle, or being hit.
      * Starts a looping animation and draws a {@link Batch} with it.
      */
     public void render () {
-        elapsedTime += Gdx.graphics.getDeltaTime();
-        renderRunning();
-        animation = new Animation(1f/20f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX()-15,zombie.getY()-3,(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
-    }
+        animation = new Animation(1f/20f, (new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions()));
 
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
+
+        if(elapsedTime > animation.getAnimationDuration() && elapsedTime-startHitTime > animation.getAnimationDuration()){
+            hitting = false;
+            startHitTime = 0;
+        }
+
+        if(zombie.nearPlayer() < 25* zombie.scale || hitting){
+            if(startHitTime == 0){
+                startHitTime = elapsedTime;
+                hitting = true;
+            }
+            zombie.setMoving(false);
+            renderHit();
+        } else{
+            zombie.setMoving(true);
+            renderRunning();
+        }
+
+        animation = new Animation(1f/20f, textureAtlas.getRegions());
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
+    }
 }

@@ -27,7 +27,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     /**
      * Distance for this object to move towards the {@link Player}.
      */
-    private int magnetDistance = 50;
+    private int magnetDistance = 25;
     /**
      * Speed for this object.
      */
@@ -45,6 +45,7 @@ public class Coin extends Sprite implements Movable, Zombies{
         super(new Texture(Gdx.files.internal("editedCoin.png")));
         this.setPosition(posX,posY);
         this.setScale(scale/2);
+        this.magnetDistance *= scale;
 
         this.speed = 100;
 

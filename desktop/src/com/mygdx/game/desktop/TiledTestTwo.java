@@ -1,6 +1,7 @@
 package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -61,6 +62,8 @@ public class TiledTestTwo extends ApplicationAdapter {
     @Override
     public void render () {
         camera.update();
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         View.getInstance().setView(camera);
         View.getInstance().render();
         movableSubject.notifyUpdate();
