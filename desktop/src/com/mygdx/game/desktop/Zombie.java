@@ -116,4 +116,8 @@ public class Zombie extends Sapien implements Zombies{
         return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));
     }
 
+    public float getSpeed(){
+        return speed;
+    }
+
 }

@@ -15,6 +15,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     private Zombie zombie;
     private CollisionController collisionController = new CollisionController();
     private float startHitTime;
+    boolean hitting = false;
 
     /**
      * constructor for animations
@@ -76,8 +77,6 @@ public class ZombieAnimations extends ApplicationAdapter{
         }
     }
 
-    boolean hitting = false;
-
     /**
      * Render method that sets the textureatlas according to if the player is moving, idle, or hit.
      * Starts a looping animation and draws a batch with it.
@@ -87,13 +86,15 @@ public class ZombieAnimations extends ApplicationAdapter{
 
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-
         if(elapsedTime > animation.getAnimationDuration() && elapsedTime-startHitTime > animation.getAnimationDuration()){
+            if(zombie.nearPlayer() < 25*zombie.scale){
+                //register hit on player
+            }
             hitting = false;
             startHitTime = 0;
         }
 
-        if(zombie.nearPlayer() < 25* zombie.scale || hitting){
+        if(zombie.nearPlayer() < 25*zombie.scale || hitting){
             if(startHitTime == 0){
                 startHitTime = elapsedTime;
                 hitting = true;
