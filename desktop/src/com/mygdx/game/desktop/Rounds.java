@@ -1,5 +1,10 @@
 package com.mygdx.game.desktop;
 
+
+/**
+ * The Rounds class represents every group of {@link Zombie} objects spawning in. Once all zombies are killed, a new round starts
+ * with new zombies spawning in with increased health, for the sake of increased difficulty.
+ */
 public class Rounds {
     private ZombieFactory zombiefactory;
     private float scale;
@@ -9,10 +14,10 @@ public class Rounds {
     private float h;
 
     /**
-     * Constructor for rounds
-     * @param scale = scale of zombie factory
-     * @param w = width of screen
-     * @param h = height of screen
+     * Constructor for the {@link Rounds} class.
+     * @param scale scale of zombie factory
+     * @param w width of screen
+     * @param h height of screen
      */
     public Rounds (float scale, float w, float h){
         this.roundNumber = 0;
@@ -23,8 +28,8 @@ public class Rounds {
     }
 
     /**
-     * Checks if any zombies are left. If there aren't, and a player isn't dead, it makes a new round
-     * @param player = player
+     * Checks if any {@link Zombie} objects remain on the map. If there aren't while the player isn't dead, it starts a new round.
+     * @param player current games' {@link Player} object
      */
     public void checkNewRound(Player player){
         int zombiesLeft = 0;
@@ -39,8 +44,8 @@ public class Rounds {
     }
 
     /**
-     * Starts new round by adding to roundnumber, adding 1 to player health, and calling zombie factory
-     * @param player = player
+     * Starts new round by increasing <code>roundnumber</code>, adding 1 to player health, and calling {@link ZombieFactory} to create new {@link Zombie} objects.
+     * @param player current games {@link Player} object
      */
     private void startNewRound(Player player){
         roundNumber++;

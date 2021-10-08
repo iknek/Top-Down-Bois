@@ -5,6 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
+
+/**
+ * A Coin drops from killed {@link Zombie} objects, and slowly move towards the {@link Player}.
+ * Upon collision with the player, this object disappears and increases the player's currency counter.
+ */
 public class Coin extends Sprite implements Movable, Zombies{
 
     private int angle;
@@ -14,8 +19,8 @@ public class Coin extends Sprite implements Movable, Zombies{
     private int speed;
 
     /**
-     * Constructor for the Coin class
-     * Sets the texture as well as intial position
+     * Constructor for the {@link Coin} class.
+     * Sets the {@link Texture} and initial position for this object.
      * @param posX is the initial X-coordinate of the coin
      * @param posY is the initial Y-coordinate of the coin
      * @param scale is the program scale so that the coin is the correct size relative to everything else
@@ -35,7 +40,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * This method updates the angle so that it will move towards the player
+     * Updates the angle so that it will move towards the {@link Player}.
      */
     private void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
@@ -46,7 +51,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * This method moves the coin towards the player.
+     * Moves this object towards the {@link Player}.
      */
     @Override
     public void update() {
@@ -58,25 +63,26 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * This method calculates the distance between the player and the coin so that there is a magnet distance
-     * @return
+     * Calculates the distance between the {@link Player} and this object for the magnet.
+     * @return distance between player and this object
      */
     private int distanceToPlayer() {
         return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));
     }
 
     /**
-     * This method is a setter for the strength of the magnet
-     * @param distance is the strength we want the magnet to be
+     * Sets the strength of the magnet.
+     * @param distance desired strength of the magnet
      */
-    //Kan användas för "enhanced coin magnet" perk
+    // Kan användas för "enhanced coin magnet" perk
+    // Döpa om till "setMagnetStrength"?
     public void setMagnetDistance(int distance){
         this.magnetDistance = distance;
     }
 
     /**
-     * This method handles the logic when a coin collides with collision objects of the map
-     * @param rectangle
+     * Handles collision between this object and other collision objects on the map.
+     * @param rectangle object colliding with this object.
      */
     @Override
     public void collide(Rectangle rectangle) {
@@ -108,8 +114,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * This method removes the instance of the coin from the program by removing it from all lists.
-     * This means that it will not render or move anymore
+     * Removes the instance of this object from the program by removing it from all lists, stopping it from rendering or moving.
      */
     public void remove(){
         View.getInstance().removeSprite(this);
@@ -118,9 +123,9 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * Gives the coin player location for pathfinding.
-     * @param x is the X-coordinate of the player
-     * @param y is the Y-coordinate of the player
+     * Gives this object the {@link Player} location for pathfinding.
+     * @param x x-coordinate of the player
+     * @param y y-coordinate of the player
      */
     @Override
     public void playerLocation(int x, int y) {
