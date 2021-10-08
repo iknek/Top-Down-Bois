@@ -24,6 +24,8 @@ public class CollisionController {
      * @param scale the scale of the whole program
      */
     public void checkCollisions(View view, Player player, float scale){
+        boolean playerHit = false;
+
         MovableSubject movableSubject = MovableSubject.getInstance();
 
         MapLayer collisionObjectLayer = view.getMap().getLayers().get("collision");
@@ -41,7 +43,7 @@ public class CollisionController {
                 }
 
                 if(observer instanceof Zombie){
-                    checkZombieCollisions(player, (Zombie)observer);
+                    if(checkZombieCollisions(player, (Zombie)observer)){playerHit = true;}
                 }
 
                 if (observer instanceof Coin) {
@@ -53,6 +55,7 @@ public class CollisionController {
             }
             rectangle = scaleBackRectangle(rectangle, scale);
         }
+        player.setPlayerHit(playerHit);
     }
 
     /**
@@ -89,7 +92,7 @@ public class CollisionController {
      * @param player the instance of player in the program
      * @param zombie the zombie instance which is being checked
      */
-    private void checkZombieCollisions(Player player, Zombie zombie){
+    private boolean checkZombieCollisions(Player player, Zombie zombie){
         for (Movable o: MovableSubject.getInstance().getObservers()) {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
@@ -100,25 +103,9 @@ public class CollisionController {
         }
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
             player.getHit(zombie.getDamage());
+            return true;
         }
-    }
-
-    /**
-     * This method checks if the player has been hit by any zombie for the animation class.
-     * @param player the instance of the player
-     * @return a boolean of whether the player has been hit or not
-     */
-    public boolean playerZombieCollision(Player player) {
-        boolean hit = false;
-        MovableSubject movableSubject = MovableSubject.getInstance();
-        for (Movable observer : movableSubject.getObservers()) {
-            if (observer instanceof Zombie) {
-                if(checkPlayerZombieCollision(player, (Zombie) observer)){
-                    hit = true;
-                }
-            }
-        }
-        return hit;
+        return false;
     }
 
     /**

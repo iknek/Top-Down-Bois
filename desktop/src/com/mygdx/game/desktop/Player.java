@@ -25,6 +25,8 @@ public class Player extends Sapien{
     private int money;
     private Animations animations;
 
+    private boolean playerHit;
+
 
     private PlayerController playerController;
 
@@ -242,5 +244,13 @@ public class Player extends Sapien{
         catch( Exception NullPointerException){
             System.out.println("Reloading full mags doesn't work!");
         }
+    }
+
+    public void setPlayerHit(boolean bool){
+        playerHit = bool;
+    }
+
+    public boolean getPlayerHit(){
+        return playerHit;
     }
 }
