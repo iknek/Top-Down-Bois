@@ -4,7 +4,7 @@ import com.mygdx.game.desktop.Projectile;
 
 public class Shotgun extends Firearm {
 
-    String texture = "bullet.png";
+    private String texture = "bullet.png";
 
     /**
      * Constructor for the Shotgun class. It calls the constructor of the superclass with its specific values

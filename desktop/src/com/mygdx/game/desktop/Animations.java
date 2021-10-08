@@ -10,7 +10,6 @@ public class Animations extends ApplicationAdapter{
     private Animation animation;
     private float elapsedTime = 0f;
     private Player player;
-    private CollisionController collisionController = new CollisionController();
 
     /**
      * constructor for animations
@@ -104,10 +103,9 @@ public class Animations extends ApplicationAdapter{
         if(player.moving()){
             renderRunning();
         }
-        if(collisionController.playerZombieCollision(player)){
+        if(player.getPlayerHit()){
             textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
-        }
-        else if(!player.moving() && !collisionController.playerZombieCollision(player)){
+        } else if(!player.moving()){
             renderIdle();
         }
 

@@ -10,6 +10,7 @@ public class Zombie extends Sapien implements Zombies{
     private int playerY;
     private int damage = 1;
     private int renderAngle;
+    private boolean moving;
     private ZombieAnimations animations;
 
     /**
@@ -33,6 +34,8 @@ public class Zombie extends Sapien implements Zombies{
 
         health = 2;
         this.renderAngle = 0;
+
+        moving = true;
 
         this.animations = new ZombieAnimations(View.getInstance().getBatch(), this);
 
@@ -61,6 +64,10 @@ public class Zombie extends Sapien implements Zombies{
         if(angle > 225 && angle < 315){ renderAngle = 270;}
     }
 
+    public void setMoving(boolean bool){
+        this.moving = bool;
+    }
+
     public int getRenderAngle(){
         return renderAngle;
     }
@@ -71,7 +78,7 @@ public class Zombie extends Sapien implements Zombies{
 
     @Override
     public boolean moving(){
-        return true;
+        return moving;
     }
 
     /**
@@ -99,4 +106,14 @@ public class Zombie extends Sapien implements Zombies{
             new Coin(this.getX(),this.getY(), scale);
         }
     }
+
+
+    /**
+     * This method calculates the distance between the player and the zombie for animations
+     * @return int
+     */
+    public int nearPlayer() {
+        return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));
+    }
+
 }
