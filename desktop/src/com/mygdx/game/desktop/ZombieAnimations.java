@@ -35,7 +35,8 @@ public class ZombieAnimations extends ApplicationAdapter{
      * Switch statement that sets textureatlas according to direction the zombie is running.
      */
     private void renderRunning(){
-        switch(zombie.angle){
+
+        switch(zombie.getRenderAngle()){
             case 0:
                 textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
                 break;
@@ -55,7 +56,7 @@ public class ZombieAnimations extends ApplicationAdapter{
      * Switch statement that sets textureatlas according to direction the player is standing idle in.
      */
     private void renderHit(){
-        switch (zombie.angle){
+        switch (zombie.getRenderAngle()){
             case 0:
                 textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Back/hitting/hitting"));
                 break;
@@ -81,35 +82,5 @@ public class ZombieAnimations extends ApplicationAdapter{
         animation = new Animation(1f/20f, textureAtlas.getRegions());
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX()-15,zombie.getY()-3,(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
     }
-
-    /*
-    private void renderShooting(){
-        switch(player.angle){
-            case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/shooting/shooting.atlas"));
-                break;
-            case 45:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-            case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/shooting/shooting.atlas"));
-                break;
-            case 135:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/shooting/shooting.atlas"));
-                break;
-            case 225:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/shooting/shooting.atlas"));
-                break;
-            case 315:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-        }
-    }*/
 
 }

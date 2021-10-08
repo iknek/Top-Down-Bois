@@ -9,6 +9,7 @@ public class Zombie extends Sapien implements Zombies{
     private int playerX;
     private int playerY;
     private int damage = 1;
+    private int renderAngle;
     private ZombieAnimations animations;
 
     /**
@@ -18,7 +19,6 @@ public class Zombie extends Sapien implements Zombies{
      * @param scale = Scale of atlas.
      * Constructor for ZombieFactory.
      */
-
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
@@ -32,6 +32,7 @@ public class Zombie extends Sapien implements Zombies{
         this.speed = (25 + randomInt*2)*scale;
 
         health = 2;
+        this.renderAngle = 0;
 
         this.animations = new ZombieAnimations(View.getInstance().getBatch(), this);
 
@@ -53,6 +54,15 @@ public class Zombie extends Sapien implements Zombies{
         if(angle < 0){
             angle += 360;
         }
+
+        if((angle > 315 && angle < 360) || (angle >= 0 && angle < 45)){ renderAngle = 0;}
+        if(angle > 45 && angle < 135){ renderAngle = 90;}
+        if(angle > 135 && angle < 225){ renderAngle = 180;}
+        if(angle > 225 && angle < 315){ renderAngle = 270;}
+    }
+
+    public int getRenderAngle(){
+        return renderAngle;
     }
 
     public int getDamage(){
