@@ -4,6 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ZombieAnimations extends ApplicationAdapter{
     private Batch batch;
     private TextureAtlas textureAtlas;
@@ -11,6 +14,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     private float elapsedTime = 0f;
     private Zombie zombie;
     private CollisionController collisionController = new CollisionController();
+    private boolean running;
 
     /**
      * constructor for animations
@@ -73,7 +77,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Render method that sets the tetureatlas according to if the player is moving, idle, or hit.
+     * Render method that sets the textureatlas according to if the player is moving, idle, or hit.
      * Starts a looping animation and draws a batch with it.
      */
     public void render () {
