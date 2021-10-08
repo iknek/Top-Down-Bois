@@ -98,6 +98,7 @@ public class PlayerController implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         player.setTriggerPulled(true);
+        System.out.println((screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight()));
         return true;
     }
 
@@ -134,7 +135,11 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()- player.getY()-screenY, screenX-player.getX()));
+
+        float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
+        float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
+
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;
@@ -151,7 +156,10 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(Gdx.graphics.getHeight()- player.getY()-screenY, screenX-player.getX()));
+        float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
+        float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
+
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;
