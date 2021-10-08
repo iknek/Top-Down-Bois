@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class Revolver extends Firearm {
 
-    String texture = "bullet.png";
+    private String texture = "bullet.png";
 
     /**
      * Constructor for the Revolver class. It calls the constructor of the superclass with its specific values
