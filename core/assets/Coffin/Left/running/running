@@ -1,0 +1,104 @@
+
+running.png
+size: 128, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Coffin Side Sheet-10
+  rotate: false
+  xy: 0, 0
+  size: 31, 38
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-11
+  rotate: false
+  xy: 32, 82
+  size: 31, 38
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-12
+  rotate: false
+  xy: 66, 125
+  size: 31, 38
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-13
+  rotate: false
+  xy: 33, 206
+  size: 31, 39
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-14
+  rotate: false
+  xy: 0, 80
+  size: 30, 40
+  orig: 74, 70
+  offset: 35, 17
+  index: -1
+Coffin Side Sheet-15
+  rotate: false
+  xy: 33, 164
+  size: 30, 40
+  orig: 74, 70
+  offset: 35, 17
+  index: -1
+Coffin Side Sheet-16
+  rotate: false
+  xy: 0, 40
+  size: 31, 38
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-17
+  rotate: false
+  xy: 66, 206
+  size: 31, 39
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-18
+  rotate: false
+  xy: 0, 122
+  size: 31, 39
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-19
+  rotate: false
+  xy: 33, 123
+  size: 31, 39
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-6
+  rotate: false
+  xy: 65, 165
+  size: 31, 39
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-7
+  rotate: false
+  xy: 0, 163
+  size: 31, 40
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-8
+  rotate: false
+  xy: 0, 205
+  size: 31, 40
+  orig: 74, 70
+  offset: 34, 17
+  index: -1
+Coffin Side Sheet-9
+  rotate: false
+  xy: 33, 43
+  size: 31, 37
+  orig: 74, 70
+  offset: 34, 17
+  index: -1

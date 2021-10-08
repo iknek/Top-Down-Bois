@@ -69,28 +69,28 @@ public class Animations extends ApplicationAdapter{
     private void renderIdle(){
         switch (player.angle){
             case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/idle/idle"));
                 break;
             case 45:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/idle/idle"));
                 break;
             case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/idle/idle"));
                 break;
             case 135:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/idle/idle"));
                 break;
             case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/idle/idle"));
                 break;
             case 225:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle3/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle3/idle/idle"));
                 break;
             case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/idle/idle"));
                 break;
             case 315:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle4/idle/idle.atlas"));
+                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle4/idle/idle"));
                 break;
         }
     }

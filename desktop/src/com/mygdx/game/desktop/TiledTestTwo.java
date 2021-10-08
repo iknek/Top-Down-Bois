@@ -35,8 +35,6 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),w/2,h/2,scale);
 
-        View.getInstance().setAnimations(player);
-
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
         rounds = new Rounds(scale, w, h);

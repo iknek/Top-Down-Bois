@@ -1,0 +1,132 @@
+
+hitting.png
+size: 128, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Coffin Side Sheet-20
+  rotate: false
+  xy: 73, 164
+  size: 31, 39
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-21
+  rotate: false
+  xy: 0, 0
+  size: 31, 40
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-22
+  rotate: false
+  xy: 0, 42
+  size: 32, 41
+  orig: 74, 70
+  offset: 8, 17
+  index: -1
+Coffin Side Sheet-23
+  rotate: false
+  xy: 0, 202
+  size: 45, 40
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-24
+  rotate: false
+  xy: 0, 163
+  size: 39, 37
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-25
+  rotate: false
+  xy: 87, 205
+  size: 38, 37
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-26
+  rotate: false
+  xy: 47, 205
+  size: 38, 37
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-27
+  rotate: false
+  xy: 0, 85
+  size: 38, 37
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-28
+  rotate: false
+  xy: 0, 124
+  size: 38, 37
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-29
+  rotate: false
+  xy: 33, 1
+  size: 31, 39
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-30
+  rotate: false
+  xy: 40, 115
+  size: 22, 46
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-31
+  rotate: false
+  xy: 34, 42
+  size: 22, 41
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Side Sheet-32
+  rotate: false
+  xy: 64, 122
+  size: 30, 39
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-33
+  rotate: false
+  xy: 58, 42
+  size: 30, 38
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-34
+  rotate: false
+  xy: 41, 163
+  size: 30, 37
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-35
+  rotate: false
+  xy: 96, 84
+  size: 30, 37
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-36
+  rotate: false
+  xy: 64, 82
+  size: 30, 38
+  orig: 74, 70
+  offset: 9, 17
+  index: -1
+Coffin Side Sheet-37
+  rotate: false
+  xy: 96, 123
+  size: 30, 39
+  orig: 74, 70
+  offset: 9, 17
+  index: -1

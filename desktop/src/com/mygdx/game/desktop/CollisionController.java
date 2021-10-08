@@ -94,12 +94,10 @@ public class CollisionController {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
             }
-
             if(o instanceof Zombie && o != zombie){
                 zombieCollideZombie(o, zombie);
             }
         }
-
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
             player.getHit(zombie.getDamage());
         }

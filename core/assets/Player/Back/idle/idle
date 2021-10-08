@@ -1,0 +1,48 @@
+
+idle.png
+size: 512, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Player Back Sheet-0
+  rotate: false
+  xy: 2, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-1
+  rotate: false
+  xy: 202, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-2
+  rotate: false
+  xy: 102, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-3
+  rotate: false
+  xy: 252, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-4
+  rotate: false
+  xy: 152, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+Player Back Sheet-5
+  rotate: false
+  xy: 52, 2
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1

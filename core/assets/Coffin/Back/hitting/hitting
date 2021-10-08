@@ -1,0 +1,132 @@
+
+hitting.png
+size: 128, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Coffin Back Sheet-20
+  rotate: false
+  xy: 0, 0
+  size: 26, 40
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-21
+  rotate: false
+  xy: 0, 85
+  size: 24, 41
+  orig: 74, 70
+  offset: 16, 17
+  index: -1
+Coffin Back Sheet-22
+  rotate: false
+  xy: 0, 128
+  size: 22, 44
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-23
+  rotate: false
+  xy: 0, 174
+  size: 22, 53
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-24
+  rotate: false
+  xy: 24, 184
+  size: 25, 43
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-25
+  rotate: false
+  xy: 24, 140
+  size: 25, 42
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-26
+  rotate: false
+  xy: 78, 185
+  size: 25, 42
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-27
+  rotate: false
+  xy: 51, 185
+  size: 25, 42
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-28
+  rotate: false
+  xy: 0, 42
+  size: 25, 41
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-29
+  rotate: false
+  xy: 80, 143
+  size: 25, 40
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Back Sheet-30
+  rotate: false
+  xy: 26, 98
+  size: 26, 40
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-31
+  rotate: false
+  xy: 51, 143
+  size: 27, 40
+  orig: 74, 70
+  offset: 13, 17
+  index: -1
+Coffin Back Sheet-32
+  rotate: false
+  xy: 54, 102
+  size: 27, 39
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-33
+  rotate: false
+  xy: 57, 62
+  size: 28, 38
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-34
+  rotate: false
+  xy: 87, 63
+  size: 28, 37
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-35
+  rotate: false
+  xy: 28, 19
+  size: 28, 37
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-36
+  rotate: false
+  xy: 27, 58
+  size: 28, 38
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Back Sheet-37
+  rotate: false
+  xy: 83, 102
+  size: 27, 39
+  orig: 74, 70
+  offset: 14, 17
+  index: -1

@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
@@ -22,6 +23,8 @@ public class Player extends Sapien{
     private int aimAngle;
     private int maxHealth;
     private int money;
+    private Animations animations;
+
 
     private PlayerController playerController;
 
@@ -49,6 +52,8 @@ public class Player extends Sapien{
         maxHealth = 100;
 
         playerController = new PlayerController(this);
+
+        this.animations = new Animations(View.getInstance().getBatch(), this);
     }
 
     /**
@@ -80,6 +85,11 @@ public class Player extends Sapien{
             angle = 315;
         }
         updateAction();
+    }
+
+    @Override
+    public void draw(Batch batch) {
+        animations.render();
     }
 
     /**

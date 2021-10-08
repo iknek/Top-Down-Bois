@@ -1,0 +1,132 @@
+
+hitting.png
+size: 128, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Coffin Front Sheet-20
+  rotate: false
+  xy: 0, 41
+  size: 26, 40
+  orig: 74, 70
+  offset: 16, 17
+  index: -1
+Coffin Front Sheet-21
+  rotate: false
+  xy: 25, 141
+  size: 24, 45
+  orig: 74, 70
+  offset: 17, 17
+  index: -1
+Coffin Front Sheet-22
+  rotate: false
+  xy: 0, 128
+  size: 23, 49
+  orig: 74, 70
+  offset: 16, 17
+  index: -1
+Coffin Front Sheet-23
+  rotate: false
+  xy: 0, 179
+  size: 23, 55
+  orig: 74, 70
+  offset: 16, 1
+  index: -1
+Coffin Front Sheet-24
+  rotate: false
+  xy: 25, 188
+  size: 24, 46
+  orig: 74, 70
+  offset: 15, 8
+  index: -1
+Coffin Front Sheet-25
+  rotate: false
+  xy: 77, 191
+  size: 24, 43
+  orig: 74, 70
+  offset: 15, 11
+  index: -1
+Coffin Front Sheet-26
+  rotate: false
+  xy: 51, 145
+  size: 24, 43
+  orig: 74, 70
+  offset: 15, 11
+  index: -1
+Coffin Front Sheet-27
+  rotate: false
+  xy: 77, 146
+  size: 24, 43
+  orig: 74, 70
+  offset: 15, 11
+  index: -1
+Coffin Front Sheet-28
+  rotate: false
+  xy: 51, 190
+  size: 24, 44
+  orig: 74, 70
+  offset: 15, 11
+  index: -1
+Coffin Front Sheet-29
+  rotate: false
+  xy: 0, 83
+  size: 24, 43
+  orig: 74, 70
+  offset: 15, 13
+  index: -1
+Coffin Front Sheet-30
+  rotate: false
+  xy: 103, 153
+  size: 25, 39
+  orig: 74, 70
+  offset: 15, 17
+  index: -1
+Coffin Front Sheet-31
+  rotate: false
+  xy: 103, 194
+  size: 25, 40
+  orig: 74, 70
+  offset: 15, 17
+  index: -1
+Coffin Front Sheet-32
+  rotate: false
+  xy: 103, 112
+  size: 25, 39
+  orig: 74, 70
+  offset: 15, 17
+  index: -1
+Coffin Front Sheet-33
+  rotate: false
+  xy: 56, 105
+  size: 28, 38
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Front Sheet-34
+  rotate: false
+  xy: 58, 66
+  size: 28, 37
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Front Sheet-35
+  rotate: false
+  xy: 28, 62
+  size: 28, 37
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Front Sheet-36
+  rotate: false
+  xy: 26, 101
+  size: 28, 38
+  orig: 74, 70
+  offset: 14, 17
+  index: -1
+Coffin Front Sheet-37
+  rotate: false
+  xy: 0, 0
+  size: 27, 39
+  orig: 74, 70
+  offset: 15, 17
+  index: -1

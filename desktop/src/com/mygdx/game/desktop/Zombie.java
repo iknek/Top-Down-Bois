@@ -46,6 +46,7 @@ public class Zombie extends Sapien implements Zombies{
             angle += 360;
         }
     }
+
     /**
      * Adds sprite to instance of view.
      */
@@ -61,6 +62,7 @@ public class Zombie extends Sapien implements Zombies{
     public boolean moving(){
         return true;
     }
+
     /**
      * Gives zombie player location for pathfinding.
      * @param x

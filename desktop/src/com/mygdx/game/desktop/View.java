@@ -47,14 +47,6 @@ public class View extends OrthogonalTiledMapRenderer {
     }
 
     /**
-     * Creates an instance of the animation class which handles animations for the player
-     * @param player the instance of the player which the animations are centred around
-     */
-    public void setAnimations(Player player){
-        this.animations = new Animations(getBatch(), player);
-    }
-
-    /**
      * returns the map
      * @return The map of the program
      */
@@ -111,7 +103,6 @@ public class View extends OrthogonalTiledMapRenderer {
                         for(Sprite sprite : sprites) {
                             sprite.draw(this.batch);
                         }
-                        animations.render();
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
