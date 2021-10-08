@@ -9,14 +9,30 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * A Coin drops from killed {@link Zombie} objects, and slowly move towards the {@link Player}.
  * Upon collision with the player, this object disappears and increases the player's currency counter.
+ * The Coins movement towards the player is referred to as the Coins "magnet".
  */
 public class Coin extends Sprite implements Movable, Zombies{
-
+    /**
+     * Angle for this objects directional movement.
+     */
     private int angle;
+    /**
+     * {@link Player} objects current x-coordinate
+     */
     private int playerX;
+    /**
+     * {@link Player} objects current x-coordinate
+     */
     private int playerY;
+    /**
+     * Distance for this object to move towards the {@link Player}.
+     */
     private int magnetDistance = 50;
+    /**
+     * Speed for this object.
+     */
     private int speed;
+
 
     /**
      * Constructor for the {@link Coin} class.
@@ -40,7 +56,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * Updates the angle so that it will move towards the {@link Player}.
+     * Updates the angle so this object moves towards the {@link Player}.
      */
     private void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
