@@ -16,11 +16,12 @@ public abstract class Sapien extends Sprite implements Movable{
     protected float scale;
 
     /**
-     * @param atlas = textureatlas of sapien.
-     * @param posX = X coordinate to spawn it in on.
-     * @param posY = Y coordinate to spawn it in on.
-     * @param scale = Scale of atlas.
-     * Superconstructor for sapiens. */
+     * Superconstructor for {@link Sapien} objects.
+     * @param atlas = {@link TextureAtlas} of this object.
+     * @param posX = x-coordinate to spawn this object on.
+     * @param posY = y-coordinate to spawn this object on.
+     * @param scale = scaling factor of {@link TextureAtlas}.
+     */
 
     public Sapien(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas.getRegions().get(0));
@@ -66,7 +67,7 @@ public abstract class Sapien extends Sprite implements Movable{
 
     /**
      * Checks for collision between sapien and collision map object layer
-     * @param rectangle
+     * @param rectangle collision box for incoming collision object
      */
     @Override
     public void collide(Rectangle rectangle) {
