@@ -17,11 +17,11 @@ public class Coin extends Sprite implements Movable, Zombies{
      */
     private int angle;
     /**
-     * {@link Player} objects current x-coordinate
+     * {@link Player} objects current x-coordinate.
      */
     private int playerX;
     /**
-     * {@link Player} objects current x-coordinate
+     * {@link Player} objects current x-coordinate.
      */
     private int playerY;
     /**
@@ -37,9 +37,9 @@ public class Coin extends Sprite implements Movable, Zombies{
     /**
      * Constructor for the {@link Coin} class.
      * Sets the {@link Texture} and initial position for this object.
-     * @param posX is the initial X-coordinate of the coin
-     * @param posY is the initial Y-coordinate of the coin
-     * @param scale is the program scale so that the coin is the correct size relative to everything else
+     * @param posX initial X-coordinate of this object
+     * @param posY initial Y-coordinate of this object
+     * @param scale program scale so that this object has the correct size relative to everything else
      */
     public Coin(float posX, float posY, float scale) {
         super(new Texture(Gdx.files.internal("editedCoin.png")));
@@ -56,7 +56,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * Updates the angle so this object moves towards the {@link Player}.
+     * Updates the angle towards the {@link Player} objects position.
      */
     private void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));
