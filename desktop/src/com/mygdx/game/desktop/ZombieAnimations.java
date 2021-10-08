@@ -76,25 +76,36 @@ public class ZombieAnimations extends ApplicationAdapter{
         }
     }
 
+    boolean hitting = false;
+
     /**
      * Render method that sets the textureatlas according to if the player is moving, idle, or hit.
      * Starts a looping animation and draws a batch with it.
      */
     public void render () {
+        animation = new Animation(1f/20f, (new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions()));
 
         elapsedTime += Gdx.graphics.getDeltaTime();
-        if(zombie.nearPlayer() < 30 /*|| (elapsedTime>(1f/20f)*18 && elapsedTime-startHitTime < (1f/20f)*18)*/){
-            //if(startHitTime == 0){startHitTime = elapsedTime;}
+
+
+        if(elapsedTime > animation.getAnimationDuration() && elapsedTime-startHitTime > animation.getAnimationDuration()){
+            hitting = false;
+            startHitTime = 0;
+        }
+
+        if(zombie.nearPlayer() < 25* zombie.scale || hitting){
+            if(startHitTime == 0){
+                startHitTime = elapsedTime;
+                hitting = true;
+            }
             zombie.setMoving(false);
             renderHit();
-        }
-        else{
-            startHitTime = 0;
+        } else{
             zombie.setMoving(true);
             renderRunning();
         }
-        animation = new Animation(1f/20f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,false),zombie.getX(),zombie.getY(),(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
-    }
 
+        animation = new Animation(1f/20f, textureAtlas.getRegions());
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
+    }
 }
