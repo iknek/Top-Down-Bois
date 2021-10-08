@@ -9,21 +9,37 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * A Coin drops from killed {@link Zombie} objects, and slowly move towards the {@link Player}.
  * Upon collision with the player, this object disappears and increases the player's currency counter.
+ * The Coins movement towards the player is referred to as the Coins "magnet".
  */
 public class Coin extends Sprite implements Movable, Zombies{
-
+    /**
+     * Angle for this objects directional movement.
+     */
     private int angle;
+    /**
+     * {@link Player} objects current x-coordinate.
+     */
     private int playerX;
+    /**
+     * {@link Player} objects current x-coordinate.
+     */
     private int playerY;
+    /**
+     * Distance for this object to move towards the {@link Player}.
+     */
     private int magnetDistance = 25;
+    /**
+     * Speed for this object.
+     */
     private int speed;
+
 
     /**
      * Constructor for the {@link Coin} class.
      * Sets the {@link Texture} and initial position for this object.
-     * @param posX is the initial X-coordinate of the coin
-     * @param posY is the initial Y-coordinate of the coin
-     * @param scale is the program scale so that the coin is the correct size relative to everything else
+     * @param posX initial X-coordinate of this object
+     * @param posY initial Y-coordinate of this object
+     * @param scale program scale so that this object has the correct size relative to everything else
      */
     public Coin(float posX, float posY, float scale) {
         super(new Texture(Gdx.files.internal("editedCoin.png")));
@@ -41,7 +57,7 @@ public class Coin extends Sprite implements Movable, Zombies{
     }
 
     /**
-     * Updates the angle so that it will move towards the {@link Player}.
+     * Updates the angle towards the {@link Player} objects position.
      */
     private void updateAngle() {
         angle = (int) Math.toDegrees(Math.atan2(playerY - getY(), getX()-playerX));

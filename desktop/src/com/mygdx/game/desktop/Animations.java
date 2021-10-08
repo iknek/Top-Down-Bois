@@ -4,6 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 
+/**
+ * The Animations class handles animating the {@link Player} on screen.
+ * These will change depending on the players state, including running, shooting, being hit and dying.
+ */
 public class Animations extends ApplicationAdapter{
     private Batch batch;
     private TextureAtlas textureAtlas;
@@ -12,9 +16,9 @@ public class Animations extends ApplicationAdapter{
     private Player player;
 
     /**
-     * constructor for animations
-     * @param batch = animations batch
-     * @param player = player
+     * Constructor for {@link Animations} class
+     * @param batch {@link Batch} of animations
+     * @param player {@link Player} object being animated
      */
     public Animations (Batch batch, Player player) {
         this.batch = batch;
@@ -22,7 +26,7 @@ public class Animations extends ApplicationAdapter{
     }
 
     /**
-     * Disposes of textureatlas and batch
+     * Disposes of {@link TextureAtlas} and {@link Batch}.
      */
     @Override
     public void dispose() {
@@ -31,7 +35,7 @@ public class Animations extends ApplicationAdapter{
     }
 
     /**
-     * Switch statement that sets textureatlas according to direction the player is running.
+     * Sets {@link TextureAtlas} according to direction the {@link Player} is running.
      */
     private void renderRunning(){
         switch(player.angle){
@@ -63,7 +67,7 @@ public class Animations extends ApplicationAdapter{
     }
 
     /**
-     * Switch statement that sets textureatlas according to direction the player is standing idle in.
+     * Sets {@link TextureAtlas} according to direction the {@link Player} is standing idle in.
      */
     private void renderIdle(){
         switch (player.angle){
@@ -95,8 +99,8 @@ public class Animations extends ApplicationAdapter{
     }
 
     /**
-     * Render method that sets the tetureatlas according to if the player is moving, idle, or hit.
-     * Starts a looping animation and draws a batch with it.
+     * Sets the {@link TextureAtlas} according to if the {@link Player} is moving, idle, or being hit.
+     * Starts a looping animation and draws a {@link Batch} with it.
      */
     public void render () {
         elapsedTime += Gdx.graphics.getDeltaTime();
@@ -104,7 +108,7 @@ public class Animations extends ApplicationAdapter{
             renderRunning();
         }
         if(player.getPlayerHit()){
-            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead")); //TODO Controlls should be locked for length of animation? Otherwise they dont fully play.
+            textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead")); //TODO Controls should be locked for length of animation? Otherwise they wont fully play.
         } else if(!player.moving()){
             renderIdle();
         }

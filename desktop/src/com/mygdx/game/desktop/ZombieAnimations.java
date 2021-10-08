@@ -3,9 +3,13 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+/**
+ * The ZombieAnimations class handles animating the {@link Zombie} objects on screen.
+ * These will change depending on the zombies state, including running, hitting, being hit and dying.
+ */
 
 public class ZombieAnimations extends ApplicationAdapter{
     private Batch batch;
@@ -18,9 +22,9 @@ public class ZombieAnimations extends ApplicationAdapter{
     boolean hitting = false;
 
     /**
-     * constructor for animations
-     * @param batch = animations batch
-     * @param zombie = zombie
+     * Constructor for {@link ZombieAnimations} class.
+     * @param batch {@link Batch} of animations
+     * @param zombie {@link Zombie} object being animated
      */
     public ZombieAnimations (Batch batch, Zombie zombie) {
         this.batch = batch;
@@ -28,7 +32,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Disposes of textureatlas and batch
+     * Disposes of {@link TextureAtlas} and {@link Batch}.
      */
     @Override
     public void dispose() {
@@ -37,7 +41,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Switch statement that sets textureatlas according to direction the zombie is running.
+     * Sets {@link TextureAtlas} according to direction the {@link Zombie} is running.
      */
     private void renderRunning(){
 
@@ -58,7 +62,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Switch statement that sets textureatlas according to direction the player is standing idle in.
+     * Sets {@link TextureAtlas} according to direction the {@link Zombie} is standing idle in.
      */
     private void renderHit(){
         switch (zombie.getRenderAngle()){
@@ -78,8 +82,8 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Render method that sets the textureatlas according to if the player is moving, idle, or hit.
-     * Starts a looping animation and draws a batch with it.
+     * Sets the {@link TextureAtlas} depending on if the {@link Zombie} is moving, idle, or being hit.
+     * Starts a looping animation and draws a {@link Batch} with it.
      */
     public void render () {
         animation = new Animation(1f/20f, (new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions()));
