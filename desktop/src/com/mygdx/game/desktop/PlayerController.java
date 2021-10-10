@@ -98,7 +98,6 @@ public class PlayerController implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         player.setTriggerPulled(true);
-        System.out.println((screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight()));
         return true;
     }
 
@@ -135,8 +134,7 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-
-        float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
+        /*float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
         float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
 
         int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
@@ -144,7 +142,10 @@ public class PlayerController implements InputProcessor{
         if(aimAngle < 0){
             aimAngle += 360;
         }
+        System.out.println(aimAngle);
         player.setAimAngle(aimAngle);
+        return true;*/
+        player.setAimAngle(findAimAngle(screenX,screenY));
         return true;
     }
 
@@ -156,6 +157,7 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        /*
         float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
         float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
 
@@ -164,7 +166,12 @@ public class PlayerController implements InputProcessor{
         if(aimAngle < 0){
             aimAngle += 360;
         }
+
         player.setAimAngle(aimAngle);
+        return true;
+
+        */
+        player.setAimAngle(findAimAngle(screenX,screenY));
         return true;
     }
 
@@ -177,5 +184,17 @@ public class PlayerController implements InputProcessor{
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    private int findAimAngle(int screenX, int screenY){
+        float adjustPlayerX = ((Gdx.graphics.getWidth()-640)/2) + player.getX();
+        float adjustPlayerY = ((Gdx.graphics.getHeight()-640)/2) + player.getX();
+
+        int aimAngle = (int) Math.toDegrees(Math.atan2((screenY - adjustPlayerY),(screenX - adjustPlayerX)));
+        aimAngle += 90;
+        if(aimAngle < 0){
+            aimAngle += 360;
+        }
+        return aimAngle;
     }
 }
