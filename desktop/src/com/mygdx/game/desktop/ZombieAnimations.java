@@ -17,9 +17,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     private Animation animation;
     private float elapsedTime = 0f;
     private Zombie zombie;
-    private CollisionController collisionController = new CollisionController();
     private float startHitTime;
-    boolean hitting = false;
 
     /**
      * Constructor for {@link ZombieAnimations} class.
@@ -86,27 +84,24 @@ public class ZombieAnimations extends ApplicationAdapter{
      * Starts a looping animation and draws a {@link Batch} with it.
      */
     public void render () {
-        animation = new Animation(1f/20f, (new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions()));
-
+        float animationTime = 1f/20f * new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions().size;
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-        if(elapsedTime > animation.getAnimationDuration() && elapsedTime-startHitTime > animation.getAnimationDuration()){
+        if(elapsedTime > animationTime && elapsedTime-startHitTime > animationTime){
             if(zombie.nearPlayer() < 25*zombie.scale){
                 //register hit on player
             }
-            hitting = false;
+            zombie.setMoving(true);
             startHitTime = 0;
         }
 
-        if(zombie.nearPlayer() < 25*zombie.scale || hitting){
+        if(zombie.nearPlayer() < 25*zombie.scale || !zombie.moving()){
             if(startHitTime == 0){
                 startHitTime = elapsedTime;
-                hitting = true;
+                zombie.setMoving(false);
             }
-            zombie.setMoving(false);
             renderHit();
         } else{
-            zombie.setMoving(true);
             renderRunning();
         }
 
