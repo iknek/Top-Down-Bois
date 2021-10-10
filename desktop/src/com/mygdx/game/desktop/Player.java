@@ -1,6 +1,7 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
@@ -24,9 +25,7 @@ public class Player extends Sapien{
     private int maxHealth;
     private int money;
     private Animations animations;
-
     private boolean playerHit;
-
 
     private PlayerController playerController;
 
@@ -175,6 +174,10 @@ public class Player extends Sapien{
     public void coinGained() {
         money = money + 1;
         System.out.println("Coin gained");
+    }
+
+    public int getMoney(){
+        return money;
     }
 
     /**

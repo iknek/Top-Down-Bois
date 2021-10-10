@@ -117,34 +117,4 @@ public class Animations extends ApplicationAdapter{
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX()-25,player.getY()-10,(int)(75*player.scale/2),(int)(75*player.scale/2));
     }
 
-    /*
-    private void renderShooting(){
-        switch(player.angle){
-            case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Back/shooting/shooting.atlas"));
-                break;
-            case 45:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-            case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Side/shooting/shooting.atlas"));
-                break;
-            case 135:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Front/shooting/shooting.atlas"));
-                break;
-            case 225:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/shooting/shooting.atlas"));
-                break;
-            case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Left/shooting/shooting.atlas"));
-                break;
-            case 315:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle2/shooting/shooting.atlas"));
-                break;
-        }
-    }*/
-
 }

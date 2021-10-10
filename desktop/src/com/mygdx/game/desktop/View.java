@@ -15,7 +15,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class View extends OrthogonalTiledMapRenderer {
     private static View single_instance = null;
     private List<Sprite> sprites;
-    private Animations animations;
 
     /**
      * Constructor for the View class.

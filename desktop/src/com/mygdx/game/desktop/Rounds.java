@@ -58,6 +58,10 @@ public class Rounds {
         }
     }
 
+    public int getRound(){
+        return roundNumber;
+    }
+
     /**
      * Starts new round by increasing <code>roundnumber</code>, adding 1 to player health, and calling {@link ZombieFactory} to create new {@link Zombie} objects.
      * @param player current {@link Player} object

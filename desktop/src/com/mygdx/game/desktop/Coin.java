@@ -139,6 +139,7 @@ public class Coin extends Sprite implements Movable, Zombies{
         ZombieObserver.getInstance().detach(this);
     }
 
+
     /**
      * Gives this object the {@link Player} location for pathfinding.
      * @param x x-coordinate of the player
@@ -149,4 +150,5 @@ public class Coin extends Sprite implements Movable, Zombies{
         this.playerX = x;
         this.playerY = y;
     }
+
 }
