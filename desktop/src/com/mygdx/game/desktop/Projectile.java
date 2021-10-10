@@ -63,6 +63,7 @@ public class Projectile extends Sprite implements Movable {
         MovableSubject.getInstance().detach(this);
     }
 
+
     @Override
     public Rectangle getBoundingRectangle() {
         return super.getBoundingRectangle();
