@@ -137,14 +137,14 @@ public class PlayerController implements InputProcessor{
         float adjustedX;
         float adjustedY;
         if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
-            adjustedX = screenX * ((float)640/Gdx.graphics.getWidth());
-            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640/Gdx.graphics.getWidth());
+            adjustedX = screenX * ((float)640 * player.scale/Gdx.graphics.getWidth());
+            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640 * player.scale/Gdx.graphics.getWidth());
 
         } else {
-            adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
-            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
+            adjustedY = screenY * ((float)640 * player.scale/Gdx.graphics.getHeight());
+            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640 * player.scale/Gdx.graphics.getHeight());
         }
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 * player.scale - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;
@@ -164,14 +164,14 @@ public class PlayerController implements InputProcessor{
         float adjustedX;
         float adjustedY;
         if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
-            adjustedX = screenX * ((float)640/Gdx.graphics.getWidth());
-            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640/Gdx.graphics.getWidth());
+            adjustedX = screenX * ((float)640 * player.scale/Gdx.graphics.getWidth());
+            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640 * player.scale/Gdx.graphics.getWidth());
 
         } else {
-            adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
-            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
+            adjustedY = screenY * ((float)640 * player.scale/Gdx.graphics.getHeight());
+            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640 * player.scale/Gdx.graphics.getHeight());
         }
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 * player.scale - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;
