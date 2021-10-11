@@ -25,7 +25,6 @@ public class CollisionController {
      * @param scale the scale of the whole program
      */
     public void checkCollisions(View view, Player player, float scale){
-        boolean playerHit = false;
 
         MovableSubject movableSubject = MovableSubject.getInstance();
 
@@ -44,7 +43,7 @@ public class CollisionController {
                 }
 
                 if(observer instanceof Zombie){
-                    if(checkZombieCollisions(player, (Zombie)observer)){playerHit = true;}
+                    checkZombieCollisions(player, (Zombie)observer);
                 }
 
                 if (observer instanceof Coin) {
@@ -56,7 +55,6 @@ public class CollisionController {
             }
             rectangle = scaleBackRectangle(rectangle, scale);
         }
-        //player.setPlayerHit(playerHit);
     }
 
     /**
@@ -93,7 +91,7 @@ public class CollisionController {
      * @param player the instance of player in the program
      * @param zombie the zombie instance which is being checked
      */
-    private boolean checkZombieCollisions(Player player, Zombie zombie){
+    private void checkZombieCollisions(Player player, Zombie zombie){
         for (Movable o: MovableSubject.getInstance().getObservers()) {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
@@ -102,11 +100,9 @@ public class CollisionController {
                 zombieCollideZombie((Zombie) o, zombie);
             }
         }
-        if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
+        /*if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
             //player.getHit(zombie.getDamage());
-            return true;
-        }
-        return false;
+        }*/
     }
 
     /**

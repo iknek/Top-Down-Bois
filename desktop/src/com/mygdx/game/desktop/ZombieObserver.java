@@ -50,7 +50,7 @@ public class ZombieObserver {
         int counter = 0;
         for(Zombies zombie : observers){
             if(zombie.isHitPlayer()){
-                counter++;
+                counter+= zombie.getDamage();
                 zombie.setHitPlayer(false);
             }
         }

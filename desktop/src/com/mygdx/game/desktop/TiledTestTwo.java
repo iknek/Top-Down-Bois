@@ -38,7 +38,7 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
-        rounds = new Rounds(scale, w, h);
+        rounds = new Rounds(scale);
 
         spriteBatch = new SpriteBatch();
         hud = new Hud(spriteBatch, (int) scale);
@@ -88,6 +88,4 @@ public class TiledTestTwo extends ApplicationAdapter {
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
-
-
 }

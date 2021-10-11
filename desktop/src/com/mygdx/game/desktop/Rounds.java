@@ -20,25 +20,12 @@ public class Rounds {
     private int roundNumber;
 
     /**
-     * Screen width.
-     */
-    private float w;
-    /**
-     * Screen height.
-     */
-    private float h;
-
-    /**
      * Constructor for the {@link Rounds} class.
      * @param scale scale of zombie factory
-     * @param w screen width
-     * @param h screen height
      */
-    public Rounds (float scale, float w, float h){
+    public Rounds (float scale){
         this.roundNumber = 0;
         this.scale = scale;
-        this.w = w;
-        this.h = h;
         zombiefactory = new ZombieFactory(scale);
     }
 
