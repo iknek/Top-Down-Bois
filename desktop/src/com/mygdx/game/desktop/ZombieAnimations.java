@@ -130,14 +130,14 @@ public class ZombieAnimations extends ApplicationAdapter{
         elapsedTime += Gdx.graphics.getDeltaTime();
 
         if(elapsedTime > animationTime && elapsedTime-startHitTime > animationTime){
-            if(zombie.nearPlayer() < 25*zombie.scale){
+            if(zombie.nearPlayer() < 15*zombie.scale){
                 zombie.setHitPlayer(true);
             }
             zombie.setMoving(true);
             startHitTime = 0;
         }
 
-        if(zombie.nearPlayer() < 25*zombie.scale || !zombie.moving()){
+        if(zombie.nearPlayer() < 15*zombie.scale || !zombie.moving()){
             if(startHitTime == 0){
                 startHitTime = elapsedTime;
                 zombie.setMoving(false);
