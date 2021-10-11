@@ -3,6 +3,9 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,11 +16,24 @@ import java.util.TimerTask;
 
 public class ZombieAnimations extends ApplicationAdapter{
     private Batch batch;
+
     private TextureAtlas textureAtlas;
+
+    private TextureAtlas runningBack;
+    private TextureAtlas runningRight;
+    private TextureAtlas runningFront;
+    private TextureAtlas runningLeft;
+
+    private TextureAtlas hittingBack;
+    private TextureAtlas hittingFront;
+    private TextureAtlas hittingLeft;
+    private TextureAtlas hittingRight;
+
     private Animation animation;
     private float elapsedTime = 0f;
     private Zombie zombie;
     private float startHitTime;
+    private List<TextureAtlas> list;
 
     /**
      * Constructor for {@link ZombieAnimations} class.
@@ -27,6 +43,31 @@ public class ZombieAnimations extends ApplicationAdapter{
     public ZombieAnimations (Batch batch, Zombie zombie) {
         this.batch = batch;
         this.zombie = zombie;
+        preLoad();
+    }
+
+    private void preLoad(){
+        list = new ArrayList();
+
+        runningBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
+        runningRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/running/running"));;
+        runningFront = new TextureAtlas(Gdx.files.internal("Coffin/Front/running/running"));
+        runningLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/running/running"));
+
+        hittingBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/hitting/hitting"));
+        hittingRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/hitting/hitting"));
+        hittingFront =  new TextureAtlas(Gdx.files.internal("Coffin/Front/hitting/hitting"));
+        hittingLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting"));
+
+        list.add(runningBack);
+        list.add(runningRight);
+        list.add(runningLeft);
+        list.add(runningFront);
+
+        list.add(hittingBack);
+        list.add(hittingRight);
+        list.add(hittingFront);
+        list.add(hittingLeft);
     }
 
     /**
@@ -35,7 +76,9 @@ public class ZombieAnimations extends ApplicationAdapter{
     @Override
     public void dispose() {
         batch.dispose();
-        textureAtlas.dispose();
+        for (int i = 0; i < 7; i++) {
+            list.get(i).dispose();
+        }
     }
 
     /**
@@ -45,16 +88,16 @@ public class ZombieAnimations extends ApplicationAdapter{
 
         switch(zombie.getRenderAngle()){
             case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
+                textureAtlas = runningBack;
                 break;
             case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Right/running/running"));
+                textureAtlas = runningRight;
                 break;
             case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Front/running/running"));
+                textureAtlas = runningFront;
                 break;
             case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Left/running/running"));
+                textureAtlas = runningLeft;
                 break;
         }
     }
@@ -65,16 +108,16 @@ public class ZombieAnimations extends ApplicationAdapter{
     private void renderHit(){
         switch (zombie.getRenderAngle()){
             case 0:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Back/hitting/hitting"));
+                textureAtlas = hittingBack;
                 break;
             case 90:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Right/hitting/hitting"));
+                textureAtlas = hittingRight;
                 break;
             case 180:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Front/hitting/hitting"));
+                textureAtlas = hittingFront;
                 break;
             case 270:
-                textureAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting"));
+                textureAtlas = hittingLeft;
                 break;
         }
     }

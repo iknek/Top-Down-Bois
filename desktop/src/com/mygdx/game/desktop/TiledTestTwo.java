@@ -42,9 +42,7 @@ public class TiledTestTwo extends ApplicationAdapter {
         rounds = new Rounds(scale, w, h);
 
         spriteBatch = new SpriteBatch();
-
         hud = new Hud(spriteBatch, (int) scale);
-
     }
 
     @Override

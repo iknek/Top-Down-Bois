@@ -32,7 +32,6 @@ public class Hud implements Disposable{
 
         scale = progScale;
 
-
         BitmapFont font = new BitmapFont(Gdx.files.internal("Font/font.fnt"), Gdx.files.internal("Font/font.png"),false);
 
         viewport = new FitViewport(640*scale, 640*scale, new OrthographicCamera());

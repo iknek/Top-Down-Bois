@@ -3,7 +3,6 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
 
@@ -24,7 +23,7 @@ public class Player extends Sapien{
     private int aimAngle;
     private int maxHealth;
     private int money;
-    private Animations animations;
+    private PlayerAnimations animations;
     private boolean playerHit;
 
     private PlayerController playerController;
@@ -54,7 +53,7 @@ public class Player extends Sapien{
 
         playerController = new PlayerController(this);
 
-        this.animations = new Animations(View.getInstance().getBatch(), this);
+        this.animations = new PlayerAnimations(View.getInstance().getBatch(), this);
         View.getInstance().addSprite(this);
 
     }
