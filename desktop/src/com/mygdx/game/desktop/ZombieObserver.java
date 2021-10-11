@@ -45,4 +45,15 @@ public class ZombieObserver {
             o.playerLocation(x, y);
         }
     }
+
+    public int playerHit(){
+        int counter = 0;
+        for(Zombies zombie : observers){
+            if(zombie.isHitPlayer()){
+                counter++;
+                zombie.setHitPlayer(false);
+            }
+        }
+        return counter;
+    }
 }

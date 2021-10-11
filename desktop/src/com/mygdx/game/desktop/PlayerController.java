@@ -187,10 +187,12 @@ public class PlayerController implements InputProcessor{
     }
 
     private int findAimAngle(int screenX, int screenY){
-        float adjustPlayerX = ((Gdx.graphics.getWidth()-640)/2) + player.getX();
-        float adjustPlayerY = ((Gdx.graphics.getHeight()-640)/2) + player.getX();
+        float adjustPlayerX = ((Gdx.graphics.getWidth()-(640* player.scale))/2) + player.getX();
+        float adjustPlayerY = ((Gdx.graphics.getHeight()-(640* player.scale))/2) + player.getY();
 
-        int aimAngle = (int) Math.toDegrees(Math.atan2((screenY - adjustPlayerY),(screenX - adjustPlayerX)));
+        int adjustedScreenY = Gdx.graphics.getHeight() - screenY;
+
+        int aimAngle = (int) Math.toDegrees(Math.atan2(-(adjustedScreenY - adjustPlayerY),(screenX - adjustPlayerX)));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;

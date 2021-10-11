@@ -13,6 +13,8 @@ public class Zombie extends Sapien implements Zombies{
     private boolean moving;
     private ZombieAnimations animations;
 
+    private boolean hitPlayer;
+
     /**
      * @param atlas = textureatlas of zombie.
      * @param posX = X coordinate to spawn it in on.
@@ -120,4 +122,11 @@ public class Zombie extends Sapien implements Zombies{
         return speed;
     }
 
+    public boolean isHitPlayer() {
+        return hitPlayer;
+    }
+
+    public void setHitPlayer(boolean hitPlayer) {
+        this.hitPlayer = hitPlayer;
+    }
 }
