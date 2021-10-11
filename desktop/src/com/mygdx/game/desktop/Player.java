@@ -57,6 +57,10 @@ public class Player extends Sapien{
         View.getInstance().addSprite(this);
     }
 
+    public Firearm getWeapon(){
+        return this.firearm;
+    }
+
     /**
      * This method, updates the angle of the player depending on which buttons are pressed.
      */
