@@ -85,7 +85,6 @@ public class ZombieAnimations extends ApplicationAdapter{
      * Sets {@link TextureAtlas} according to direction the {@link Zombie} is running.
      */
     private void renderRunning(){
-
         switch(zombie.getRenderAngle()){
             case 0:
                 textureAtlas = runningBack;
@@ -127,7 +126,7 @@ public class ZombieAnimations extends ApplicationAdapter{
      * Starts a looping animation and draws a {@link Batch} with it.
      */
     public void render () {
-        float animationTime = 1f/20f * new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting")).getRegions().size;
+        float animationTime = 1f/20f * hittingBack.getRegions().size;
         elapsedTime += Gdx.graphics.getDeltaTime();
 
         if(elapsedTime > animationTime && elapsedTime-startHitTime > animationTime){
