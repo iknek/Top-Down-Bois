@@ -5,7 +5,7 @@ import com.mygdx.game.desktop.Projectile;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class   Firearm {
+public abstract class Firearm {
     protected int projectileSpeed;
     protected int damage;
     private String texture = "bullet.png";
@@ -18,6 +18,8 @@ public abstract class   Firearm {
     protected int reloadSpeed;
     protected float scale;
 
+    protected String name;
+
     /**
      * Constructor for the superclass weapons.
      * @param projectileSpeed is the speed at which the bullet is fired
@@ -28,7 +30,7 @@ public abstract class   Firearm {
      * @param maxAmmo is the maximum ammo the gun can have in its magazine at one time
      * @param scale is the scale for the whole program. So that the bullets are the right size comparatively.
      */
-    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo, float scale){
+    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo, float scale, String name){
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
@@ -36,6 +38,15 @@ public abstract class   Firearm {
         this.reloadSpeed = reloadSpeed;
         this.maxAmmo = maxAmmo;
         this.scale = scale/2;
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getAmmoInMagazine(){
+        return this.ammoInMagazine;
     }
 
     protected abstract void createBullet(int angle, float x, float y);

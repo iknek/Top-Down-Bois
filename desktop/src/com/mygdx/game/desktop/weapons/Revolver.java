@@ -15,7 +15,7 @@ public class Revolver extends Firearm {
      * @param scale is the scale of the program
      */
     public Revolver(float scale){
-        super(1000, 1, 6, 200, 2000, 6, scale);
+        super(1000, 1, 6, 200, 2000, 6, scale, "REVOLVER");
     }
 
     /**

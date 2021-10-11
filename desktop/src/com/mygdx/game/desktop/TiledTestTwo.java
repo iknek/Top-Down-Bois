@@ -42,6 +42,7 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         spriteBatch = new SpriteBatch();
         hud = new Hud(spriteBatch, (int) scale);
+
     }
 
     @Override
@@ -72,7 +73,7 @@ public class TiledTestTwo extends ApplicationAdapter {
     @Override
     public void render () {
         camera.update();
-        hud.update(rounds.getRound(), player.getHealth(), player.getMoney());
+        hud.update(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine());
 
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

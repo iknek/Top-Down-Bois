@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.desktop.weapons.Firearm;
+import com.mygdx.game.desktop.weapons.Revolver;
 
 public class Hud implements Disposable{
 
@@ -21,11 +23,13 @@ public class Hud implements Disposable{
     private int rounds;
     private int lives;
     private int money;
+    private int currentWeapon;
 
     //Scene2D widgets
     private Label roundLabel;
     private Label liveLabel;
     private Label moneyLabel;
+    private Label currentWeaponLabel;
     private float scale;
 
     public Hud(SpriteBatch sb, int progScale){
@@ -40,7 +44,7 @@ public class Hud implements Disposable{
         Table table = new Table();
         //Top-Align table
         table.bottom();
-        table.padBottom(50);
+        table.padBottom(20);
         table.scaleBy(scale);
         //make the table fill the entire stage
         table.setFillParent(true);
@@ -49,6 +53,7 @@ public class Hud implements Disposable{
         roundLabel = new Label(String.format("%03d", rounds), new Label.LabelStyle(font, Color.WHITE));
         liveLabel = new Label(String.format("%03d", lives), new Label.LabelStyle(font, Color.WHITE));
         moneyLabel = new Label(String.format("%03d", money), new Label.LabelStyle(font, Color.WHITE));
+        currentWeaponLabel = new Label(String.format("%03d", currentWeapon), new Label.LabelStyle(font, Color.WHITE));
 
         // Pos
         liveLabel.setPosition(50,100);
@@ -57,6 +62,7 @@ public class Hud implements Disposable{
         liveLabel.setFontScale(scale);
         roundLabel.setFontScale(scale);
         moneyLabel.setFontScale(scale);
+        currentWeaponLabel.setFontScale(scale);
 
         //Adds labels to table, padding the bottom, and giving them all equal width with expandX
         table.add(roundLabel).expandX().padBottom(10);
@@ -65,17 +71,27 @@ public class Hud implements Disposable{
         //add a second row to our table
         table.row();
         table.add(moneyLabel).expandX();
-        //table.add(roundLabel).expandX();
+        table.add(currentWeaponLabel).expandX();
         //table.add(liveLabel).expandX();
 
         //add our table to the stage
         stage.addActor(table);
     }
 
-    public void update(int round, int live, int money){
+    public void update(int round, int live, int money, String firearm, int mag){
         roundLabel.setText("ROUND " + round);
         liveLabel.setText("LIVES " + live);
         moneyLabel.setText("MONEY " + money + "$");
+
+        if(firearm.equals("REVOLVER")){
+            currentWeaponLabel.setText("REVOLVER; " + mag);
+        }
+        if(firearm.equals("AUTORIFLE")){
+            currentWeaponLabel.setText("AUTO RIFLE; " + mag);
+        }
+        if(firearm.equals("SHOTGUN")){
+            currentWeaponLabel.setText("SHOTGUN; " + mag);
+        }
     }
 
     @Override

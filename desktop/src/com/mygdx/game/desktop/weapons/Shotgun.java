@@ -11,7 +11,7 @@ public class Shotgun extends Firearm {
      * @param scale is the scale of the program
      */
     public Shotgun(float scale){
-        super(1000, 1, 12, 90, 2000, 10, scale);
+        super(1000, 1, 12, 90, 2000, 10, scale, "SHOTGUN");
     }
 
     /**
