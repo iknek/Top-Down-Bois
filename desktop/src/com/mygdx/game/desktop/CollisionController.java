@@ -56,7 +56,7 @@ public class CollisionController {
             }
             rectangle = scaleBackRectangle(rectangle, scale);
         }
-        player.setPlayerHit(playerHit);
+        //player.setPlayerHit(playerHit);
     }
 
     /**
@@ -103,7 +103,7 @@ public class CollisionController {
             }
         }
         if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
-            player.getHit(zombie.getDamage());
+            //player.getHit(zombie.getDamage());
             return true;
         }
         return false;
@@ -127,9 +127,9 @@ public class CollisionController {
      * @param zombie another zombie
      */
     private void zombieCollideZombie(Zombie o, Zombie zombie){
-        if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
+        /*if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
             zombie.translateX(((float)-(Math.sin(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
             zombie.translateY(((float)-(Math.cos(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
-        }
+        }*/
     }
 }

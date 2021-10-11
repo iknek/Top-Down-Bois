@@ -131,7 +131,7 @@ public class ZombieAnimations extends ApplicationAdapter{
 
         if(elapsedTime > animationTime && elapsedTime-startHitTime > animationTime){
             if(zombie.nearPlayer() < 25*zombie.scale){
-                //register hit on player
+                zombie.setHitPlayer(true);
             }
             zombie.setMoving(true);
             startHitTime = 0;

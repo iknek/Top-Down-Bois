@@ -55,7 +55,6 @@ public class Player extends Sapien{
 
         this.animations = new PlayerAnimations(View.getInstance().getBatch(), this);
         View.getInstance().addSprite(this);
-
     }
 
     /**
@@ -110,7 +109,8 @@ public class Player extends Sapien{
      * @param damage is the amount of the damage dealt to the player
      */
     public void getHit(int damage){
-        if(!invincible) {
+        if(!invincible && damage!=0) {
+            setPlayerHit(true);
             timer = new Timer();
             health = health - damage;
             invincible = true;
@@ -129,6 +129,7 @@ public class Player extends Sapien{
     class RemindTask extends TimerTask {
         public void run() {
             invincible = false;
+            setPlayerHit(false);
             timer.cancel(); //Terminate the timer thread
         }
     }

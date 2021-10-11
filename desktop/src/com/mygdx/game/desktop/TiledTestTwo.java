@@ -19,7 +19,6 @@ public class TiledTestTwo extends ApplicationAdapter {
     private Hud hud;
     private SpriteBatch spriteBatch;
 
-
     public TiledTestTwo (int scale){
         this.scale = scale;
     }
@@ -83,6 +82,8 @@ public class TiledTestTwo extends ApplicationAdapter {
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
         zombieObserver.playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
+
+        player.getHit(ZombieObserver.getInstance().playerHit());
 
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
