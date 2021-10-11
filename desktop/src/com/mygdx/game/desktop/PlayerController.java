@@ -56,6 +56,9 @@ public class PlayerController implements InputProcessor{
             case Input.Keys.NUM_3 :
                 player.setFirearm(new AutoRifle(player.scale));
                 break;
+            case Input.Keys.SHIFT_LEFT :
+                player.setSprint(true);
+                break;
         }
         return true;
     }
@@ -82,6 +85,9 @@ public class PlayerController implements InputProcessor{
                 break;
             case Input.Keys.G:
                 player.setTriggerPulled(false);
+                break;
+            case Input.Keys.SHIFT_LEFT :
+                player.setSprint(false);
                 break;
         }
         return true;

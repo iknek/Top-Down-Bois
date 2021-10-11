@@ -19,7 +19,8 @@ public class Player extends Sapien{
     private Firearm firearm;
     private boolean triggerPulled = false;
     private boolean invincible;
-    private Timer timer;
+    private Timer timerInvinc;
+    private Timer timerSprint;
     private int aimAngle;
     private int maxHealth;
     private int money;
@@ -115,10 +116,10 @@ public class Player extends Sapien{
     public void getHit(int damage){
         if(!invincible && damage!=0) {
             setPlayerHit(true);
-            timer = new Timer();
+            timerInvinc = new Timer();
             health = health - damage;
             invincible = true;
-            timer.schedule(new RemindTask(), 5*1000);
+            timerInvinc.schedule(new RemindTaskInvincibility(), 5*1000);
             System.out.println("oof");
         }
 
@@ -130,11 +131,11 @@ public class Player extends Sapien{
     /**
      * When the timer of the invincibility frame ends, invincible is set to false.
      */
-    class RemindTask extends TimerTask {
+    class RemindTaskInvincibility extends TimerTask {
         public void run() {
             invincible = false;
             setPlayerHit(false);
-            timer.cancel(); //Terminate the timer thread
+            timerInvinc.cancel();
         }
     }
 
@@ -259,5 +260,22 @@ public class Player extends Sapien{
 
     public boolean getPlayerHit(){
         return playerHit;
+    }
+
+    public void setSprint(boolean bool){
+        if(bool){
+            this.speed = (float)82.5*scale;
+            timerSprint = new Timer();
+            timerSprint.schedule(new RemindTaskSprint(), 3*1000);
+        }else{
+            this.speed = 55*scale;
+        }
+    }
+
+    class RemindTaskSprint extends TimerTask {
+        public void run() {
+            speed = 55*scale;
+            timerSprint.cancel();
+        }
     }
 }
