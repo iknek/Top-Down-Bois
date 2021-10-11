@@ -187,7 +187,7 @@ public class PlayerAnimations extends ApplicationAdapter{
         }
 
         animation = new Animation(1f/13f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX()-25,player.getY()-10,(int)(75*player.scale/2),(int)(75*player.scale/2));
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX()-(player.scale*25/2),player.getY()-(player.scale*6/2),(int)(75*player.scale/2),(int)(75*player.scale/2));
     }
 
 }
