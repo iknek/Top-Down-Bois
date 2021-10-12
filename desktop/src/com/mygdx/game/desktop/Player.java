@@ -27,8 +27,6 @@ public class Player extends Sapien{
     private PlayerAnimations animations;
     private boolean playerHit;
 
-    private PlayerController playerController;
-
     /**
      * Constructor for the Player class
      * Sets the texture atlas, initial position and scale of the sprite
@@ -52,9 +50,9 @@ public class Player extends Sapien{
         health = 100;
         maxHealth = 100;
 
-        playerController = new PlayerController(this);
+        new PlayerController(this);
 
-        this.animations = new PlayerAnimations(View.getInstance().getBatch(), this);
+        this.animations = new PlayerAnimations(View.getInstance().getBatch());
         View.getInstance().addSprite(this);
     }
 
@@ -95,7 +93,7 @@ public class Player extends Sapien{
 
     @Override
     public void draw(Batch batch) {
-        animations.render();
+        animations.render(getX(), getY(), moving(), scale, getPlayerHit(), angle);
     }
 
     /**

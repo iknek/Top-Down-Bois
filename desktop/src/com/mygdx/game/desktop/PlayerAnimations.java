@@ -16,7 +16,6 @@ public class PlayerAnimations extends ApplicationAdapter{
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0f;
-    private Player player;
 
     private TextureAtlas runningBack;
     private TextureAtlas runningRight;
@@ -43,11 +42,9 @@ public class PlayerAnimations extends ApplicationAdapter{
     /**
      * Constructor for {@link Animation} class
      * @param batch {@link Batch} of animations
-     * @param player {@link Player} object being animated
      */
-    public PlayerAnimations(Batch batch, Player player) {
+    public PlayerAnimations(Batch batch) {
         this.batch = batch;
-        this.player = player;
         preLoad();
     }
 
@@ -110,8 +107,8 @@ public class PlayerAnimations extends ApplicationAdapter{
     /**
      * Sets {@link TextureAtlas} according to direction the {@link Player} is running.
      */
-    private void renderRunning(){
-        switch(player.angle){
+    private void renderRunning(int angle){
+        switch(angle){
             case 0:
                 textureAtlas = runningBack;
                 break;
@@ -142,8 +139,8 @@ public class PlayerAnimations extends ApplicationAdapter{
     /**
      * Sets {@link TextureAtlas} according to direction the {@link Player} is standing idle in.
      */
-    private void renderIdle(){
-        switch (player.angle){
+    private void renderIdle(int angle){
+        switch (angle){
             case 0:
                 textureAtlas = idleBack;
                 break;
@@ -175,19 +172,18 @@ public class PlayerAnimations extends ApplicationAdapter{
      * Sets the {@link TextureAtlas} according to if the {@link Player} is moving, idle, or being hit.
      * Starts a looping animation and draws a {@link Batch} with it.
      */
-    public void render () {
+    public void render (float x, float y, boolean moving, float scale, boolean hit, int angle) {
         elapsedTime += Gdx.graphics.getDeltaTime();
-        if(player.moving()){
-            renderRunning();
+        if(moving){
+            renderRunning(angle);
         }
-        if(player.getPlayerHit()){
+        if(hit){
             textureAtlas = new TextureAtlas(Gdx.files.internal("Player/Angle1/dead/dead")); //TODO Controls should be locked for length of animation? Otherwise they wont fully play.
-        } else if(!player.moving()){
-            renderIdle();
+        } else if(!moving){
+            renderIdle(angle);
         }
 
         animation = new Animation(1f/13f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),player.getX()-(player.scale*25/2),player.getY()-(player.scale*6/2),(int)(75*player.scale/2),(int)(75*player.scale/2));
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),x-(scale*25/2),y-(scale*6/2),(int)(75*scale/2),(int)(75*scale/2));
     }
-
 }
