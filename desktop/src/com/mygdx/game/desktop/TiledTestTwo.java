@@ -73,7 +73,8 @@ public class TiledTestTwo extends ApplicationAdapter {
     @Override
     public void render () {
         camera.update();
-        hud.update(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine());
+
+        hud.update(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
 
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

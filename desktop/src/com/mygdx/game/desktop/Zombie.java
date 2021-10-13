@@ -109,17 +109,12 @@ public class Zombie extends Sapien implements Zombies{
         }
     }
 
-
     /**
      * This method calculates the distance between the player and the zombie for animations
      * @return int
      */
     public int nearPlayer() {
         return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));
-    }
-
-    public float getSpeed(){
-        return speed;
     }
 
     public boolean isHitPlayer() {

@@ -24,6 +24,7 @@ public class Hud implements Disposable{
     private int lives;
     private int money;
     private int currentWeapon;
+    private int totalAmmo;
 
     //Scene2D widgets
     private Label roundLabel;
@@ -53,7 +54,8 @@ public class Hud implements Disposable{
         roundLabel = new Label(String.format("%03d", rounds), new Label.LabelStyle(font, Color.WHITE));
         liveLabel = new Label(String.format("%03d", lives), new Label.LabelStyle(font, Color.WHITE));
         moneyLabel = new Label(String.format("%03d", money), new Label.LabelStyle(font, Color.WHITE));
-        currentWeaponLabel = new Label(String.format("%03d", currentWeapon), new Label.LabelStyle(font, Color.WHITE));
+        currentWeaponLabel = new Label((currentWeapon + "/" + totalAmmo), new Label.LabelStyle(font, Color.WHITE));
+        //currentWeaponLabel = new Label(String.format("%03d", currentWeapon), new Label.LabelStyle(font, Color.WHITE));
 
         // Pos
         liveLabel.setPosition(50,100);
@@ -78,19 +80,19 @@ public class Hud implements Disposable{
         stage.addActor(table);
     }
 
-    public void update(int round, int live, int money, String firearm, int mag){
+    public void update(int round, int live, int money, String firearm, int mag, int totalAmmo){
         roundLabel.setText("ROUND " + round);
         liveLabel.setText("LIVES " + live);
         moneyLabel.setText("MONEY " + money + "$");
 
         if(firearm.equals("REVOLVER")){
-            currentWeaponLabel.setText("REVOLVER; " + mag);
+            currentWeaponLabel.setText("REVOLVER -" + mag + "/" + totalAmmo);
         }
         if(firearm.equals("AUTORIFLE")){
-            currentWeaponLabel.setText("AUTO RIFLE; " + mag);
+            currentWeaponLabel.setText("AUTO RIFLE -" + mag + "/" + totalAmmo);
         }
         if(firearm.equals("SHOTGUN")){
-            currentWeaponLabel.setText("SHOTGUN; " + mag);
+            currentWeaponLabel.setText("SHOTGUN -" + mag + "/" + totalAmmo);
         }
     }
 

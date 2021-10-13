@@ -10,13 +10,14 @@ public abstract class Firearm {
     protected int damage;
     private String texture = "bullet.png";
     protected int ammoInMagazine;
-    private int maxAmmo;
+    private int maxAmmoinMag;
     //rounds per minute
     protected float rateOfFire;
     private Timer timer;
     protected boolean readyToFire = true;
     protected int reloadSpeed;
     protected float scale;
+    protected int totalAmmo;
 
     protected String name;
 
@@ -27,18 +28,23 @@ public abstract class Firearm {
      * @param ammoInMagazine is the ammo which is currently in the magazine
      * @param rateOfFire is how quickly the bullets are produced
      * @param reloadSpeed is how long it takes to reload the gun
-     * @param maxAmmo is the maximum ammo the gun can have in its magazine at one time
+     * @param maxAmmoinMag is the maximum ammo the gun can have in its magazine at one time
      * @param scale is the scale for the whole program. So that the bullets are the right size comparatively.
      */
-    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo, float scale, String name){
+    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmoinMag, float scale, String name, int totalAmmo){
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
         this.rateOfFire = rateOfFire;
         this.reloadSpeed = reloadSpeed;
-        this.maxAmmo = maxAmmo;
+        this.maxAmmoinMag = maxAmmoinMag;
         this.scale = scale/2;
         this.name = name;
+        this.totalAmmo = totalAmmo;
+    }
+
+    public int getTotalAmmo(){
+        return totalAmmo;
     }
 
     public String getName(){
@@ -86,6 +92,9 @@ public abstract class Firearm {
         readyToFire = false;
         timer = new Timer();
         timer.schedule(new RemindTask(), reloadSpeed);
-        ammoInMagazine = maxAmmo;
+
+        int ammoDifference = maxAmmoinMag-ammoInMagazine;
+        ammoInMagazine += ammoDifference;
+        totalAmmo -= ammoDifference;
     }
 }

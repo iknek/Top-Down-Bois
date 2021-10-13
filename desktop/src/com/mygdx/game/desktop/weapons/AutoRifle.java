@@ -10,7 +10,7 @@ public class AutoRifle extends Firearm {
      * @param scale is the scale of the program
      */
     public AutoRifle(float scale){
-        super(1800, 3, 25, 600, 2000, 50, scale, "AUTORIFLE");
+        super(1800, 3, 50, 600, 2000, 50, scale, "AUTORIFLE", 200);
     }
 
     /**
