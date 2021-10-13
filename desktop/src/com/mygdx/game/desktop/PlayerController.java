@@ -5,11 +5,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.desktop.weapons.AutoRifle;
+import com.mygdx.game.desktop.weapons.Firearm;
 import com.mygdx.game.desktop.weapons.Revolver;
 import com.mygdx.game.desktop.weapons.Shotgun;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayerController implements InputProcessor{
     private Player player;
+    private Revolver revolver;
+    private AutoRifle autoRifle;
+    private Shotgun shotgun;
 
     /**
      * Constructor
@@ -18,6 +25,9 @@ public class PlayerController implements InputProcessor{
     public PlayerController(Player player){
         this.player = player;
         Gdx.input.setInputProcessor(this);
+        this.revolver = new Revolver(player.scale);
+        this.autoRifle = new AutoRifle(player.scale);
+        this.shotgun = new Shotgun(player.scale);
     }
 
     /**
@@ -48,13 +58,13 @@ public class PlayerController implements InputProcessor{
                 player.reload();
                 break;
             case Input.Keys.NUM_1 :
-                player.setFirearm(new Revolver(player.scale));
+                player.setFirearm(revolver);
                 break;
             case Input.Keys.NUM_2 :
-                player.setFirearm(new Shotgun(player.scale));
+                player.setFirearm(shotgun);
                 break;
             case Input.Keys.NUM_3 :
-                player.setFirearm(new AutoRifle(player.scale));
+                player.setFirearm(autoRifle);
                 break;
             case Input.Keys.SHIFT_LEFT :
                 player.setSprint(true);
