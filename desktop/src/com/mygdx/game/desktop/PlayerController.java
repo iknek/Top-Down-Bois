@@ -25,9 +25,7 @@ public class PlayerController implements InputProcessor{
     public PlayerController(Player player){
         this.player = player;
         Gdx.input.setInputProcessor(this);
-        this.revolver = new Revolver(player.scale);
-        this.autoRifle = new AutoRifle(player.scale);
-        this.shotgun = new Shotgun(player.scale);
+
     }
 
     /**
@@ -58,13 +56,13 @@ public class PlayerController implements InputProcessor{
                 player.reload();
                 break;
             case Input.Keys.NUM_1 :
-                player.setFirearm(revolver);
+                player.setFirearm(0);
                 break;
             case Input.Keys.NUM_2 :
-                player.setFirearm(shotgun);
+                player.setFirearm(1);
                 break;
             case Input.Keys.NUM_3 :
-                player.setFirearm(autoRifle);
+                player.setFirearm(2);
                 break;
             case Input.Keys.SHIFT_LEFT :
                 player.setSprint(true);

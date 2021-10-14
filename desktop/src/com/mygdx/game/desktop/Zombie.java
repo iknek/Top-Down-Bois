@@ -3,6 +3,8 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Zombie extends Sapien implements Zombies{
 
@@ -12,7 +14,6 @@ public class Zombie extends Sapien implements Zombies{
     private int renderAngle;
     private boolean moving;
     private ZombieAnimations animations;
-
     private boolean hitPlayer;
 
     /**
@@ -102,10 +103,10 @@ public class Zombie extends Sapien implements Zombies{
     public void getHit(int damage){
         health = health - damage;
         if (health <= 0){
-            View.getInstance().removeSprite(this);
-            MovableSubject.getInstance().detach(this);
-            ZombieObserver.getInstance().detach(this);
-            new Coin(this.getX(),this.getY(), scale);
+            View.getInstance().removeSprite(Zombie.this);
+            MovableSubject.getInstance().detach(Zombie.this);
+            ZombieObserver.getInstance().detach(Zombie.this);
+            new Coin(getX(),getY(), scale);
         }
     }
 

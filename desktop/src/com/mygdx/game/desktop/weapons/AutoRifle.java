@@ -3,7 +3,6 @@ package com.mygdx.game.desktop.weapons;
 import com.mygdx.game.desktop.Projectile;
 
 public class AutoRifle extends Firearm {
-    private String texture = "bullet.png";
 
     /**
      * Constructor for the AutoRifle class. It calls the constructor of the superclass with its specific values
