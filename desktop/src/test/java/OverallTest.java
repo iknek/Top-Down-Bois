@@ -13,7 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-public class OverallTest {
+/*public class OverallTest {
 
     Firearm firearm;
     Coin coin;
@@ -249,3 +249,4 @@ public class OverallTest {
         assertEquals(2, rounds.getRound());
     }
 }
+*/

@@ -48,7 +48,9 @@ public class PlayerAnimations extends ApplicationAdapter{
         preLoad();
     }
 
-
+    /**
+     * Method to preload all textureatlas when game launches, so that the game doesn't have to do it later (thus reducing lag significantly).
+     */
     private void preLoad(){
         list = new ArrayList();
 

@@ -20,12 +20,6 @@ public class Hud implements Disposable{
     public Stage stage;
     private Viewport viewport;
 
-    private int rounds;
-    private int lives;
-    private int money;
-    private int currentWeapon;
-    private int totalAmmo;
-
     //Scene2D widgets
     private Label roundLabel;
     private Label liveLabel;
@@ -33,6 +27,11 @@ public class Hud implements Disposable{
     private Label currentWeaponLabel;
     private float scale;
 
+    /**
+     * Constructor that does everything associated with the table and lables. See sub-comments.
+     * @param sb spritebatch for every object in table
+     * @param progScale scale of program
+     */
     public Hud(SpriteBatch sb, int progScale){
 
         scale = progScale;
@@ -43,24 +42,23 @@ public class Hud implements Disposable{
         stage = new Stage(viewport, sb);
 
         Table table = new Table();
-        //Top-Align table
+        //Top-Aligns table
         table.bottom();
         table.padBottom(20);
         table.scaleBy(scale);
-        //make the table fill the entire stage
+        //Makes the table fill the entire stage
         table.setFillParent(true);
 
-        //define our labels using the String, and a Label style consisting of a font and color
-        roundLabel = new Label(String.format("%03d", rounds), new Label.LabelStyle(font, Color.WHITE));
-        liveLabel = new Label(String.format("%03d", lives), new Label.LabelStyle(font, Color.WHITE));
-        moneyLabel = new Label(String.format("%03d", money), new Label.LabelStyle(font, Color.WHITE));
-        currentWeaponLabel = new Label((currentWeapon + "/" + totalAmmo), new Label.LabelStyle(font, Color.WHITE));
-        //currentWeaponLabel = new Label(String.format("%03d", currentWeapon), new Label.LabelStyle(font, Color.WHITE));
+        //defines labels using the String, and a Label style consisting of a font and null color (font has just one). All values set to 1 since they get updated anyways, thus reducing amount of var. declerations needed.
+        roundLabel = new Label(String.format("%03d", 1), new Label.LabelStyle(font, null));
+        liveLabel = new Label(String.format("%03d", 1), new Label.LabelStyle(font, null));
+        moneyLabel = new Label(String.format("%03d", 1), new Label.LabelStyle(font, null));
+        currentWeaponLabel = new Label((1 + "/" + 1), new Label.LabelStyle(font, null));
 
-        // Pos
+        // Pos of table
         liveLabel.setPosition(50,100);
 
-        // Scale
+        // Scale of labels.
         liveLabel.setFontScale(scale);
         roundLabel.setFontScale(scale);
         moneyLabel.setFontScale(scale);
@@ -70,16 +68,25 @@ public class Hud implements Disposable{
         table.add(roundLabel).expandX().padBottom(10);
         table.add(liveLabel).expandX().padBottom(10);
 
-        //add a second row to our table
+        //Adds a second row to table
         table.row();
         table.add(moneyLabel).expandX();
         table.add(currentWeaponLabel).expandX();
         //table.add(liveLabel).expandX();
 
-        //add our table to the stage
+        //Adds table to stage
         stage.addActor(table);
     }
 
+    /**
+     * Update method that, when called, updates all the labels.
+     * @param round current game round
+     * @param live player lives left
+     * @param money player money
+     * @param firearm current player weapon
+     * @param mag current amount of ammo in player mag
+     * @param totalAmmo total ammo player has for one weapon (excluding amount in mag)
+     */
     public void update(int round, int live, int money, String firearm, int mag, int totalAmmo){
         roundLabel.setText("ROUND " + round);
         liveLabel.setText("LIVES " + live);
@@ -96,6 +103,9 @@ public class Hud implements Disposable{
         }
     }
 
+    /**
+     * Disposes of stage after update for memory/performance
+     */
     @Override
     public void dispose(){
         stage.dispose();

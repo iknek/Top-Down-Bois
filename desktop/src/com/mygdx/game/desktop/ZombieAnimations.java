@@ -45,44 +45,6 @@ public class ZombieAnimations extends ApplicationAdapter{
         preLoad();
     }
 
-    private void preLoad(){
-        list = new ArrayList();
-
-        runningBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
-        runningRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/running/running"));;
-        runningFront = new TextureAtlas(Gdx.files.internal("Coffin/Front/running/running"));
-        runningLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/running/running"));
-
-        hittingBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/hitting/hitting"));
-        hittingRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/hitting/hitting"));
-        hittingFront =  new TextureAtlas(Gdx.files.internal("Coffin/Front/hitting/hitting"));
-        hittingLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting"));
-
-        deadAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Dead/dead"));
-
-        list.add(runningBack);
-        list.add(runningRight);
-        list.add(runningLeft);
-        list.add(runningFront);
-
-        list.add(hittingBack);
-        list.add(hittingRight);
-        list.add(hittingFront);
-        list.add(hittingLeft);
-        list.add(deadAtlas);
-    }
-
-    /**
-     * Disposes of {@link TextureAtlas} and {@link Batch}.
-     */
-    @Override
-    public void dispose() {
-        batch.dispose();
-        for (int i = 0; i < 8; i++) {
-            list.get(i).dispose();
-        }
-    }
-
     /**
      * Sets {@link TextureAtlas} according to direction the {@link Zombie} is running.
      */
@@ -152,5 +114,46 @@ public class ZombieAnimations extends ApplicationAdapter{
 
         animation = new Animation(1f/20f, textureAtlas.getRegions());
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
+    }
+
+    /**
+     * Method to preload all textureatlas when game launches, so that the game doesn't have to do it later (thus reducing lag significantly)
+     */
+    private void preLoad(){
+        list = new ArrayList();
+
+        runningBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
+        runningRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/running/running"));;
+        runningFront = new TextureAtlas(Gdx.files.internal("Coffin/Front/running/running"));
+        runningLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/running/running"));
+
+        hittingBack = new TextureAtlas(Gdx.files.internal("Coffin/Back/hitting/hitting"));
+        hittingRight = new TextureAtlas(Gdx.files.internal("Coffin/Right/hitting/hitting"));
+        hittingFront =  new TextureAtlas(Gdx.files.internal("Coffin/Front/hitting/hitting"));
+        hittingLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting"));
+
+        deadAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Dead/dead"));
+
+        list.add(runningBack);
+        list.add(runningRight);
+        list.add(runningLeft);
+        list.add(runningFront);
+
+        list.add(hittingBack);
+        list.add(hittingRight);
+        list.add(hittingFront);
+        list.add(hittingLeft);
+        list.add(deadAtlas);
+    }
+
+    /**
+     * Disposes of {@link TextureAtlas} and {@link Batch}.
+     */
+    @Override
+    public void dispose() {
+        batch.dispose();
+        for (int i = 0; i < 8; i++) {
+            list.get(i).dispose();
+        }
     }
 }

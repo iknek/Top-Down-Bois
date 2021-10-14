@@ -14,9 +14,6 @@ import java.util.List;
 
 public class PlayerController implements InputProcessor{
     private Player player;
-    private Revolver revolver;
-    private AutoRifle autoRifle;
-    private Shotgun shotgun;
 
     /**
      * Constructor

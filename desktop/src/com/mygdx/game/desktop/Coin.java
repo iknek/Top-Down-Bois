@@ -121,14 +121,6 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
         }*/
     }
 
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
-    }
-
     /**
      * Removes the instance of this object from the program by removing it from all lists, stopping it from rendering or moving.
      */
@@ -138,6 +130,13 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
         //ZombieObserver.getInstance().detach(this);
     }
 
+    public float getX() {
+        return super.getX();
+    }
+
+    public float getY(){
+        return super.getY();
+    }
 
     /**
      * Gives this object the {@link Player} location for pathfinding.

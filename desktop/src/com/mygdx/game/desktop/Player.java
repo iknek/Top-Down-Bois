@@ -158,14 +158,6 @@ public class Player extends Sapien{
     }
 
     /**
-     * getter for health
-     * @return how much health the player currently has
-     */
-    public int getHealth(){
-        return health;
-    }
-
-    /**
      * Gives a little bit of health back, used in Rounds
      * @param x is the amount of health to be added
      */
@@ -189,6 +181,39 @@ public class Player extends Sapien{
     public void coinGained() {
         money = money + 1;
         System.out.println("Coin gained");
+    }
+
+    /**
+     * Sets speed for sprinting as opposed to walking. Uses timer to control how long player can run
+     * @param bool sprinting
+     */
+    public void setSprint(boolean bool){
+        if(bool){
+            this.speed = (float)82.5*scale;
+            timerSprint = new Timer();
+            timerSprint.schedule(new RemindTaskSprint(), 3*1000);
+        }else{
+            this.speed = 55*scale;
+        }
+    }
+
+    /**
+     * Timer for setSpring
+     */
+    class RemindTaskSprint extends TimerTask {
+        public void run() {
+            speed = 55*scale;
+            timerSprint.cancel();
+            timerSprint.purge();
+        }
+    }
+
+    /**
+     * getter for health
+     * @return how much health the player currently has
+     */
+    public int getHealth(){
+        return health;
     }
 
     public int getMoney(){
@@ -258,29 +283,19 @@ public class Player extends Sapien{
         weapons[currentWeapon].reloadFirearm();
     }
 
+    /**
+     * Setter for class boolean playerHit
+     * @param bool boolean condition for class boolean playerHit
+     */
     public void setPlayerHit(boolean bool){
         playerHit = bool;
     }
 
+    /**
+     * Getter for class boolean playerHit
+     * @return boolean playerHit
+     */
     public boolean getPlayerHit(){
         return playerHit;
-    }
-
-    public void setSprint(boolean bool){
-        if(bool){
-            this.speed = (float)82.5*scale;
-            timerSprint = new Timer();
-            timerSprint.schedule(new RemindTaskSprint(), 3*1000);
-        }else{
-            this.speed = 55*scale;
-        }
-    }
-
-    class RemindTaskSprint extends TimerTask {
-        public void run() {
-            speed = 55*scale;
-            timerSprint.cancel();
-            timerSprint.purge();
-        }
     }
 }

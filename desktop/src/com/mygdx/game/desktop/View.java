@@ -27,14 +27,6 @@ public class View extends OrthogonalTiledMapRenderer {
     }
 
     /**
-     * Returns the instance of View
-     * @return the single instance of View
-     */
-    public static View getInstance() {
-        return single_instance;
-    }
-
-    /**
      * Either creates a new instance of View or returns the instance that already exists.
      * @param scale is the scale for the whole program and so also the map
      * @return the single instance which either is created or already exists
@@ -43,15 +35,6 @@ public class View extends OrthogonalTiledMapRenderer {
         if (single_instance == null)
             single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), scale);
         return single_instance;
-    }
-
-    /**
-     * returns the map
-     * @return The map of the program
-     */
-    @Override
-    public TiledMap getMap() {
-        return super.getMap();
     }
 
     /**
@@ -68,22 +51,6 @@ public class View extends OrthogonalTiledMapRenderer {
      */
     public void removeSprite(Sprite sprite){
         sprites.remove(sprite);
-    }
-
-    /**
-     * Returns the list of sprites
-     * @return list of sprites which are currently being rendered
-     */
-    public List<Sprite> getSprites(){
-        return sprites;
-    }
-
-    /**
-     * returns the batch which the View uses
-     * @return the batch
-     */
-    public Batch getBatch(){
-        return batch;
     }
 
     /**
@@ -130,4 +97,38 @@ public class View extends OrthogonalTiledMapRenderer {
 
         return camera;
     }
+
+    /**
+     * Returns the list of sprites
+     * @return list of sprites which are currently being rendered
+     */
+    public List<Sprite> getSprites(){
+        return sprites;
+    }
+
+    /**
+     * returns the batch which the View uses
+     * @return the batch
+     */
+    public Batch getBatch(){
+        return batch;
+    }
+
+    /**
+     * Returns the instance of View
+     * @return the single instance of View
+     */
+    public static View getInstance() {
+        return single_instance;
+    }
+
+    /**
+     * returns the map
+     * @return The map of the program
+     */
+    @Override
+    public TiledMap getMap() {
+        return super.getMap();
+    }
+
 }

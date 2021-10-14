@@ -33,17 +33,6 @@ public class Projectile extends Sprite implements Movable {
         MovableSubject.getInstance().attach(this);
     }
 
-    public float getX() {
-        return super.getX();
-    }
-    public float getY(){
-        return super.getY();
-    }
-
-    public int getDamage(){
-        return damage;
-    }
-
     /**
      * Moves projectile
      */
@@ -63,9 +52,22 @@ public class Projectile extends Sprite implements Movable {
         MovableSubject.getInstance().detach(this);
     }
 
-
+    /**
+     * Gets bounding rectangle of projectile for collisions.
+     * @return Rectanle boundingRectangle
+     */
     @Override
     public Rectangle getBoundingRectangle() {
         return super.getBoundingRectangle();
+    }
+
+    public float getX() {
+        return super.getX();
+    }
+    public float getY(){
+        return super.getY();
+    }
+    public int getDamage(){
+        return damage;
     }
 }
