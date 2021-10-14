@@ -41,8 +41,8 @@ public class MovableSubject {
      * Removes a specific object from the observer list
      * @param o is the object which is going to be removed
      */
-    public void detach(Movable o) {
-        observers.remove(o);
+    public boolean detach(Movable o) {
+        return observers.remove(o);
     }
 
     /**
