@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.bullet.collision.ICollide;
@@ -199,7 +200,7 @@ public class OverallTest {
     //////////PROJECTILE//////////
     @Test
     void projectileCollideTest(){
-        Projectile projectile = new Projectile(100, 0, 50, 50, 5, "bullet.png", 2);
+        Projectile projectile = new Projectile(100, 0, 50, 50, 5, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.collide(new Rectangle());
         assertAll("Does projectile get removed when collision happens",
                 () -> assertFalse(MovableSubject.getInstance().getObservers().contains(projectile)),
@@ -209,7 +210,7 @@ public class OverallTest {
 
     @Test
     void projectileMoves(){
-        Projectile projectile = new Projectile(10, 0, 50, 50, 1, "bullet.png", 2);
+        Projectile projectile = new Projectile(10, 0, 50, 50, 1, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.update();
         assertAll("Does bullet move",
                 () -> assertEquals(50, projectile.getX()),
