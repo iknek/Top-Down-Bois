@@ -8,8 +8,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ZombieFactory {
 

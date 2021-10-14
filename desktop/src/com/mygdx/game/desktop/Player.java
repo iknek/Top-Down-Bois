@@ -145,6 +145,7 @@ public class Player extends Sapien{
             invincible = false;
             setPlayerHit(false);
             timerInvinc.cancel();
+            timerInvinc.purge();
         }
     }
 
@@ -279,6 +280,7 @@ public class Player extends Sapien{
         public void run() {
             speed = 55*scale;
             timerSprint.cancel();
+            timerSprint.purge();
         }
     }
 }

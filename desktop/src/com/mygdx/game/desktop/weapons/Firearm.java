@@ -71,8 +71,8 @@ public abstract class Firearm {
             readyToFire = false;
             timer = new Timer();
             createBullet(angle, x, y);
-            readyToFire = true;
-            //timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
+            //readyToFire = true;
+            timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
         }
     }
 
@@ -84,6 +84,7 @@ public abstract class Firearm {
         public void run(){
             readyToFire = true;
             timer.cancel(); //Terminate the timer thread
+            timer.purge();
         }
     }
 
@@ -97,8 +98,10 @@ public abstract class Firearm {
         timer = new Timer();
         timer.schedule(new RemindTask(), reloadSpeed);
 
-        int ammoDifference = maxAmmoinMag-ammoInMagazine;
-        ammoInMagazine += ammoDifference;
-        totalAmmo -= ammoDifference;
+        if(totalAmmo > 0){
+            int ammoDifference = maxAmmoinMag-ammoInMagazine;
+            ammoInMagazine += ammoDifference;
+            totalAmmo -= ammoDifference;
+        }
     }
 }

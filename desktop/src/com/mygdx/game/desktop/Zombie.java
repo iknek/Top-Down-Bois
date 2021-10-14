@@ -3,8 +3,6 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Zombie extends Sapien implements Zombies{
 
