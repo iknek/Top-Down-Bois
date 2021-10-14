@@ -66,7 +66,9 @@ public class View extends OrthogonalTiledMapRenderer {
      * Removes a sprite from the list to be rendered
      * @param sprite is the sprite which we want removed
      */
-    public void removeSprite(Sprite sprite){ sprites.remove(sprite); }
+    public void removeSprite(Sprite sprite){
+        sprites.remove(sprite);
+    }
 
     /**
      * Returns the list of sprites

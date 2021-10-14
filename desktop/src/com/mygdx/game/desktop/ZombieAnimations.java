@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * The ZombieAnimations class handles animating the {@link Zombie} objects on screen.
@@ -18,7 +16,6 @@ public class ZombieAnimations extends ApplicationAdapter{
     private Batch batch;
 
     private TextureAtlas textureAtlas;
-
     private TextureAtlas runningBack;
     private TextureAtlas runningRight;
     private TextureAtlas runningFront;
@@ -28,6 +25,8 @@ public class ZombieAnimations extends ApplicationAdapter{
     private TextureAtlas hittingFront;
     private TextureAtlas hittingLeft;
     private TextureAtlas hittingRight;
+
+    private TextureAtlas deadAtlas;
 
     private Animation animation;
     private float elapsedTime = 0f;
@@ -59,6 +58,8 @@ public class ZombieAnimations extends ApplicationAdapter{
         hittingFront =  new TextureAtlas(Gdx.files.internal("Coffin/Front/hitting/hitting"));
         hittingLeft = new TextureAtlas(Gdx.files.internal("Coffin/Left/hitting/hitting"));
 
+        deadAtlas = new TextureAtlas(Gdx.files.internal("Coffin/Dead/dead"));
+
         list.add(runningBack);
         list.add(runningRight);
         list.add(runningLeft);
@@ -68,6 +69,7 @@ public class ZombieAnimations extends ApplicationAdapter{
         list.add(hittingRight);
         list.add(hittingFront);
         list.add(hittingLeft);
+        list.add(deadAtlas);
     }
 
     /**
@@ -76,7 +78,7 @@ public class ZombieAnimations extends ApplicationAdapter{
     @Override
     public void dispose() {
         batch.dispose();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             list.get(i).dispose();
         }
     }
@@ -143,7 +145,8 @@ public class ZombieAnimations extends ApplicationAdapter{
                 zombie.setMoving(false);
             }
             renderHit();
-        } else{
+        }
+        else{
             renderRunning();
         }
 

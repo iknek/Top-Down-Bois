@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
+import com.mygdx.game.desktop.weapons.Revolver;
+import com.mygdx.game.desktop.weapons.Shotgun;
 
+import java.lang.reflect.Array;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +29,9 @@ public class Player extends Sapien{
     private int money;
     private PlayerAnimations animations;
     private boolean playerHit;
+    private int currentWeapon;
+
+    private Firearm[] weapons = new Firearm[3];
 
     /**
      * Constructor for the Player class
@@ -45,7 +51,12 @@ public class Player extends Sapien{
 
         this.speed = 55*scale;
 
-        this.firearm = new AutoRifle(scale);
+        weapons[0] = new Revolver(scale);
+        weapons[1] = new Shotgun(scale);
+        weapons[2] = new AutoRifle(scale);
+
+        currentWeapon = 0;
+        //this.firearm = weapons[2];
 
         health = 100;
         maxHealth = 100;
@@ -57,7 +68,7 @@ public class Player extends Sapien{
     }
 
     public Firearm getWeapon(){
-        return this.firearm;
+        return weapons[currentWeapon];
     }
 
     /**
@@ -167,7 +178,7 @@ public class Player extends Sapien{
      */
     private void updateAction() {
         if (triggerPulled) {
-            firearm.fire(aimAngle, getX() + 16/2, getY() + 16/2);
+            weapons[currentWeapon].fire(aimAngle, getX() + 16/2, getY() + 16/2);
         }
     }
 
@@ -233,10 +244,9 @@ public class Player extends Sapien{
 
     /**
      * Gives the player a new weeapon
-     * @param firearm is the weapon the player recieves
      */
-    public void setFirearm(Firearm firearm){
-        this.firearm = firearm;
+    public void setFirearm(int weaponNumber){
+        currentWeapon = weaponNumber;
     }
 
     /**
@@ -244,12 +254,7 @@ public class Player extends Sapien{
      * The method is called in Playercontroller when r is pressed.
      */
     public void reload(){
-        try{
-            firearm.reloadFirearm();
-        }
-        catch( Exception NullPointerException){
-            System.out.println("Reloading full mags doesn't work!");
-        }
+        weapons[currentWeapon].reloadFirearm();
     }
 
     public void setPlayerHit(boolean bool){

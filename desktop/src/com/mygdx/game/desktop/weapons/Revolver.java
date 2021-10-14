@@ -1,14 +1,9 @@
 package com.mygdx.game.desktop.weapons;
 
 import com.mygdx.game.desktop.Projectile;
-import com.mygdx.game.desktop.weapons.Firearm;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Revolver extends Firearm {
-
-    private String texture = "bullet.png";
 
     /**
      * Constructor for the Revolver class. It calls the constructor of the superclass with its specific values

@@ -1,5 +1,7 @@
 package com.mygdx.game.desktop.weapons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.desktop.Projectile;
 
 import java.util.Timer;
@@ -8,7 +10,6 @@ import java.util.TimerTask;
 public abstract class Firearm {
     protected int projectileSpeed;
     protected int damage;
-    private String texture = "bullet.png";
     protected int ammoInMagazine;
     private int maxAmmoinMag;
     //rounds per minute
@@ -20,6 +21,7 @@ public abstract class Firearm {
     protected int totalAmmo;
 
     protected String name;
+    protected Texture texture;
 
     /**
      * Constructor for the superclass weapons.
@@ -32,6 +34,7 @@ public abstract class Firearm {
      * @param scale is the scale for the whole program. So that the bullets are the right size comparatively.
      */
     public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmoinMag, float scale, String name, int totalAmmo){
+        this.texture = new Texture(Gdx.files.internal("bullet.png"));
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
@@ -68,7 +71,8 @@ public abstract class Firearm {
             readyToFire = false;
             timer = new Timer();
             createBullet(angle, x, y);
-            timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
+            readyToFire = true;
+            //timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
         }
     }
 
