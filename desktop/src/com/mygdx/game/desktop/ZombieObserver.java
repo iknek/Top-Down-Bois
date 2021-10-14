@@ -18,6 +18,10 @@ public class ZombieObserver {
         return single_instance;
     }
 
+    public List<Zombies> getObservers() {
+        return observers;
+    }
+
     /**
      * adds the zombie to the list
      * @param o is the zombie which should be added to the list

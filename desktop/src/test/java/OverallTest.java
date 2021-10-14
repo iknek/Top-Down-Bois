@@ -248,5 +248,112 @@ import org.junit.jupiter.api.Test;
         rounds.checkNewRound(player);
         assertEquals(2, rounds.getRound());
     }
+
+
+    //ZombieFactory
+    @Test
+    void ZombieFactory(){
+
+    }
+
+    @Test
+    void createZombie(){
+        ZombieFactory zombieFactory = new ZombieFactory(1);
+        zombieFactory.createZombie(5,1);
+
+    }
+
+    //ZombieObserver
+    @Test
+    void attachZombieObserver(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1);
+        ZombieObserver zombieObserver = new ZombieObserver();
+        zombieObserver.attach(zombie);
+        assertTrue(zombieObserver.getObservers().contains(zombie));
+    }
+
+    @Test
+    void detachZombieObserver(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1);
+        ZombieObserver zombieObserver = new ZombieObserver();
+        zombieObserver.attach(zombie);
+        zombieObserver.detach(zombie);
+        assertTrue(zombieObserver.getObservers().isEmpty());
+    }
+
+    @Test
+    void playerLocation() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
+        ZombieObserver zombieObserver = new ZombieObserver();
+        zombieObserver.attach(zombie);
+        zombieObserver.attach(zombie2);
+        zombieObserver.playerLocation(15,25);
+        assertAll("",
+                () -> assertEquals(0,zombie.nearPlayer()),
+                () -> assertEquals(5,zombie2.nearPlayer())
+        );
+    }
+
+    @Test
+    void playerHit() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
+        ZombieObserver zombieObserver = new ZombieObserver();
+        zombieObserver.attach(zombie);
+        zombieObserver.attach(zombie2);
+        zombie.setHitPlayer(true);
+        zombie2.setHitPlayer(true);
+        assertEquals(2,zombieObserver.playerHit());
+    }
+
+    //Zombie
+
+    @Test
+    void nearPlayer() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        zombie.playerLocation(5, 5);
+        //test nearPlayer()
+        assertEquals(7, zombie.nearPlayer());
+    }
+
+    @Test
+    void getHit(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        //test getHit()
+        zombie.getHit(1);
+        assertTrue(View.getInstance().getSprites().contains(zombie));
+        zombie.getHit(1);
+        assertFalse(View.getInstance().getSprites().contains(zombie));
+        assertTrue(View.getInstance().getSprites().get(0) instanceof Coin);
+    }
+
+    @Test
+    void setMoving(){
+        // test setMoving and moving()
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setMoving(true);
+        assertTrue(zombie.moving());
+        zombie.setMoving(false);
+        assertFalse(zombie.moving());
+    }
+
+    @Test
+        void updateAngle(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        //test updateAngle()
+        zombie.playerLocation(40,30);
+        zombie.update();
+        assertEquals(90, zombie.getRenderAngle());
+    }
+
+    @Test
+    void setHitPlayer(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setHitPlayer(true);
+        assertTrue(zombie.isHitPlayer());
+        zombie.setHitPlayer(false);
+        assertFalse(zombie.isHitPlayer());
+    }
 }
 */
