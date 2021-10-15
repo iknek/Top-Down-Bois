@@ -13,7 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-/*public class OverallTest {
+public class OverallTest {
 
     Firearm firearm;
     Coin coin;
@@ -21,38 +21,65 @@ import org.junit.jupiter.api.Test;
 
     @Before
     public void setup(){
-        firearm = new Revolver(2);
         player  = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
         View.createInstance(2);
     }
 
     //////////FIREARMS//////////
     @Test
-    void testFirearm(){
-        assertAll("Revolver test",
-                () -> assertEquals(6, firearm.getAmmoInMagazine()),
-                () -> assertEquals(36, firearm.getTotalAmmo()),
-                () -> assertEquals("REVOLVER", firearm.getName())
-        );
+    void testFirearmInitialAmmoInMag(){
+        firearm = new Revolver(2);
+        assertEquals(6, firearm.getAmmoInMagazine());
+    }
+
+    @Test
+    void testFirearmInitialTotal(){
+        firearm = new Revolver(2);
+        assertEquals(36, firearm.getTotalAmmo());
+    }
+
+    @Test
+    void testFirearmName(){
+        firearm = new Revolver(2);
+        assertEquals("REVOLVER", firearm.getName());
     }
 
     @Test
     void testFirearmAfterFire(){
+        firearm = new Revolver(2);
         firearm.fire(0,50,50);
         assertEquals(5,firearm.getAmmoInMagazine());
     }
 
     @Test
-    void testFirearmAfterReload(){
+    void testFirearmAmmoInMagAfterReload(){
+        firearm = new Revolver(2);
+        firearm.fire(0,50,50);
         firearm.reloadFirearm();
-        assertAll("Reload test",
-                () -> assertEquals(6,firearm.getAmmoInMagazine()),
-                () -> assertEquals(35,firearm.getTotalAmmo())
-        );
+        assertEquals(6,firearm.getAmmoInMagazine());
     }
 
     @Test
-    void testFirearmEmpty(){
+    void testFirearmTotalAfterReload(){
+        firearm = new Revolver(2);
+        firearm.fire(0,50,50);
+        firearm.reloadFirearm();
+        assertEquals(35, firearm.getTotalAmmo());
+    }
+
+    @Test
+    void testFirearmEmptyInMag(){
+        firearm = emptyFirearm();
+        assertEquals(0, firearm.getAmmoInMagazine());
+    }
+
+    @Test
+    void testFirearmEmptyTotal(){
+        firearm = emptyFirearm();
+        assertEquals(0, firearm.getTotalAmmo());
+    }
+
+    public Firearm emptyFirearm(){
         firearm = new Revolver(2);
         for(int i =0; i <36; i++){
             firearm.fire(0,50,50);
@@ -60,31 +87,34 @@ import org.junit.jupiter.api.Test;
         }
         firearm.fire(0,50,50);
         firearm.reloadFirearm();
-        assertAll("Firearm empty",
-                () -> assertEquals(0, firearm.getAmmoInMagazine()),
-                () -> assertEquals(0, firearm.getTotalAmmo())
-        );
+        return firearm;
     }
 
     //////////COINS//////////
     @Test
-    void testCoin(){
+    void testCoinInitialX(){
         coin = new Coin(50, 50, 2);
-        assertAll("Make sure the coin spawns where it should",
-                () -> assertEquals(50, coin.getX()),
-                () -> assertEquals(50, coin.getY())
-        );
+        assertEquals(50, coin.getX());
     }
 
     @Test
-    void testCoinRemove(){
-        MovableSubject.getInstance().attach(coin);
-        View.getInstance().addSprite(coin);
+    void testCoinInitialY(){
+        coin = new Coin(50,50,2);
+        assertEquals(50, coin.getY());
+    }
+
+    @Test
+    void testCoinRemoveMovableSubject(){
+        coin = new Coin(50,50,2);
         coin.remove();
-        assertAll("Coin removes itself",
-                () -> assertEquals(0, MovableSubject.getInstance().getObservers().size()),
-                () -> assertEquals(0, View.getInstance().getSprites().size())
-       );
+        assertEquals(0, MovableSubject.getInstance().getObservers().size());
+    }
+
+    @Test
+    void testCoinRemoveView(){
+        coin = new Coin(50,50,2);
+        coin.remove();
+        assertEquals(0, View.getInstance().getSprites().size());
     }
 
     //////////MOVABLESUBJECT//////////
@@ -113,8 +143,7 @@ import org.junit.jupiter.api.Test;
     void playerFirearmTest(){
         player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
 
-        assertTrue(player.getWeapon() instanceof AutoRifle);
-        //TODO test for changing firearm
+        assertTrue(player.getWeapon() instanceof Revolver);
     }
 
     @Test
@@ -168,54 +197,81 @@ import org.junit.jupiter.api.Test;
     void playerFireGun(){
         player.setTriggerPulled(true);
         player.update();
-        assertEquals(49, player.getWeapon().getAmmoInMagazine());
+        assertEquals(5, player.getWeapon().getAmmoInMagazine());
     }
 
     @Test
     void playerReloadGun(){
         player.reload();
-        assertAll("Player reload test",
-                () -> assertEquals(50, player.getWeapon().getAmmoInMagazine()),
-                () -> assertEquals(199, player.getWeapon().getTotalAmmo())
-        );
+        assertEquals(6, player.getWeapon().getAmmoInMagazine());
     }
 
     @Test
-    void playerAddedToObservers(){
-        assertAll("Player added to observers",
-                () -> assertTrue(MovableSubject.getInstance().getObservers().contains(player)),
-                () -> assertTrue(View.getInstance().getSprites().contains(player))
-        );
+    void playerSwitchToShotgun(){
+        player.setFirearm(1);
+        assertTrue(player.getWeapon() instanceof Shotgun);
     }
 
     @Test
-    void playerRemovedfromObservers(){
+    void playerSwitchToAutoRifle(){
+        player.setFirearm(2);
+        assertTrue(player.getWeapon() instanceof AutoRifle);
+    }
+
+    @Test
+    void playerSwitchToRevolver(){
+        player.setFirearm(0);
+        assertTrue(player.getWeapon() instanceof Revolver);
+    }
+
+    @Test
+    void playerAddedToObserversMovableSubject(){
+        assertTrue(MovableSubject.getInstance().getObservers().contains(player));
+    }
+
+    @Test
+    void playerAddedToObserversView(){
+        assertTrue(View.getInstance().getSprites().contains(player));
+    }
+
+    @Test
+    void playerRemovedFromObserversMovableSubject(){
         player.getHit(100);
-        assertAll("Player added to observers",
-                () -> assertFalse(MovableSubject.getInstance().getObservers().contains(player)),
-                () -> assertFalse(View.getInstance().getSprites().contains(player))
-        );
+        assertFalse(MovableSubject.getInstance().getObservers().contains(player));
+    }
+
+    @Test
+    void playerRemovedFromObserversView(){
+        assertFalse(View.getInstance().getSprites().contains(player));
     }
 
     //////////PROJECTILE//////////
     @Test
-    void projectileCollideTest(){
+    void projectileCollideTestMovableSubject(){
         Projectile projectile = new Projectile(100, 0, 50, 50, 5, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.collide(new Rectangle());
-        assertAll("Does projectile get removed when collision happens",
-                () -> assertFalse(MovableSubject.getInstance().getObservers().contains(projectile)),
-                () -> assertFalse(View.getInstance().getSprites().contains(projectile))
-        );
+        assertFalse(MovableSubject.getInstance().getObservers().contains(projectile));
     }
 
     @Test
-    void projectileMoves(){
+    void projectileCollideTestView(){
+        Projectile projectile = new Projectile(100, 0, 50, 50, 5, new Texture(Gdx.files.internal("bullet.png")), 2);
+        projectile.collide(new Rectangle());
+        assertFalse(View.getInstance().getSprites().contains(projectile));
+    }
+
+    @Test
+    void projectileMovesX(){
+        Projectile projectile = new Projectile(10, 90, 50, 50, 1, new Texture(Gdx.files.internal("bullet.png")), 2);
+        projectile.update();
+        assertEquals(60, projectile.getX());
+    }
+
+    @Test
+    void projectileMovesY(){
         Projectile projectile = new Projectile(10, 0, 50, 50, 1, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.update();
-        assertAll("Does bullet move",
-                () -> assertEquals(50, projectile.getX()),
-                () -> assertEquals(60, projectile.getY())
-        );
+        assertEquals(60, projectile.getY());
     }
 
     //////////ROUNDS//////////
@@ -253,7 +309,7 @@ import org.junit.jupiter.api.Test;
     //ZombieFactory
     @Test
     void ZombieFactory(){
-
+        assertTrue(true);
     }
 
     @Test
@@ -283,16 +339,13 @@ import org.junit.jupiter.api.Test;
 
     @Test
     void playerLocation() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
         Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
         ZombieObserver zombieObserver = new ZombieObserver();
         zombieObserver.attach(zombie);
         zombieObserver.attach(zombie2);
         zombieObserver.playerLocation(15,25);
-        assertAll("",
-                () -> assertEquals(0,zombie.nearPlayer()),
-                () -> assertEquals(5,zombie2.nearPlayer())
-        );
+        assertTrue(zombie.nearPlayer()==0 && zombie2.nearPlayer()==5);
     }
 
     @Test
@@ -318,22 +371,41 @@ import org.junit.jupiter.api.Test;
     }
 
     @Test
+    void addedToView(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        assertTrue(View.getInstance().getSprites().contains(zombie));
+    }
+
+    @Test
     void getHit(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
         //test getHit()
         zombie.getHit(1);
-        assertTrue(View.getInstance().getSprites().contains(zombie));
         zombie.getHit(1);
         assertFalse(View.getInstance().getSprites().contains(zombie));
+    }
+
+    @Test
+    void spawnsCoin(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        zombie.getHit(1);
+        zombie.getHit(1);
         assertTrue(View.getInstance().getSprites().get(0) instanceof Coin);
     }
 
     @Test
-    void setMoving(){
+    void setMovingTrue(){
         // test setMoving and moving()
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setMoving(false);
         zombie.setMoving(true);
         assertTrue(zombie.moving());
+    }
+
+    @Test
+    void setMovingFalse(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setMoving(true);
         zombie.setMoving(false);
         assertFalse(zombie.moving());
     }
@@ -350,10 +422,16 @@ import org.junit.jupiter.api.Test;
     @Test
     void setHitPlayer(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setHitPlayer(false);
         zombie.setHitPlayer(true);
         assertTrue(zombie.isHitPlayer());
+    }
+
+    @Test
+    void setHitPlayerFalse(){
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        zombie.setHitPlayer(true);
         zombie.setHitPlayer(false);
         assertFalse(zombie.isHitPlayer());
     }
 }
-*/
