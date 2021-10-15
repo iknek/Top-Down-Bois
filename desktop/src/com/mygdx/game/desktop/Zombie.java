@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.Random;
 
-public class Zombie extends Sapien implements Zombies{
+public class Zombie extends Sapien implements Zombies, FollowsPlayers{
 
     private int playerX;
     private int playerY;
@@ -42,6 +42,7 @@ public class Zombie extends Sapien implements Zombies{
 
         ZombieObserver.getInstance().attach(this);
         View.getInstance().addSprite(this);
+        FollowerObserver.getInstance().attach(this);
     }
 
     @Override

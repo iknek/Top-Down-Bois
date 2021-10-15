@@ -38,18 +38,6 @@ public class ZombieObserver {
         observers.remove(o);
     }
 
-    /**
-     * Calls the playerLocation method which tells the zombie where the player is.
-     * This is called in all zombies.
-     * @param x is the X-coordinate of the player
-     * @param y is the Y-coordinate of the player
-     */
-    public void playerLocation(int x, int y) {
-        for(Zombies o: observers) {
-            o.playerLocation(x, y);
-        }
-    }
-
     public int playerHit(){
         int counter = 0;
         for(Zombies zombie : observers){

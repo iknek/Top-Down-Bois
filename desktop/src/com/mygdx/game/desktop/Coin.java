@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
  * Upon collision with the player, this object disappears and increases the player's currency counter.
  * The Coins movement towards the player is referred to as the Coins "magnet".
  */
-public class Coin extends Sprite implements Movable/*, Zombies*/{
+public class Coin extends Sprite implements Movable, FollowsPlayers{
     /**
      * Angle for this objects directional movement.
      */
@@ -51,8 +51,7 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
 
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
-        //Döp om zombie observer och Zombies till något mer passande, Coin vill också veta var player finns
-        //ZombieObserver.getInstance().attach(this);
+        FollowerObserver.getInstance().attach(this);
     }
 
     /**
@@ -71,11 +70,11 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
      */
     @Override
     public void update() {
-        /*updateAngle();
+        updateAngle();
         if (distanceToPlayer() < magnetDistance) {
             translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
-        }*/
+        }
     }
 
     /**
@@ -102,7 +101,7 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
      */
     @Override
     public void collide(Rectangle rectangle) {
-        /*translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
+        translateX(((float)-(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
         translateY(((float)-(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
 
         boolean insideX = !((getX()+getWidth())<rectangle.getX()||(rectangle.getX()+rectangle.getWidth())<getX());
@@ -118,7 +117,7 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
             if((rectangle.getX()+rectangle.getWidth()) < getX()){ translateX(1); }
             if(getY()+(getHeight()/2) < rectangle.getY()){ translateY(-1); }
             if(rectangle.getY()+rectangle.getHeight() < getY()){ translateY(1); }
-        }*/
+        }
     }
 
     /**
@@ -143,10 +142,10 @@ public class Coin extends Sprite implements Movable/*, Zombies*/{
      * @param x x-coordinate of the player
      * @param y y-coordinate of the player
      */
-    /*@Override
+    @Override
     public void playerLocation(int x, int y) {
         this.playerX = x;
         this.playerY = y;
-    }*/
+    }
 
 }

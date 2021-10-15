@@ -337,6 +337,8 @@ public class OverallTest {
         assertTrue(zombieObserver.getObservers().isEmpty());
     }
 
+    //TODO make this a test for FollowerObserver instead
+    /*
     @Test
     void playerLocation() {
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
@@ -347,6 +349,7 @@ public class OverallTest {
         zombieObserver.playerLocation(15,25);
         assertTrue(zombie.nearPlayer()==0 && zombie2.nearPlayer()==5);
     }
+    */
 
     @Test
     void playerHit() {
