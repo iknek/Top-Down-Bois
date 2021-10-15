@@ -24,36 +24,38 @@ public class CollisionController {
      * @param player the instance of player
      * @param scale the scale of the whole program
      */
-    public void checkCollisions(View view, Player player, float scale){
+    public void checkCollisions(View view, Player player, float scale) {
 
         MovableSubject movableSubject = MovableSubject.getInstance();
 
         MapLayer collisionObjectLayer = view.getMap().getLayers().get("collision");
         MapObjects objects = collisionObjectLayer.getObjects();
 
-        // there are several other types, Rectangle is probably the most common one
-        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            rectangle = scaleRectangle(rectangle, scale);
+        for (Movable observer : movableSubject.getObservers()) {
+            //Collision on map
+            for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
+                Rectangle rectangle = rectangleObject.getRectangle();
+                rectangle = scaleRectangle(rectangle, scale);
 
-            for (Movable observer : movableSubject.getObservers()){
-
-                if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())){
+                if (Intersector.overlaps(rectangle, observer.getBoundingRectangle())) {
                     observer.collide(rectangle);
                 }
 
-                if(observer instanceof Zombie){
-                    checkZombieCollisions(player, (Zombie)observer);
-                }
+                rectangle = scaleBackRectangle(rectangle, scale);
+            }
 
-                if (observer instanceof Coin) {
-                    if(Intersector.overlaps(player.getBoundingRectangle(), observer.getBoundingRectangle())){
-                        player.coinGained();
-                        ((Coin) observer).remove();
-                    }
+            //Collision between zombies and other moving objects
+            if (observer instanceof Zombie) {
+                checkZombieCollisions((Zombie) observer);
+            }
+
+            //Coin potentially being picked up
+            if (observer instanceof Coin) {
+                if (Intersector.overlaps(player.getBoundingRectangle(), observer.getBoundingRectangle())) {
+                    player.coinGained();
+                    ((Coin) observer).remove();
                 }
             }
-            rectangle = scaleBackRectangle(rectangle, scale);
         }
     }
 
@@ -88,10 +90,9 @@ public class CollisionController {
     /**
      * This method checks all collisions which have to do with the Zombies such as getting shot by a bullet or colliding
      * with the player or other zombies
-     * @param player the instance of player in the program
      * @param zombie the zombie instance which is being checked
      */
-    private void checkZombieCollisions(Player player, Zombie zombie){
+    private void checkZombieCollisions(Zombie zombie){
         for (Movable o: MovableSubject.getInstance().getObservers()) {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
@@ -100,9 +101,6 @@ public class CollisionController {
                 zombieCollideZombie((Zombie) o, zombie);
             }
         }
-        /*if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
-            //player.getHit(zombie.getDamage());
-        }*/
     }
 
     /**
@@ -123,9 +121,11 @@ public class CollisionController {
      * @param zombie another zombie
      */
     private void zombieCollideZombie(Zombie o, Zombie zombie){
-        /*if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
-            zombie.translateX(((float)-(Math.sin(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
-            zombie.translateY(((float)-(Math.cos(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
-        }*/
+        //if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
+
+
+            //zombie.translateX(((float)-(Math.sin(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
+            //zombie.translateY(((float)-(Math.cos(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
+        //}
     }
 }
