@@ -19,7 +19,7 @@ public class ZombieObserver {
     }
 
     public List<Zombies> getObservers() {
-        return observers;
+        return new CopyOnWriteArrayList<>(observers);
     }
 
     /**

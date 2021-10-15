@@ -21,7 +21,7 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers{
      * @param scale = Scale of atlas.
      * Constructor for ZombieFactory.
      */
-    public Zombie(TextureAtlas atlas, float posX, float posY, float scale) {
+    public Zombie(TextureAtlas atlas, float posX, float posY, float scale, int roundNumber) {
         super(atlas, posX, posY, scale);
         this.name = "Eric";
 
@@ -33,7 +33,8 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers{
 
         this.speed = (25 + randomInt*2)*scale;
 
-        health = 2;
+        health = 1 + roundNumber/3;
+
         this.renderAngle = 0;
 
         moving = true;
@@ -86,8 +87,9 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers{
         health = health - damage;
         if (health <= 0){
             View.getInstance().removeSprite(Zombie.this);
-            MovableSubject.getInstance().detach(Zombie.this);
-            ZombieObserver.getInstance().detach(Zombie.this);
+            MovableSubject.getInstance().detach(this);
+            ZombieObserver.getInstance().detach(this);
+            FollowerObserver.getInstance().detach(this);
             new Coin(getX(),getY(), scale);
         }
     }

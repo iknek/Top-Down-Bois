@@ -11,10 +11,6 @@ public class Rounds {
      */
     private ZombieFactory zombiefactory;
     /**
-     * Scaling factor for {@link Zombie} objects in ZombieFactory to render in proper scale to the map.
-     */
-    private float scale;
-    /**
      * Counter for keeping track of which round the player has progressed to.
      */
     private int roundNumber;
@@ -27,7 +23,6 @@ public class Rounds {
      */
     public Rounds (float scale){
         this.roundNumber = 0;
-        this.scale = scale;
         zombiefactory = new ZombieFactory(scale);
     }
 
@@ -37,7 +32,7 @@ public class Rounds {
      */
     public void checkNewRound(Player player){
         if(zombiesLeftToSpawn > 0){
-            zombiefactory.createZombie(1, scale);
+            zombiefactory.createZombie(1, roundNumber);
             zombiesLeftToSpawn--;
         }else{
             int zombiesLeft = 0;

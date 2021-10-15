@@ -322,7 +322,7 @@ public class OverallTest {
     //ZombieObserver
     @Test
     void attachZombieObserver(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieObserver zombieObserver = new ZombieObserver();
         zombieObserver.attach(zombie);
         assertTrue(zombieObserver.getObservers().contains(zombie));
@@ -330,7 +330,7 @@ public class OverallTest {
 
     @Test
     void detachZombieObserver(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieObserver zombieObserver = new ZombieObserver();
         zombieObserver.attach(zombie);
         zombieObserver.detach(zombie);
@@ -353,8 +353,8 @@ public class OverallTest {
 
     @Test
     void playerHit() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1);
-        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1, 1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1, 1);
         ZombieObserver zombieObserver = new ZombieObserver();
         zombieObserver.attach(zombie);
         zombieObserver.attach(zombie2);
@@ -367,7 +367,7 @@ public class OverallTest {
 
     @Test
     void nearPlayer() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         zombie.playerLocation(5, 5);
         //test nearPlayer()
         assertEquals(7, zombie.nearPlayer());
@@ -375,13 +375,13 @@ public class OverallTest {
 
     @Test
     void addedToView(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         assertTrue(View.getInstance().getSprites().contains(zombie));
     }
 
     @Test
     void getHit(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         //test getHit()
         zombie.getHit(1);
         zombie.getHit(1);
@@ -390,7 +390,7 @@ public class OverallTest {
 
     @Test
     void spawnsCoin(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         zombie.getHit(1);
         zombie.getHit(1);
         assertTrue(View.getInstance().getSprites().get(0) instanceof Coin);
@@ -399,7 +399,7 @@ public class OverallTest {
     @Test
     void setMovingTrue(){
         // test setMoving and moving()
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setMoving(false);
         zombie.setMoving(true);
         assertTrue(zombie.moving());
@@ -407,7 +407,7 @@ public class OverallTest {
 
     @Test
     void setMovingFalse(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setMoving(true);
         zombie.setMoving(false);
         assertFalse(zombie.moving());
@@ -415,7 +415,7 @@ public class OverallTest {
 
     @Test
         void updateAngle(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         //test updateAngle()
         zombie.playerLocation(40,30);
         zombie.update();
@@ -424,7 +424,7 @@ public class OverallTest {
 
     @Test
     void setHitPlayer(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setHitPlayer(false);
         zombie.setHitPlayer(true);
         assertTrue(zombie.isHitPlayer());
@@ -432,7 +432,7 @@ public class OverallTest {
 
     @Test
     void setHitPlayerFalse(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setHitPlayer(true);
         zombie.setHitPlayer(false);
         assertFalse(zombie.isHitPlayer());

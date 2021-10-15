@@ -103,7 +103,7 @@ public class View extends OrthogonalTiledMapRenderer {
      * @return list of sprites which are currently being rendered
      */
     public List<Sprite> getSprites(){
-        return sprites;
+        return new CopyOnWriteArrayList<>(sprites);
     }
 
     /**

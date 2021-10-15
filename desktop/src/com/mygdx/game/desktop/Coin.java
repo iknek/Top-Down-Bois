@@ -126,7 +126,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     public void remove(){
         View.getInstance().removeSprite(this);
         MovableSubject.getInstance().detach(this);
-        //ZombieObserver.getInstance().detach(this);
+        FollowerObserver.getInstance().detach(this);
     }
 
     public float getX() {

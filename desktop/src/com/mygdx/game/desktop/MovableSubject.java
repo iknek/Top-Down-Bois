@@ -26,7 +26,7 @@ public class MovableSubject {
      * @return the list of observers
      */
     public List<Movable> getObservers(){
-        return observers;
+        return new CopyOnWriteArrayList<>(observers);
     }
 
     /**

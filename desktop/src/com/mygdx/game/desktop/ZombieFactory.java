@@ -12,6 +12,7 @@ import java.util.Random;
 public class ZombieFactory {
 
     private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
+    private float scale;
 
     /**
      * @param scale = scale of spawnpoint rectangle object
@@ -21,17 +22,18 @@ public class ZombieFactory {
         MapLayer spawnPointLayer = View.getInstance().getMap().getLayers().get("spawntiles");
         MapObjects spawnPointObjects = spawnPointLayer.getObjects();
 
+        this.scale = scale;
+
         for (RectangleMapObject spawnPointObject : spawnPointObjects.getByType(RectangleMapObject.class)) {
             spawnpoints.add(new Spawnpoint(spawnPointObject, scale));
         }
     }
 
     /**
-     * @param scale = scale of zombies
      * @param amount = amount of zombies to loop thru
      * Creates zombies by looping thru @param amount, assigning the zombie to a random spawnpoint
      */
-    public void createZombie(int amount, float scale){
+    public void createZombie(int amount, int roundNumber){
         TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
 
         for (int i = 0; i < amount; i++) {
@@ -41,7 +43,7 @@ public class ZombieFactory {
 
             Spawnpoint spawnpoint = spawnpoints.get(randomInt);
 
-            new Zombie(atlasEric, spawnpoint.getX(), spawnpoint.getY(), scale);
+            new Zombie(atlasEric, spawnpoint.getX(), spawnpoint.getY(), scale, roundNumber);
         }
     }
 }
