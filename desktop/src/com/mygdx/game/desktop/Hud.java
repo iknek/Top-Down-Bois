@@ -28,7 +28,7 @@ public class Hud implements Disposable{
     private float scale;
 
     /**
-     * Constructor that does everything associated with the table and lables. See sub-comments.
+     * Constructor that does everything associated with the table and labels. See sub-comments.
      * @param sb spritebatch for every object in table
      * @param progScale scale of program
      */

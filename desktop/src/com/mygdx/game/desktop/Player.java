@@ -72,7 +72,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * This method, updates the angle of the player depending on which buttons are pressed.
+     * Updates the angle of the player depending on which buttons are pressed.
      */
     protected void updateAngle() {
         if (up && !down && !right && !left) {
@@ -108,7 +108,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * This method tells the program whether the player is moving or not
+     * Tells the program whether this object is moving or not.
      * @return whether the player is moving
      */
     @Override
@@ -150,7 +150,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * Removes the player from View and Movablesubject so that it does not render and cannot move. the player is dead.
+     * Removes the player from View and {@link MovableSubject} so that it does not render and cannot move. the player is dead.
      */
     private void die(){
         View.getInstance().removeSprite(this);
@@ -158,7 +158,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * Gives a little bit of health back, used in Rounds
+     * Gives a little bit of health back, used in {@link Rounds}
      * @param x is the amount of health to be added
      */
     public void addHealth(int x){
@@ -167,7 +167,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * Sees if the trigger is pulled and if so, fires the weapon
+     * Sees if the trigger is pulled and if so, fires the {@link Firearm} object.
      */
     private void updateAction() {
         if (triggerPulled) {
@@ -176,7 +176,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * When a coin is picked up adds to the money variable
+     * Adds to the <code>money</code> variable when a {@link Coin} object is picked up
      */
     public void coinGained() {
         money = money + 1;
@@ -261,7 +261,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * setter for the aim angle, called in Playercontroller when the mouse is moved
+     * setter for the aim angle, called in {@link PlayerController} when the mouse is moved
      * @param angle is the angle at which the player will shoot
      */
     public void setAimAngle(int angle){
@@ -269,7 +269,7 @@ public class Player extends Sapien{
     }
 
     /**
-     * Gives the player a new weeapon
+     * Gives the player a new {@link Firearm} object
      */
     public void setFirearm(int weaponNumber){
         currentWeapon = weaponNumber;
@@ -277,7 +277,7 @@ public class Player extends Sapien{
 
     /**
      * Reloads the weapon.
-     * The method is called in Playercontroller when r is pressed.
+     * This method is called in {@link PlayerController} when the R key is pressed.
      */
     public void reload(){
         weapons[currentWeapon].reloadFirearm();
@@ -285,14 +285,14 @@ public class Player extends Sapien{
 
     /**
      * Setter for class boolean playerHit
-     * @param bool boolean condition for class boolean playerHit
+     * @param bool boolean condition for class boolean <code>playerHit</code>
      */
     public void setPlayerHit(boolean bool){
         playerHit = bool;
     }
 
     /**
-     * Getter for class boolean playerHit
+     * Getter for class boolean <code>playerHit</code>
      * @return boolean playerHit
      */
     public boolean getPlayerHit(){
