@@ -12,6 +12,7 @@ public class Zombie extends Sapien implements Zombies{
     private int renderAngle;
     private boolean moving;
     private ZombieAnimations animations;
+    private boolean hitPlayer;
 
     /**
      * @param atlas = textureatlas of zombie.
@@ -64,23 +65,6 @@ public class Zombie extends Sapien implements Zombies{
         if(angle > 225 && angle < 315){ renderAngle = 270;}
     }
 
-    public void setMoving(boolean bool){
-        this.moving = bool;
-    }
-
-    public int getRenderAngle(){
-        return renderAngle;
-    }
-
-    public int getDamage(){
-        return damage;
-    }
-
-    @Override
-    public boolean moving(){
-        return moving;
-    }
-
     /**
      * Gives zombie player location for pathfinding.
      * @param x
@@ -100,13 +84,12 @@ public class Zombie extends Sapien implements Zombies{
     public void getHit(int damage){
         health = health - damage;
         if (health <= 0){
-            View.getInstance().removeSprite(this);
-            MovableSubject.getInstance().detach(this);
-            ZombieObserver.getInstance().detach(this);
-            new Coin(this.getX(),this.getY(), scale);
+            View.getInstance().removeSprite(Zombie.this);
+            MovableSubject.getInstance().detach(Zombie.this);
+            ZombieObserver.getInstance().detach(Zombie.this);
+            new Coin(getX(),getY(), scale);
         }
     }
-
 
     /**
      * This method calculates the distance between the player and the zombie for animations
@@ -116,4 +99,25 @@ public class Zombie extends Sapien implements Zombies{
         return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));
     }
 
+    public int getDamage(){
+        return damage;
+    }
+    public boolean isHitPlayer() {
+        return hitPlayer;
+    }
+    public int getRenderAngle(){
+        return renderAngle;
+    }
+
+    public void setHitPlayer(boolean hitPlayer) {
+        this.hitPlayer = hitPlayer;
+    }
+    public void setMoving(boolean bool){
+        this.moving = bool;
+    }
+
+    @Override
+    public boolean moving(){
+        return moving;
+    }
 }

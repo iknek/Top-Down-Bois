@@ -4,14 +4,12 @@ import com.mygdx.game.desktop.Projectile;
 
 public class Shotgun extends Firearm {
 
-    private String texture = "bullet.png";
-
     /**
      * Constructor for the Shotgun class. It calls the constructor of the superclass with its specific values
      * @param scale is the scale of the program
      */
     public Shotgun(float scale){
-        super(1000, 1, 12, 90, 2000, 10, scale);
+        super(1000, 1, 5, 90, 2000, 10, scale, "SHOTGUN", 50);
     }
 
     /**

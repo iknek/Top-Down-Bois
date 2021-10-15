@@ -3,14 +3,13 @@ package com.mygdx.game.desktop.weapons;
 import com.mygdx.game.desktop.Projectile;
 
 public class AutoRifle extends Firearm {
-    private String texture = "bullet.png";
 
     /**
      * Constructor for the AutoRifle class. It calls the constructor of the superclass with its specific values
      * @param scale is the scale of the program
      */
     public AutoRifle(float scale){
-        super(1800, 3, 25, 600, 2000, 50, scale);
+        super(1800, 3, 50, 600, 2000, 50, scale, "AUTORIFLE", 200);
     }
 
     /**

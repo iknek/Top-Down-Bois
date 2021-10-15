@@ -1,22 +1,27 @@
 package com.mygdx.game.desktop.weapons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.desktop.Projectile;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class   Firearm {
+public abstract class Firearm {
     protected int projectileSpeed;
     protected int damage;
-    private String texture = "bullet.png";
     protected int ammoInMagazine;
-    private int maxAmmo;
+    private int maxAmmoinMag;
     //rounds per minute
     protected float rateOfFire;
     private Timer timer;
     protected boolean readyToFire = true;
     protected int reloadSpeed;
     protected float scale;
+    protected int totalAmmo;
+
+    protected String name;
+    protected Texture texture;
 
     /**
      * Constructor for the superclass weapons.
@@ -25,17 +30,32 @@ public abstract class   Firearm {
      * @param ammoInMagazine is the ammo which is currently in the magazine
      * @param rateOfFire is how quickly the bullets are produced
      * @param reloadSpeed is how long it takes to reload the gun
-     * @param maxAmmo is the maximum ammo the gun can have in its magazine at one time
+     * @param maxAmmoinMag is the maximum ammo the gun can have in its magazine at one time
      * @param scale is the scale for the whole program. So that the bullets are the right size comparatively.
      */
-    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmo, float scale){
+    public Firearm(int projectileSpeed, int damage, int ammoInMagazine, float rateOfFire, int reloadSpeed, int maxAmmoinMag, float scale, String name, int totalAmmo){
+        this.texture = new Texture(Gdx.files.internal("bullet.png"));
         this.projectileSpeed = projectileSpeed;
         this.damage = damage;
         this.ammoInMagazine = ammoInMagazine;
         this.rateOfFire = rateOfFire;
         this.reloadSpeed = reloadSpeed;
-        this.maxAmmo = maxAmmo;
+        this.maxAmmoinMag = maxAmmoinMag;
         this.scale = scale/2;
+        this.name = name;
+        this.totalAmmo = totalAmmo;
+    }
+
+    public int getTotalAmmo(){
+        return totalAmmo;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getAmmoInMagazine(){
+        return this.ammoInMagazine;
     }
 
     protected abstract void createBullet(int angle, float x, float y);
@@ -51,6 +71,7 @@ public abstract class   Firearm {
             readyToFire = false;
             timer = new Timer();
             createBullet(angle, x, y);
+            //readyToFire = true;
             timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
         }
     }
@@ -63,6 +84,7 @@ public abstract class   Firearm {
         public void run(){
             readyToFire = true;
             timer.cancel(); //Terminate the timer thread
+            timer.purge();
         }
     }
 
@@ -75,6 +97,11 @@ public abstract class   Firearm {
         readyToFire = false;
         timer = new Timer();
         timer.schedule(new RemindTask(), reloadSpeed);
-        ammoInMagazine = maxAmmo;
+
+        if(totalAmmo > 0){
+            int ammoDifference = maxAmmoinMag-ammoInMagazine;
+            ammoInMagazine += ammoDifference;
+            totalAmmo -= ammoDifference;
+        }
     }
 }

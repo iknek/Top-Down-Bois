@@ -33,20 +33,6 @@ public abstract class Sapien extends Sprite implements Movable{
         MovableSubject.getInstance().attach(this);
     }
 
-    public float getX() {
-        return super.getX();
-    }
-
-    public float getY(){
-        return super.getY();
-    }
-
-    public abstract boolean moving();
-
-    protected abstract void updateAngle();
-
-    public abstract void getHit(int damage);
-
     /**
      * Updates angle of sapien when it is moving (based on predifined speed)
      */
@@ -58,11 +44,6 @@ public abstract class Sapien extends Sprite implements Movable{
             translateX(((float)(Math.sin(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
             translateY(((float)(Math.cos(Math.toRadians(angle)) * speed) * Gdx.graphics.getDeltaTime()));
         }
-    }
-
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
     }
 
     /**
@@ -91,4 +72,20 @@ public abstract class Sapien extends Sprite implements Movable{
             }
         }
     }
+
+    public void setPosition(float posX, float posY){
+        this.setX(posX);
+        this.setY(posY);
+    }
+
+    public float getX() {
+        return super.getX();
+    }
+    public float getY(){
+        return super.getY();
+    }
+    public abstract void getHit(int damage);
+
+    public abstract boolean moving();
+    protected abstract void updateAngle();
 }

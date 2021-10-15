@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import org.w3c.dom.Text;
 
 public class Projectile extends Sprite implements Movable {
     private double xSpeed;
@@ -17,11 +18,10 @@ public class Projectile extends Sprite implements Movable {
      * @param posX = its X position
      * @param posY = its Y position
      * @param damage = amount of damage it deals
-     * @param texturePath = path to textureatlas (png)
      * @param scale = scale of image/projectile
      */
-    public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, String texturePath, float scale) {
-        super(new Texture(Gdx.files.internal(texturePath)));
+    public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, Texture texture, float scale) {
+        super(texture);
         rotate(180-angle);
         this.setScale(scale);
 
@@ -31,17 +31,6 @@ public class Projectile extends Sprite implements Movable {
         ySpeed = Math.cos(Math.toRadians(angle)) * projectileSpeed;
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
-    }
-
-    public float getX() {
-        return super.getX();
-    }
-    public float getY(){
-        return super.getY();
-    }
-
-    public int getDamage(){
-        return damage;
     }
 
     /**
@@ -63,8 +52,22 @@ public class Projectile extends Sprite implements Movable {
         MovableSubject.getInstance().detach(this);
     }
 
+    /**
+     * Gets bounding rectangle of projectile for collisions.
+     * @return Rectanle boundingRectangle
+     */
     @Override
     public Rectangle getBoundingRectangle() {
         return super.getBoundingRectangle();
+    }
+
+    public float getX() {
+        return super.getX();
+    }
+    public float getY(){
+        return super.getY();
+    }
+    public int getDamage(){
+        return damage;
     }
 }

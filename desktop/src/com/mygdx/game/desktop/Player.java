@@ -1,11 +1,14 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
+import com.mygdx.game.desktop.weapons.Revolver;
+import com.mygdx.game.desktop.weapons.Shotgun;
 
+import java.lang.reflect.Array;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,16 +22,16 @@ public class Player extends Sapien{
     private Firearm firearm;
     private boolean triggerPulled = false;
     private boolean invincible;
-    private Timer timer;
+    private Timer timerInvinc;
+    private Timer timerSprint;
     private int aimAngle;
     private int maxHealth;
     private int money;
-    private Animations animations;
-
+    private PlayerAnimations animations;
     private boolean playerHit;
+    private int currentWeapon;
 
-
-    private PlayerController playerController;
+    private Firearm[] weapons = new Firearm[3];
 
     /**
      * Constructor for the Player class
@@ -48,16 +51,24 @@ public class Player extends Sapien{
 
         this.speed = 55*scale;
 
-        this.firearm = new AutoRifle(scale);
+        weapons[0] = new Revolver(scale);
+        weapons[1] = new Shotgun(scale);
+        weapons[2] = new AutoRifle(scale);
+
+        currentWeapon = 0;
+        //this.firearm = weapons[2];
 
         health = 100;
         maxHealth = 100;
 
-        playerController = new PlayerController(this);
+        new PlayerController(this);
 
-        this.animations = new Animations(View.getInstance().getBatch(), this);
+        this.animations = new PlayerAnimations(View.getInstance().getBatch());
         View.getInstance().addSprite(this);
+    }
 
+    public Firearm getWeapon(){
+        return weapons[currentWeapon];
     }
 
     /**
@@ -93,7 +104,7 @@ public class Player extends Sapien{
 
     @Override
     public void draw(Batch batch) {
-        animations.render();
+        animations.render(getX(), getY(), moving(), scale, getPlayerHit(), angle);
     }
 
     /**
@@ -112,11 +123,12 @@ public class Player extends Sapien{
      * @param damage is the amount of the damage dealt to the player
      */
     public void getHit(int damage){
-        if(!invincible) {
-            timer = new Timer();
+        if(!invincible && damage!=0) {
+            setPlayerHit(true);
+            timerInvinc = new Timer();
             health = health - damage;
             invincible = true;
-            timer.schedule(new RemindTask(), 5*1000);
+            timerInvinc.schedule(new RemindTaskInvincibility(), 5*1000);
             System.out.println("oof");
         }
 
@@ -128,10 +140,12 @@ public class Player extends Sapien{
     /**
      * When the timer of the invincibility frame ends, invincible is set to false.
      */
-    class RemindTask extends TimerTask {
+    class RemindTaskInvincibility extends TimerTask {
         public void run() {
             invincible = false;
-            timer.cancel(); //Terminate the timer thread
+            setPlayerHit(false);
+            timerInvinc.cancel();
+            timerInvinc.purge();
         }
     }
 
@@ -141,14 +155,6 @@ public class Player extends Sapien{
     private void die(){
         View.getInstance().removeSprite(this);
         MovableSubject.getInstance().detach(this);
-    }
-
-    /**
-     * getter for health
-     * @return how much health the player currently has
-     */
-    public int getHealth(){
-        return health;
     }
 
     /**
@@ -165,7 +171,7 @@ public class Player extends Sapien{
      */
     private void updateAction() {
         if (triggerPulled) {
-            firearm.fire(aimAngle, getX() + 16/2, getY() + 16/2);
+            weapons[currentWeapon].fire(aimAngle, getX() + 16/2, getY() + 16/2);
         }
     }
 
@@ -175,6 +181,43 @@ public class Player extends Sapien{
     public void coinGained() {
         money = money + 1;
         System.out.println("Coin gained");
+    }
+
+    /**
+     * Sets speed for sprinting as opposed to walking. Uses timer to control how long player can run
+     * @param bool sprinting
+     */
+    public void setSprint(boolean bool){
+        if(bool){
+            this.speed = (float)82.5*scale;
+            timerSprint = new Timer();
+            timerSprint.schedule(new RemindTaskSprint(), 3*1000);
+        }else{
+            this.speed = 55*scale;
+        }
+    }
+
+    /**
+     * Timer for setSpring
+     */
+    class RemindTaskSprint extends TimerTask {
+        public void run() {
+            speed = 55*scale;
+            timerSprint.cancel();
+            timerSprint.purge();
+        }
+    }
+
+    /**
+     * getter for health
+     * @return how much health the player currently has
+     */
+    public int getHealth(){
+        return health;
+    }
+
+    public int getMoney(){
+        return money;
     }
 
     /**
@@ -227,10 +270,9 @@ public class Player extends Sapien{
 
     /**
      * Gives the player a new weeapon
-     * @param firearm is the weapon the player recieves
      */
-    public void setFirearm(Firearm firearm){
-        this.firearm = firearm;
+    public void setFirearm(int weaponNumber){
+        currentWeapon = weaponNumber;
     }
 
     /**
@@ -238,18 +280,21 @@ public class Player extends Sapien{
      * The method is called in Playercontroller when r is pressed.
      */
     public void reload(){
-        try{
-            firearm.reloadFirearm();
-        }
-        catch( Exception NullPointerException){
-            System.out.println("Reloading full mags doesn't work!");
-        }
+        weapons[currentWeapon].reloadFirearm();
     }
 
+    /**
+     * Setter for class boolean playerHit
+     * @param bool boolean condition for class boolean playerHit
+     */
     public void setPlayerHit(boolean bool){
         playerHit = bool;
     }
 
+    /**
+     * Getter for class boolean playerHit
+     * @return boolean playerHit
+     */
     public boolean getPlayerHit(){
         return playerHit;
     }

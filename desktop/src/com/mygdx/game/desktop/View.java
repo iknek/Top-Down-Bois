@@ -15,7 +15,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class View extends OrthogonalTiledMapRenderer {
     private static View single_instance = null;
     private List<Sprite> sprites;
-    private Animations animations;
 
     /**
      * Constructor for the View class.
@@ -25,14 +24,6 @@ public class View extends OrthogonalTiledMapRenderer {
     public View(TiledMap map, float scale) {
         super(map, scale);
         sprites = new CopyOnWriteArrayList<>();
-    }
-
-    /**
-     * Returns the instance of View
-     * @return the single instance of View
-     */
-    public static View getInstance() {
-        return single_instance;
     }
 
     /**
@@ -47,15 +38,6 @@ public class View extends OrthogonalTiledMapRenderer {
     }
 
     /**
-     * returns the map
-     * @return The map of the program
-     */
-    @Override
-    public TiledMap getMap() {
-        return super.getMap();
-    }
-
-    /**
      * Adds a sprite to a list which is to be rendered every cycle
      * @param sprite the sprite which will be rendered
      */
@@ -67,22 +49,8 @@ public class View extends OrthogonalTiledMapRenderer {
      * Removes a sprite from the list to be rendered
      * @param sprite is the sprite which we want removed
      */
-    public void removeSprite(Sprite sprite){ sprites.remove(sprite); }
-
-    /**
-     * Returns the list of sprites
-     * @return list of sprites which are currently being rendered
-     */
-    public List<Sprite> getSprites(){
-        return sprites;
-    }
-
-    /**
-     * returns the batch which the View uses
-     * @return the batch
-     */
-    public Batch getBatch(){
-        return batch;
+    public void removeSprite(Sprite sprite){
+        sprites.remove(sprite);
     }
 
     /**
@@ -129,4 +97,38 @@ public class View extends OrthogonalTiledMapRenderer {
 
         return camera;
     }
+
+    /**
+     * Returns the list of sprites
+     * @return list of sprites which are currently being rendered
+     */
+    public List<Sprite> getSprites(){
+        return sprites;
+    }
+
+    /**
+     * returns the batch which the View uses
+     * @return the batch
+     */
+    public Batch getBatch(){
+        return batch;
+    }
+
+    /**
+     * Returns the instance of View
+     * @return the single instance of View
+     */
+    public static View getInstance() {
+        return single_instance;
+    }
+
+    /**
+     * returns the map
+     * @return The map of the program
+     */
+    @Override
+    public TiledMap getMap() {
+        return super.getMap();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -24,7 +25,6 @@ public class CollisionController {
      * @param scale the scale of the whole program
      */
     public void checkCollisions(View view, Player player, float scale){
-        boolean playerHit = false;
 
         MovableSubject movableSubject = MovableSubject.getInstance();
 
@@ -43,7 +43,7 @@ public class CollisionController {
                 }
 
                 if(observer instanceof Zombie){
-                    if(checkZombieCollisions(player, (Zombie)observer)){playerHit = true;}
+                    checkZombieCollisions(player, (Zombie)observer);
                 }
 
                 if (observer instanceof Coin) {
@@ -55,7 +55,6 @@ public class CollisionController {
             }
             rectangle = scaleBackRectangle(rectangle, scale);
         }
-        player.setPlayerHit(playerHit);
     }
 
     /**
@@ -92,34 +91,18 @@ public class CollisionController {
      * @param player the instance of player in the program
      * @param zombie the zombie instance which is being checked
      */
-    private boolean checkZombieCollisions(Player player, Zombie zombie){
+    private void checkZombieCollisions(Player player, Zombie zombie){
         for (Movable o: MovableSubject.getInstance().getObservers()) {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
             }
             if(o instanceof Zombie && o != zombie){
-                zombieCollideZombie(o, zombie);
+                zombieCollideZombie((Zombie) o, zombie);
             }
         }
-        if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
-            player.getHit(zombie.getDamage());
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if a specific zombie is colliding with the player
-     * @param player the instance of player
-     * @param zombie the zombie which is being checked
-     * @return a boolean of whether there is a collision
-     */
-    private boolean checkPlayerZombieCollision(Player player, Zombie zombie){
-        boolean hit = false;
-        if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
-            hit = true;
-        }
-        return hit;
+        /*if(Intersector.overlaps(player.getBoundingRectangle(), zombie.getBoundingRectangle())){
+            //player.getHit(zombie.getDamage());
+        }*/
     }
 
     /**
@@ -139,16 +122,10 @@ public class CollisionController {
      * @param o a zombie
      * @param zombie another zombie
      */
-    private void zombieCollideZombie(Movable o, Zombie zombie){
-        if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
-            Random random = new Random();
-            int direction = random.nextInt(4);
-            switch(direction){
-                case 1: zombie.translateX(1);
-                case 2: zombie.translateX(-1);
-                case 3: zombie.translateY(1);
-                case 4: zombie.translateY(-1);
-            }
-        }
+    private void zombieCollideZombie(Zombie o, Zombie zombie){
+        /*if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
+            zombie.translateX(((float)-(Math.sin(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
+            zombie.translateY(((float)-(Math.cos(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
+        }*/
     }
 }

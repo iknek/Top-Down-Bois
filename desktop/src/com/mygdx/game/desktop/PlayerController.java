@@ -5,8 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.desktop.weapons.AutoRifle;
+import com.mygdx.game.desktop.weapons.Firearm;
 import com.mygdx.game.desktop.weapons.Revolver;
 import com.mygdx.game.desktop.weapons.Shotgun;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerController implements InputProcessor{
     private Player player;
@@ -18,6 +22,7 @@ public class PlayerController implements InputProcessor{
     public PlayerController(Player player){
         this.player = player;
         Gdx.input.setInputProcessor(this);
+
     }
 
     /**
@@ -48,13 +53,16 @@ public class PlayerController implements InputProcessor{
                 player.reload();
                 break;
             case Input.Keys.NUM_1 :
-                player.setFirearm(new Revolver(player.scale));
+                player.setFirearm(0);
                 break;
             case Input.Keys.NUM_2 :
-                player.setFirearm(new Shotgun(player.scale));
+                player.setFirearm(1);
                 break;
             case Input.Keys.NUM_3 :
-                player.setFirearm(new AutoRifle(player.scale));
+                player.setFirearm(2);
+                break;
+            case Input.Keys.SHIFT_LEFT :
+                player.setSprint(true);
                 break;
         }
         return true;
@@ -83,6 +91,9 @@ public class PlayerController implements InputProcessor{
             case Input.Keys.G:
                 player.setTriggerPulled(false);
                 break;
+            case Input.Keys.SHIFT_LEFT :
+                player.setSprint(false);
+                break;
         }
         return true;
     }
@@ -98,7 +109,6 @@ public class PlayerController implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         player.setTriggerPulled(true);
-        System.out.println((screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight()));
         return true;
     }
 
@@ -135,11 +145,17 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        float adjustedX;
+        float adjustedY;
+        if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
+            adjustedX = screenX * ((float)640 * player.scale/Gdx.graphics.getWidth());
+            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640 * player.scale/Gdx.graphics.getWidth());
 
-        float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
-        float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
-
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
+        } else {
+            adjustedY = screenY * ((float)640 * player.scale/Gdx.graphics.getHeight());
+            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640 * player.scale/Gdx.graphics.getHeight());
+        }
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 * player.scale - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;
@@ -156,10 +172,17 @@ public class PlayerController implements InputProcessor{
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        float adjustedY = screenY * ((float)640/Gdx.graphics.getHeight());
-        float adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640/Gdx.graphics.getHeight());
+        float adjustedX;
+        float adjustedY;
+        if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
+            adjustedX = screenX * ((float)640 * player.scale/Gdx.graphics.getWidth());
+            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640 * player.scale/Gdx.graphics.getWidth());
 
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 - player.getY() - adjustedY, adjustedX-player.getX()));
+        } else {
+            adjustedY = screenY * ((float)640 * player.scale/Gdx.graphics.getHeight());
+            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640 * player.scale/Gdx.graphics.getHeight());
+        }
+        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 * player.scale - player.getY() - adjustedY, adjustedX-player.getX()));
         aimAngle += 90;
         if(aimAngle < 0){
             aimAngle += 360;

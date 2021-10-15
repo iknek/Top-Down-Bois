@@ -19,26 +19,15 @@ public class Rounds {
      */
     private int roundNumber;
 
-    /**
-     * Screen width.
-     */
-    private float w;
-    /**
-     * Screen height.
-     */
-    private float h;
+    private int zombiesLeftToSpawn;
 
     /**
      * Constructor for the {@link Rounds} class.
      * @param scale scale of zombie factory
-     * @param w screen width
-     * @param h screen height
      */
-    public Rounds (float scale, float w, float h){
+    public Rounds (float scale){
         this.roundNumber = 0;
         this.scale = scale;
-        this.w = w;
-        this.h = h;
         zombiefactory = new ZombieFactory(scale);
     }
 
@@ -47,15 +36,24 @@ public class Rounds {
      * @param player current {@link Player} object
      */
     public void checkNewRound(Player player){
-        int zombiesLeft = 0;
-        for (Movable o : MovableSubject.getInstance().getObservers()) {
-            if(o instanceof Zombie){
-                zombiesLeft++;
+        if(zombiesLeftToSpawn > 0){
+            zombiefactory.createZombie(1, scale);
+            zombiesLeftToSpawn--;
+        }else{
+            int zombiesLeft = 0;
+            for (Movable o : MovableSubject.getInstance().getObservers()) {
+                if(o instanceof Zombie){
+                    zombiesLeft++;
+                }
+            }
+            if(zombiesLeft == 0 && player.getHealth() != 0){
+                startNewRound(player);
             }
         }
-        if(zombiesLeft == 0 && player.getHealth() != 0){
-            startNewRound(player);
-        }
+    }
+
+    public int getRound(){
+        return roundNumber;
     }
 
     /**
@@ -64,8 +62,7 @@ public class Rounds {
      */
     private void startNewRound(Player player){
         roundNumber++;
-        System.out.println(roundNumber);
         player.addHealth(1);
-        zombiefactory.createZombie(roundNumber*5, scale);
+        zombiesLeftToSpawn = roundNumber*5;
     }
 }

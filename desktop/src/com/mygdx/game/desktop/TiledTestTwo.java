@@ -3,10 +3,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TiledTestTwo extends ApplicationAdapter {
     private OrthographicCamera camera;
@@ -16,8 +15,9 @@ public class TiledTestTwo extends ApplicationAdapter {
     private Player player;
     private float scale;
     private Rounds rounds;
-    FitViewport viewport;
-
+    private FitViewport viewport;
+    private Hud hud;
+    private SpriteBatch spriteBatch;
 
     public TiledTestTwo (int scale){
         this.scale = scale;
@@ -38,7 +38,18 @@ public class TiledTestTwo extends ApplicationAdapter {
 
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
-        rounds = new Rounds(scale, w, h);
+        rounds = new Rounds(scale);
+
+        spriteBatch = new SpriteBatch();
+        hud = new Hud(spriteBatch, (int) scale);
+
+    }
+
+    @Override
+    public void dispose() {
+        hud.dispose();
+        spriteBatch.dispose();
+        View.getInstance().dispose();
     }
 
     /**
@@ -62,6 +73,9 @@ public class TiledTestTwo extends ApplicationAdapter {
     @Override
     public void render () {
         camera.update();
+
+        hud.update(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
+
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         View.getInstance().setView(camera);
@@ -70,5 +84,10 @@ public class TiledTestTwo extends ApplicationAdapter {
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
         zombieObserver.playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
+
+        player.getHit(ZombieObserver.getInstance().playerHit());
+
+        spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 }

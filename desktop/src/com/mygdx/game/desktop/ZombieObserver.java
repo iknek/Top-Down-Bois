@@ -18,6 +18,10 @@ public class ZombieObserver {
         return single_instance;
     }
 
+    public List<Zombies> getObservers() {
+        return observers;
+    }
+
     /**
      * adds the zombie to the list
      * @param o is the zombie which should be added to the list
@@ -44,5 +48,16 @@ public class ZombieObserver {
         for(Zombies o: observers) {
             o.playerLocation(x, y);
         }
+    }
+
+    public int playerHit(){
+        int counter = 0;
+        for(Zombies zombie : observers){
+            if(zombie.isHitPlayer()){
+                counter+= zombie.getDamage();
+                zombie.setHitPlayer(false);
+            }
+        }
+        return counter;
     }
 }
