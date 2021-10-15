@@ -19,7 +19,6 @@ public class Player extends Sapien{
     private boolean right;
     private boolean up;
     private boolean down;
-    private Firearm firearm;
     private boolean triggerPulled = false;
     private boolean invincible;
     private Timer timerInvinc;
@@ -179,7 +178,7 @@ public class Player extends Sapien{
      * When a coin is picked up adds to the money variable
      */
     public void coinGained() {
-        money = money + 1;
+        money += 1;
         System.out.println("Coin gained");
     }
 

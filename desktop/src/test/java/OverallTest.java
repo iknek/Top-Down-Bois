@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
     Player player;
 
     @Before
-    void setup(){
+    public void setup(){
         firearm = new Revolver(2);
         player  = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
         View.createInstance(2);
