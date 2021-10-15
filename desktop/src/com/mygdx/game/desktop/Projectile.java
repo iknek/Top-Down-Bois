@@ -6,19 +6,25 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import org.w3c.dom.Text;
 
+/**
+ * The Projectile class handles projectiles being fired from {@link com.mygdx.game.desktop.weapons.Firearm} objects in the game.
+ * Projectiles will upon creation travel at the aim angle given by the {@link Player} object. Once the Projectile object
+ * collides with another object, it will deal damage to eventual enemies involved with the collision, and then be deleted.
+ */
+
 public class Projectile extends Sprite implements Movable {
     private double xSpeed;
     private double ySpeed;
     private int damage;
 
     /**
-     * Constrcutor for projectiles (bullets)
-     * @param projectileSpeed = speed of projectile
-     * @param angle = angle it's fired at.
-     * @param posX = its X position
-     * @param posY = its Y position
-     * @param damage = amount of damage it deals
-     * @param scale = scale of image/projectile
+     * Constructor for the {@link Projectile} class.
+     * @param projectileSpeed speed of this object
+     * @param angle angle this object is fired at
+     * @param posX x-coordinate of this object
+     * @param posY y-coordinate of this object
+     * @param damage amount of damage this object deals to enemies
+     * @param scale scale of this objects image
      */
     public Projectile(int projectileSpeed, int angle, float posX, float posY, int damage, Texture texture, float scale) {
         super(texture);
@@ -34,7 +40,7 @@ public class Projectile extends Sprite implements Movable {
     }
 
     /**
-     * Moves projectile
+     * Updates this objects position on the screen.
      */
     @Override
     public void update() {
@@ -43,8 +49,8 @@ public class Projectile extends Sprite implements Movable {
     }
 
     /**
-     * removes instance of projectile when it collides with something.
-     * @param rectangle = rectangle projectile collides with
+     * Removes instance of this object when it collides with something.
+     * @param rectangle rectangle object this object collides with
      */
     @Override
     public void collide(Rectangle rectangle) {
@@ -54,7 +60,7 @@ public class Projectile extends Sprite implements Movable {
 
     /**
      * Gets bounding rectangle of projectile for collisions.
-     * @return Rectanle boundingRectangle
+     * @return Rectangle boundingRectangle
      */
     @Override
     public Rectangle getBoundingRectangle() {
