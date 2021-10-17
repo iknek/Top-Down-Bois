@@ -38,6 +38,10 @@ public class ZombieObserver {
         observers.remove(o);
     }
 
+    /**
+     * Returns count of how many times zombie was hit, for calculating damage/death.
+     * @return int hit counter
+     */
     public int playerHit(){
         int counter = 0;
         for(Zombies zombie : observers){
