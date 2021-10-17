@@ -1,3 +1,2 @@
 # Top-Down-Bois
-A 2D Top Down Game
-this game sick m8
+A 2D top down survival game, which implements retro sytle mechanics and graphics to create a modern, easy to play arcade game. 
