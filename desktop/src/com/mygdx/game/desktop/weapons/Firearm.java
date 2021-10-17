@@ -93,7 +93,6 @@ public abstract class Firearm {
      * It adds a delay and fills the ammo in the magazine of the gun
      */
     public void reloadFirearm() {
-        timer.cancel();
         readyToFire = false;
         timer = new Timer();
         timer.schedule(new RemindTask(), reloadSpeed);
