@@ -16,6 +16,9 @@ public class View extends OrthogonalTiledMapRenderer {
     private static View single_instance = null;
     private List<Sprite> sprites;
 
+    private Hud hud;
+    private SpriteBatch spriteBatch;
+
     /**
      * Constructor for the View class.
      * @param map is the map which is going to be shown
@@ -24,6 +27,8 @@ public class View extends OrthogonalTiledMapRenderer {
     public View(TiledMap map, float scale) {
         super(map, scale);
         sprites = new CopyOnWriteArrayList<>();
+        spriteBatch = new SpriteBatch();
+        hud = new Hud(spriteBatch, (int) scale);
     }
 
     /**
@@ -80,6 +85,9 @@ public class View extends OrthogonalTiledMapRenderer {
             }
         }
         endRender();
+
+        spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     /**
@@ -96,6 +104,17 @@ public class View extends OrthogonalTiledMapRenderer {
         camera.update();
 
         return camera;
+    }
+
+    @Override
+    public void dispose() {
+        hud.dispose();
+        spriteBatch.dispose();
+        super.dispose();
+    }
+
+    public void updateHud(int round, int live, int money, String firearm, int mag, int totalAmmo){
+        hud.update(round, live, money, firearm, mag, totalAmmo);
     }
 
     /**

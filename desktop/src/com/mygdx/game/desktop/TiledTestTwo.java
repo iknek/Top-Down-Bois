@@ -9,15 +9,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class TiledTestTwo extends ApplicationAdapter {
     private OrthographicCamera camera;
-    private MovableSubject movableSubject = MovableSubject.getInstance();
-    private ZombieObserver zombieObserver = ZombieObserver.getInstance();
     private CollisionController collisionController = new CollisionController();
     private Player player;
     private float scale;
     private Rounds rounds;
     private FitViewport viewport;
-    private Hud hud;
-    private SpriteBatch spriteBatch;
 
     public TiledTestTwo (int scale){
         this.scale = scale;
@@ -39,16 +35,10 @@ public class TiledTestTwo extends ApplicationAdapter {
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
         rounds = new Rounds(scale);
-
-        spriteBatch = new SpriteBatch();
-        hud = new Hud(spriteBatch, (int) scale);
-
     }
 
     @Override
     public void dispose() {
-        hud.dispose();
-        spriteBatch.dispose();
         View.getInstance().dispose();
     }
 
@@ -74,20 +64,17 @@ public class TiledTestTwo extends ApplicationAdapter {
     public void render () {
         camera.update();
 
-        hud.update(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
+        View.getInstance().updateHud(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
 
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         View.getInstance().setView(camera);
         View.getInstance().render();
-        movableSubject.notifyUpdate();
+        MovableSubject.getInstance().notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
         FollowerObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
 
         player.getHit(ZombieObserver.getInstance().playerHit());
-
-        spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
     }
 }
