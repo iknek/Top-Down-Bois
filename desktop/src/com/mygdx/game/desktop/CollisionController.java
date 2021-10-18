@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
 import com.mygdx.game.desktop.views.View;
+import com.mygdx.game.desktop.weapons.Projectile;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 

@@ -1,7 +1,5 @@
 package com.mygdx.game.desktop.weapons;
 
-import com.mygdx.game.desktop.Projectile;
-
 
 public class Revolver extends Firearm {
 

@@ -2,7 +2,6 @@ package com.mygdx.game.desktop.weapons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.desktop.Projectile;
 
 import java.util.Timer;
 import java.util.TimerTask;
