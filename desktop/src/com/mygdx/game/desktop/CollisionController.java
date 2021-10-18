@@ -1,13 +1,13 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-
-import java.util.Random;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.views.View;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
@@ -97,9 +97,6 @@ public class CollisionController {
             if(o instanceof Projectile && View.getInstance().getSprites().contains(o)){
                 zombieGetShot(o, zombie);
             }
-            if(o instanceof Zombie && o != zombie){
-                zombieCollideZombie((Zombie) o, zombie);
-            }
         }
     }
 
@@ -113,19 +110,5 @@ public class CollisionController {
             zombie.getHit(((Projectile) o).getDamage());
             o.collide(zombie.getBoundingRectangle());
         }
-    }
-
-    /**
-     * Handles logic of when zombies collide with one another. (They are pushed apart)
-     * @param o a zombie
-     * @param zombie another zombie
-     */
-    private void zombieCollideZombie(Zombie o, Zombie zombie){
-        //if(Math.pow((o.getX() - zombie.getX()),2) < 9 && Math.pow((o.getY() - zombie.getY()),2) < 9){
-
-
-            //zombie.translateX(((float)-(Math.sin(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
-            //zombie.translateY(((float)-(Math.cos(Math.toRadians(zombie.angle)) * zombie.getSpeed()) * Gdx.graphics.getDeltaTime()));
-        //}
     }
 }

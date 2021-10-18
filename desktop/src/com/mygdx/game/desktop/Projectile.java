@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import org.w3c.dom.Text;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.views.View;
 
 /**
  * The Projectile class handles projectiles being fired from {@link com.mygdx.game.desktop.weapons.Firearm} objects in the game.

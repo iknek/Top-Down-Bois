@@ -1,8 +1,9 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.animations;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.mygdx.game.desktop.sapiens.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,14 +95,14 @@ public class ZombieAnimations extends ApplicationAdapter{
         elapsedTime += Gdx.graphics.getDeltaTime();
 
         if(elapsedTime > animationTime && elapsedTime-startHitTime > animationTime){
-            if(zombie.nearPlayer() < 15*zombie.scale){
+            if(zombie.nearPlayer() < 15*zombie.getScale()){
                 zombie.setHitPlayer(true);
             }
             zombie.setMoving(true);
             startHitTime = 0;
         }
 
-        if(zombie.nearPlayer() < 15*zombie.scale || !zombie.moving()){
+        if(zombie.nearPlayer() < 15*zombie.getScale() || !zombie.moving()){
             if(startHitTime == 0){
                 startHitTime = elapsedTime;
                 zombie.setMoving(false);
@@ -113,7 +114,7 @@ public class ZombieAnimations extends ApplicationAdapter{
         }
 
         animation = new Animation(1f/20f, textureAtlas.getRegions());
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.scale/2),(int)(40*zombie.scale/2));
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.getScale()/2),(int)(40*zombie.getScale()/2));
     }
 
     /**

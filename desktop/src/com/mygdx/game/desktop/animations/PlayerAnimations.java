@@ -1,8 +1,9 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.animations;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.mygdx.game.desktop.sapiens.Player;
 
 import java.util.ArrayList;
 import java.util.List;

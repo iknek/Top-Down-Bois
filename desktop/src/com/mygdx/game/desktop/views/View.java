@@ -1,4 +1,4 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.views;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;

@@ -1,16 +1,9 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.mygdx.game.desktop.weapons.AutoRifle;
-import com.mygdx.game.desktop.weapons.Firearm;
-import com.mygdx.game.desktop.weapons.Revolver;
-import com.mygdx.game.desktop.weapons.Shotgun;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mygdx.game.desktop.sapiens.Player;
 
 public class PlayerController implements InputProcessor{
     private Player player;

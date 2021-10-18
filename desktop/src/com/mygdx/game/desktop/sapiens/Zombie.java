@@ -1,10 +1,14 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.desktop.*;
+import com.mygdx.game.desktop.animations.ZombieAnimations;
+import com.mygdx.game.desktop.views.View;
+
 import java.util.Random;
 
-public class Zombie extends Sapien implements Zombies, FollowsPlayers{
+public class Zombie extends Sapien implements Zombies, FollowsPlayers {
 
     private int playerX;
     private int playerY;
@@ -41,9 +45,9 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers{
 
         this.animations = new ZombieAnimations(View.getInstance().getBatch(), this);
 
-        ZombieObserver.getInstance().attach(this);
+        ZombieSubject.getInstance().attach(this);
         View.getInstance().addSprite(this);
-        FollowerObserver.getInstance().attach(this);
+        FollowerSubject.getInstance().attach(this);
     }
 
     @Override
@@ -88,8 +92,8 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers{
         if (health <= 0){
             View.getInstance().removeSprite(Zombie.this);
             MovableSubject.getInstance().detach(this);
-            ZombieObserver.getInstance().detach(this);
-            FollowerObserver.getInstance().detach(this);
+            ZombieSubject.getInstance().detach(this);
+            FollowerSubject.getInstance().detach(this);
             new Coin(getX(),getY(), scale);
         }
     }

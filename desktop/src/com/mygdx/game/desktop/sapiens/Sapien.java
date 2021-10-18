@@ -1,12 +1,13 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.desktop.Movable;
+import com.mygdx.game.desktop.MovableSubject;
 
-public abstract class Sapien extends Sprite implements Movable{
+public abstract class Sapien extends Sprite implements Movable {
     protected TextureAtlas textureAtlas;
 
     protected int angle;
@@ -85,6 +86,9 @@ public abstract class Sapien extends Sprite implements Movable{
         return super.getY();
     }
     public abstract void getHit(int damage);
+    public float getScale(){
+        return scale;
+    }
 
     public abstract boolean moving();
     protected abstract void updateAngle();

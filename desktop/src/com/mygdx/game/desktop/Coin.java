@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.views.View;
 
 
 /**
@@ -51,7 +54,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
 
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
-        FollowerObserver.getInstance().attach(this);
+        FollowerSubject.getInstance().attach(this);
     }
 
     /**
@@ -126,7 +129,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     public void remove(){
         View.getInstance().removeSprite(this);
         MovableSubject.getInstance().detach(this);
-        FollowerObserver.getInstance().detach(this);
+        FollowerSubject.getInstance().detach(this);
     }
 
     public float getX() {
@@ -147,5 +150,4 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
         this.playerX = x;
         this.playerY = y;
     }
-
 }

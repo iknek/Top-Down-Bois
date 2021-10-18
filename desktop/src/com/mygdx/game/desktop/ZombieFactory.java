@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.views.View;
 
 import java.util.ArrayList;
 import java.util.Random;

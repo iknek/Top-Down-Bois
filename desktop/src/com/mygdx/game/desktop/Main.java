@@ -12,6 +12,6 @@ public class Main {
         cfg.width = 640*scale;
         cfg.height = 640*scale;
         cfg.addIcon("Icon2.png", Files.FileType.Internal);
-        new LwjglApplication(new TiledTestTwo(scale), cfg);
+        new LwjglApplication(new Model(scale), cfg);
     }
 }

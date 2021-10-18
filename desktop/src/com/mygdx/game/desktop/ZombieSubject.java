@@ -3,18 +3,18 @@ package com.mygdx.game.desktop;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ZombieObserver {
+public class ZombieSubject {
     private List<Zombies> observers = new CopyOnWriteArrayList<>();
 
-    private static ZombieObserver single_instance = null;
+    private static ZombieSubject single_instance = null;
 
     /**
      * Singleton pattern. same as in MovableSubject.java.
      * @return the single instance of the ZombieObserver
      */
-    public static ZombieObserver getInstance() {
+    public static ZombieSubject getInstance() {
         if (single_instance == null)
-            single_instance = new ZombieObserver();
+            single_instance = new ZombieSubject();
         return single_instance;
     }
 

@@ -1,28 +1,30 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.desktop.Coin;
+import com.mygdx.game.desktop.MovableSubject;
+import com.mygdx.game.desktop.Rounds;
+import com.mygdx.game.desktop.animations.PlayerAnimations;
+import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
 import com.mygdx.game.desktop.weapons.Revolver;
 import com.mygdx.game.desktop.weapons.Shotgun;
 
-import java.lang.reflect.Array;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author David
+ * @author Imad
+ */
+public class Player extends Sapien {
 
-public class Player extends Sapien{
-
-    private boolean left;
-    private boolean right;
-    private boolean up;
-    private boolean down;
+    private boolean left, right, up, down;
     private boolean triggerPulled = false;
     private boolean invincible;
-    private Timer timerInvinc;
-    private Timer timerSprint;
+    private Timer timerInvinc, timerSprint;
     private int aimAngle;
     private int maxHealth;
     private int money;
@@ -127,7 +129,7 @@ public class Player extends Sapien{
             timerInvinc = new Timer();
             health = health - damage;
             invincible = true;
-            timerInvinc.schedule(new RemindTaskInvincibility(), 5*1000);
+            timerInvinc.schedule(new RemindTaskInvincibility(), 3*1000);
             System.out.println("oof");
         }
 
@@ -139,7 +141,7 @@ public class Player extends Sapien{
     /**
      * When the timer of the invincibility frame ends, invincible is set to false.
      */
-    class RemindTaskInvincibility extends TimerTask {
+    private class RemindTaskInvincibility extends TimerTask {
         public void run() {
             invincible = false;
             setPlayerHit(false);
@@ -197,81 +199,14 @@ public class Player extends Sapien{
     }
 
     /**
-     * Timer for setSpring
+     * Timer for setSprint
      */
-    class RemindTaskSprint extends TimerTask {
+    private class RemindTaskSprint extends TimerTask {
         public void run() {
             speed = 55*scale;
             timerSprint.cancel();
             timerSprint.purge();
         }
-    }
-
-    /**
-     * getter for health
-     * @return how much health the player currently has
-     */
-    public int getHealth(){
-        return health;
-    }
-
-    public int getMoney(){
-        return money;
-    }
-
-    /**
-     * setter for the boolean left, called in Playercontroller when the left button is either pressed or released
-     * @param bool whether the button is pressed or not
-     */
-    public void setLeft(boolean bool){
-        left = bool;
-    }
-
-    /**
-     * setter for the boolean right, called in Playercontroller when the right button is either pressed or released
-     * @param bool whether the button is pressed or not
-     */
-    public void setRight(boolean bool){
-        right = bool;
-    }
-
-    /**
-     * setter for the boolean up, called in Playercontroller when the up button is either pressed or released
-     * @param bool whether the button is pressed or not
-     */
-    public void setUp(boolean bool){
-        up = bool;
-    }
-
-    /**
-     * setter for the boolean down, called in Playercontroller when the down button is either pressed or released
-     * @param bool whether the button is pressed or not
-     */
-    public void setDown(boolean bool){
-        down = bool;
-    }
-
-    /**
-     * setter for the triggerpulled, called in Playercontroller when the shoot button is either pressed or released
-     * @param bool whether the button is pressed or not
-     */
-    public void setTriggerPulled(boolean bool){
-        triggerPulled = bool;
-    }
-
-    /**
-     * setter for the aim angle, called in {@link PlayerController} when the mouse is moved
-     * @param angle is the angle at which the player will shoot
-     */
-    public void setAimAngle(int angle){
-        aimAngle = angle;
-    }
-
-    /**
-     * Gives the player a new {@link Firearm} object
-     */
-    public void setFirearm(int weaponNumber){
-        currentWeapon = weaponNumber;
     }
 
     /**
@@ -282,18 +217,46 @@ public class Player extends Sapien{
         weapons[currentWeapon].reloadFirearm();
     }
 
-    /**
-     * Setter for class boolean playerHit
-     * @param bool boolean condition for class boolean <code>playerHit</code>
-     */
+    public int getHealth(){
+        return health;
+    }
+
+    public int getMoney(){
+        return money;
+    }
+
+    public void setLeft(boolean bool){
+        left = bool;
+    }
+
+    public void setRight(boolean bool){
+        right = bool;
+    }
+
+    public void setUp(boolean bool){
+        up = bool;
+    }
+
+    public void setDown(boolean bool){
+        down = bool;
+    }
+
+    public void setTriggerPulled(boolean bool){
+        triggerPulled = bool;
+    }
+
+    public void setAimAngle(int angle){
+        aimAngle = angle;
+    }
+
+    public void setFirearm(int weaponNumber){
+        currentWeapon = weaponNumber;
+    }
+
     public void setPlayerHit(boolean bool){
         playerHit = bool;
     }
 
-    /**
-     * Getter for class boolean <code>playerHit</code>
-     * @return boolean playerHit
-     */
     public boolean getPlayerHit(){
         return playerHit;
     }

@@ -3,11 +3,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.views.View;
 
-public class TiledTestTwo extends ApplicationAdapter {
+public class Model extends ApplicationAdapter {
     private OrthographicCamera camera;
     private CollisionController collisionController = new CollisionController();
     private Player player;
@@ -15,7 +16,7 @@ public class TiledTestTwo extends ApplicationAdapter {
     private Rounds rounds;
     private FitViewport viewport;
 
-    public TiledTestTwo (int scale){
+    public Model(int scale){
         this.scale = scale;
     }
 
@@ -72,9 +73,9 @@ public class TiledTestTwo extends ApplicationAdapter {
         View.getInstance().render();
         MovableSubject.getInstance().notifyUpdate();
         collisionController.checkCollisions(View.getInstance(), player, this.scale);
-        FollowerObserver.getInstance().playerLocation((int) player.getX(),(int) player.getY());
+        FollowerSubject.getInstance().playerLocation((int) player.getX(),(int) player.getY());
         rounds.checkNewRound(player);
 
-        player.getHit(ZombieObserver.getInstance().playerHit());
+        player.getHit(ZombieSubject.getInstance().playerHit());
     }
 }

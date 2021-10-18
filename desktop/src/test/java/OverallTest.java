@@ -4,13 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.bullet.collision.ICollide;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.*;
 import com.mygdx.game.desktop.*;
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 public class OverallTest {
@@ -323,18 +322,18 @@ public class OverallTest {
     @Test
     void attachZombieObserver(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
-        ZombieObserver zombieObserver = new ZombieObserver();
-        zombieObserver.attach(zombie);
-        assertTrue(zombieObserver.getObservers().contains(zombie));
+        ZombieSubject zombieSubject = new ZombieSubject();
+        zombieSubject.attach(zombie);
+        assertTrue(zombieSubject.getObservers().contains(zombie));
     }
 
     @Test
     void detachZombieObserver(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
-        ZombieObserver zombieObserver = new ZombieObserver();
-        zombieObserver.attach(zombie);
-        zombieObserver.detach(zombie);
-        assertTrue(zombieObserver.getObservers().isEmpty());
+        ZombieSubject zombieSubject = new ZombieSubject();
+        zombieSubject.attach(zombie);
+        zombieSubject.detach(zombie);
+        assertTrue(zombieSubject.getObservers().isEmpty());
     }
 
     //TODO make this a test for FollowerObserver instead
@@ -355,12 +354,12 @@ public class OverallTest {
     void playerHit() {
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1, 1);
         Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1, 1);
-        ZombieObserver zombieObserver = new ZombieObserver();
-        zombieObserver.attach(zombie);
-        zombieObserver.attach(zombie2);
+        ZombieSubject zombieSubject = new ZombieSubject();
+        zombieSubject.attach(zombie);
+        zombieSubject.attach(zombie2);
         zombie.setHitPlayer(true);
         zombie2.setHitPlayer(true);
-        assertEquals(2,zombieObserver.playerHit());
+        assertEquals(2, zombieSubject.playerHit());
     }
 
     //Zombie

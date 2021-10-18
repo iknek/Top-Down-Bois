@@ -1,6 +1,9 @@
 package com.mygdx.game.desktop;
 
 
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.Zombie;
+
 /**
  * The Rounds class represents every group of {@link Zombie} objects spawning in. Once all zombies are killed, a new round starts
  * with new zombies spawning in with increased health, for the sake of increased difficulty.

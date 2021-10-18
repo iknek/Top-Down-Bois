@@ -80,7 +80,7 @@ public abstract class Firearm {
      * When the timer runs out the gun can fire again, this is how we control rate of fire
      * It is also used for a reload delay
      */
-    class RemindTask extends TimerTask {
+    private class RemindTask extends TimerTask {
         public void run(){
             readyToFire = true;
             timer.cancel(); //Terminate the timer thread
