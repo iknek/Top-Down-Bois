@@ -15,6 +15,7 @@ public class Model extends ApplicationAdapter {
     private float scale;
     private Rounds rounds;
     private FitViewport viewport;
+    private Coin coin;
 
     public Model(int scale){
         this.scale = scale;
@@ -64,9 +65,7 @@ public class Model extends ApplicationAdapter {
     @Override
     public void render () {
         camera.update();
-
         View.getInstance().updateHud(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
-
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         View.getInstance().setView(camera);

@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapLayer;
@@ -17,6 +18,7 @@ public class View extends OrthogonalTiledMapRenderer {
     private List<Sprite> sprites;
 
     private Hud hud;
+    private Store store;
     private SpriteBatch spriteBatch;
 
     /**
@@ -29,6 +31,7 @@ public class View extends OrthogonalTiledMapRenderer {
         sprites = new CopyOnWriteArrayList<>();
         spriteBatch = new SpriteBatch();
         hud = new Hud(spriteBatch, (int) scale);
+        store = new Store(spriteBatch,(int) scale);
     }
 
     /**
@@ -87,7 +90,10 @@ public class View extends OrthogonalTiledMapRenderer {
         endRender();
 
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
         hud.stage.draw();
+
+        store.stage.draw();
     }
 
     /**
@@ -109,6 +115,7 @@ public class View extends OrthogonalTiledMapRenderer {
     @Override
     public void dispose() {
         hud.dispose();
+        store.dispose();
         spriteBatch.dispose();
         super.dispose();
     }
