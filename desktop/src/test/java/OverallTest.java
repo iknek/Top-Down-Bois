@@ -40,7 +40,7 @@ public class OverallTest {
     @Test
     void testFirearmInitialTotal(){
         firearm = new Revolver(2);
-        assertEquals(36, firearm.getTotalAmmo());
+        assertEquals(54, firearm.getTotalAmmo());
     }
 
     @Test
@@ -338,7 +338,7 @@ public class OverallTest {
             view.removeSprite(view.getSprites().get(i));
         }
         ZombieFactory zombieFactory = new ZombieFactory(1);
-        zombieFactory.createZombie(5,1);
+        zombieFactory.createZombie(5,1, new Spawnpoint(new RectangleMapObject(), 2));
         List<Sprite> list = View.getInstance().getSprites();
         for (Sprite sprite : list) {
             assertTrue(sprite instanceof Zombie);
