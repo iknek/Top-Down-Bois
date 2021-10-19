@@ -14,26 +14,45 @@ import java.util.List;
  */
 
 public class ZombieAnimations extends ApplicationAdapter{
+    /**
+     * Batch which is used to draw the animations
+     */
     private Batch batch;
-
+    /**
+     * The current textureAtlas of the player
+     */
     private TextureAtlas textureAtlas;
-    private TextureAtlas runningBack;
-    private TextureAtlas runningRight;
-    private TextureAtlas runningFront;
-    private TextureAtlas runningLeft;
 
-    private TextureAtlas hittingBack;
-    private TextureAtlas hittingFront;
-    private TextureAtlas hittingLeft;
-    private TextureAtlas hittingRight;
+    /**
+     * Texture atlases for when the zombie is running as well as hitting
+     */
+    private TextureAtlas runningBack, runningRight, runningFront, runningLeft;
+    private TextureAtlas hittingBack, hittingFront, hittingLeft, hittingRight;
 
+    /**
+     * Texture atlas for when zombie dies
+     */
     private TextureAtlas deadAtlas;
-
+    /**
+     * The current animation which the player should be in
+     */
     private Animation animation;
+    /**
+     * A variable which keeps track of the time passed
+     */
     private float elapsedTime = 0f;
-    private Zombie zombie;
-    private float startHitTime;
+    /**
+     * A list of all these texture atlases so that they can easily be disposed
+     */
     private List<TextureAtlas> list;
+    /**
+     * An instance of the zombie which the animations are connected to.
+     */
+    private Zombie zombie;
+    /**
+     * The game time at which this particular zombie starts the hitting animation
+     */
+    private float startHitTime;
 
     /**
      * Constructor for {@link ZombieAnimations} class.
@@ -118,7 +137,8 @@ public class ZombieAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Method to preload all textureatlas when game launches, so that the game doesn't have to do it later (thus reducing lag significantly)
+     * Method to preload all {@link TextureAtlas} when game launches.
+     * This is done so that the game does not have to do it during runtime, and so lag is reduced.
      */
     private void preLoad(){
         list = new ArrayList();
@@ -144,6 +164,7 @@ public class ZombieAnimations extends ApplicationAdapter{
         list.add(hittingRight);
         list.add(hittingFront);
         list.add(hittingLeft);
+
         list.add(deadAtlas);
     }
 

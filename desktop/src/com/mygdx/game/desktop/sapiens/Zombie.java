@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.*;
 import com.mygdx.game.desktop.animations.ZombieAnimations;
+import com.mygdx.game.desktop.coins.Coin;
 import com.mygdx.game.desktop.views.View;
 
 import java.util.Random;

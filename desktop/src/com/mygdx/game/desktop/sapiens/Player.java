@@ -2,8 +2,8 @@ package com.mygdx.game.desktop.sapiens;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.mygdx.game.desktop.Coin;
-import com.mygdx.game.desktop.CoinSubject;
+import com.mygdx.game.desktop.coins.Coin;
+import com.mygdx.game.desktop.coins.CoinSubject;
 import com.mygdx.game.desktop.MovableSubject;
 import com.mygdx.game.desktop.Rounds;
 import com.mygdx.game.desktop.animations.PlayerAnimations;
@@ -21,20 +21,50 @@ import java.util.TimerTask;
  * @author Imad
  */
 public class Player extends Sapien {
-
+    /**
+     * booleans in order to determine which direction the player is moving
+     */
     private boolean left, right, up, down;
+    /**
+     * boolean to determine whether the player is trying to shoot or not
+     */
     private boolean triggerPulled = false;
+    /**
+     * boolean to determine whether player is in invincibility frame or nor
+     */
     private boolean invincible;
+    /**
+     * timers which are used to limit sprinting and invincibility
+     */
     private Timer timerInvinc, timerSprint;
+    /**
+     * The angle at which the player is aiming
+     */
     private int aimAngle;
+    /**
+     * The maximum health that the player can have
+     */
     private int maxHealth;
+    /**
+     * The current amount of money that the player has
+     */
     private int money;
+    /**
+     * Instance of {@link PlayerAnimations} so that the player has animations
+     */
     private PlayerAnimations animations;
+    /**
+     * boolean to determine whether the player has been hit by {@link Zombie} or not. Used for animations
+     */
     private boolean playerHit;
+    /**
+     * The current weapon slot which the player has selected
+     */
     private int currentWeapon;
-
+    /**
+     * An array to store the Weapons that the player is holding
+     */
     private Firearm[] weapons = new Firearm[3];
-    private CoinSubject coinSubject = CoinSubject.getInstance();
 
     /**
      * Constructor for the Player class
@@ -61,7 +91,7 @@ public class Player extends Sapien {
         currentWeapon = 0;
         //this.firearm = weapons[2];
 
-        health = 100;
+        health = 5;
         maxHealth = 100;
 
         new PlayerController(this);
@@ -105,6 +135,10 @@ public class Player extends Sapien {
         updateAction();
     }
 
+    /**
+     * Method which delegates the drawing responsibility to animations
+     * @param batch is the batch the program uses to draw the sprites
+     */
     @Override
     public void draw(Batch batch) {
         animations.render(getX(), getY(), moving(), scale, getPlayerHit(), angle);
@@ -221,7 +255,6 @@ public class Player extends Sapien {
     public int getHealth(){
         return health;
     }
-
     public int getMoney(){
         return money;
     }
@@ -229,27 +262,21 @@ public class Player extends Sapien {
     public void setLeft(boolean bool){
         left = bool;
     }
-
     public void setRight(boolean bool){
         right = bool;
     }
-
     public void setUp(boolean bool){
         up = bool;
     }
-
     public void setDown(boolean bool){
         down = bool;
     }
-
     public void setTriggerPulled(boolean bool){
         triggerPulled = bool;
     }
-
     public void setAimAngle(int angle){
         aimAngle = angle;
     }
-
     public void setFirearm(int weaponNumber){
         currentWeapon = weaponNumber;
     }
@@ -257,7 +284,6 @@ public class Player extends Sapien {
     public void setPlayerHit(boolean bool){
         playerHit = bool;
     }
-
     public boolean getPlayerHit(){
         return playerHit;
     }
