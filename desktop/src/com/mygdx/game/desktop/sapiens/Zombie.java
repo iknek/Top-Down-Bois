@@ -90,10 +90,19 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
     public void getHit(int damage){
         health = health - damage;
         if (health <= 0){
-            View.getInstance().removeSprite(Zombie.this);
-            MovableSubject.getInstance().detach(this);
-            ZombieSubject.getInstance().detach(this);
-            FollowerSubject.getInstance().detach(this);
+            die();
+        }
+    }
+
+    private void die(){
+        Random rand = new Random();
+        int random = rand.nextInt(4);
+
+        View.getInstance().removeSprite(Zombie.this);
+        MovableSubject.getInstance().detach(this);
+        ZombieSubject.getInstance().detach(this);
+        FollowerSubject.getInstance().detach(this);
+        if (random != 0){
             new Coin(getX(),getY(), scale);
         }
     }
