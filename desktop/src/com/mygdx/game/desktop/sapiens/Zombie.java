@@ -10,13 +10,29 @@ import com.mygdx.game.desktop.views.View;
 import java.util.Random;
 
 public class Zombie extends Sapien implements Zombies, FollowsPlayers {
-
-    private int playerX;
-    private int playerY;
+    /**
+     * Current coordinates of the {@link Player}
+     */
+    private int playerX, playerY;
+    /**
+     * The damage inflicted onto player
+     */
     private int damage = 1;
+    /**
+     * The angle of rendering, used for animations
+     */
     private int renderAngle;
+    /**
+     * Boolean to determine whether the Zombie is moving or not
+     */
     private boolean moving;
+    /**
+     * Instance of {@link ZombieAnimations} which handles rendering
+     */
     private ZombieAnimations animations;
+    /**
+     * boolean to determine whether the zombie has hit player or not
+     */
     private boolean hitPlayer;
 
     /**
@@ -28,10 +44,8 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
      */
     public Zombie(TextureAtlas atlas, float posX, float posY, float scale, int roundNumber) {
         super(atlas, posX, posY, scale);
-        this.name = "Eric";
 
         textureAtlas = atlas;
-        setRegion(atlas.findRegion(name + "_back"));
 
         Random random = new Random();
         int randomInt = random.nextInt(10);
@@ -51,6 +65,10 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
         FollowerSubject.getInstance().attach(this);
     }
 
+    /**
+     * Delegates the rendering to Zombie animations class
+     * @param batch
+     */
     @Override
     public void draw(Batch batch) {
         animations.render();
@@ -74,8 +92,8 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
 
     /**
      * Gives zombie player location for pathfinding.
-     * @param x
-     * @param y
+     * @param x = the players X-coordinate
+     * @param y = the players Y-coordinate
      */
     @Override
     public void playerLocation(int x, int y) {
@@ -95,6 +113,10 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
         }
     }
 
+    /**
+     * Removes itself from the program.
+     * Method is called when it has been hit enough times.
+     */
     private void die(){
         Random rand = new Random();
         int random = rand.nextInt(4);
@@ -110,7 +132,7 @@ public class Zombie extends Sapien implements Zombies, FollowsPlayers {
 
     /**
      * This method calculates the distance between the player and the zombie for animations
-     * @return int
+     * @return int the distance between zombie and player
      */
     public int nearPlayer() {
         return (int) Math.sqrt(Math.pow((this.getX()-playerX),2) + Math.pow((this.getY()-playerY),2));

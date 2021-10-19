@@ -1,5 +1,7 @@
 package com.mygdx.game.desktop.sapiens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.coins.Coin;
@@ -78,11 +80,10 @@ public class Player extends Sapien {
      */
     public Player(TextureAtlas atlas, float posX, float posY, float scale) {
         super(atlas, posX, posY, scale);
-        this.name = "Adam";
 
         textureAtlas = atlas;
 
-        this.speed = 55*scale;
+        this.speed = 50*scale;
 
         weapons[0] = new Revolver(scale);
         weapons[1] = new Shotgun(scale);
@@ -170,6 +171,7 @@ public class Player extends Sapien {
         }
 
         if(health <= 0){
+            health =0;
             die();
         }
     }
@@ -225,7 +227,7 @@ public class Player extends Sapien {
      */
     public void setSprint(boolean bool){
         if(bool){
-            this.speed = (float)82.5*scale;
+            this.speed = (float)75*scale;
             timerSprint = new Timer();
             timerSprint.schedule(new RemindTaskSprint(), 3*1000);
         }else{

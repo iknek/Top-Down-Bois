@@ -6,6 +6,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.desktop.sapiens.Player;
 
 public class PlayerController implements InputProcessor{
+    /**
+     * Instance of {@link Player} which the inputs correspond to
+     */
     private Player player;
 
     /**
@@ -131,40 +134,36 @@ public class PlayerController implements InputProcessor{
 
     /**
      * Checks if mouse is being dragged and updates angle projectiles are shot at
-     * @param screenX = where on screen x plane
-     * @param screenY = where on screen y plane
+     * @param screenX = where on screen the mouse is on X-axis
+     * @param screenY = where on screen the mouse is on Y-axis
      * @param pointer = mouse pointer
-     * @return
+     * @return boolean
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        float adjustedX;
-        float adjustedY;
-        if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
-            adjustedX = screenX * ((float)640 * player.scale/Gdx.graphics.getWidth());
-            adjustedY = (screenY - (((float)Gdx.graphics.getHeight()-(Gdx.graphics.getWidth()))/2)) * ((float)640 * player.scale/Gdx.graphics.getWidth());
-
-        } else {
-            adjustedY = screenY * ((float)640 * player.scale/Gdx.graphics.getHeight());
-            adjustedX = (screenX - (((float)Gdx.graphics.getWidth()-(Gdx.graphics.getHeight()))/2)) * ((float)640 * player.scale/Gdx.graphics.getHeight());
-        }
-        int aimAngle = (int) -Math.toDegrees(Math.atan2(640 * player.scale - player.getY() - adjustedY, adjustedX-player.getX()));
-        aimAngle += 90;
-        if(aimAngle < 0){
-            aimAngle += 360;
-        }
-        player.setAimAngle(aimAngle);
+        player.setAimAngle(findAimAngle(screenX, screenY));
         return true;
     }
 
     /**
      * Checks if mouse is moved and updates angle projectiles are shot at
-     * @param screenX
-     * @param screenY
-     * @return
+     * @param screenX = where on screen the mouse is on X-axis
+     * @param screenY = where on screen the mouse is on Y-axis
+     * @return boolean
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        player.setAimAngle(findAimAngle(screenX, screenY));
+        return true;
+    }
+
+    /**
+     * Finds what angle the player should aim.
+     * @param screenX = where on screen the mouse is on X-axis
+     * @param screenY = where on screen the mouse is on Y-axis
+     * @return boolean
+     */
+    private int findAimAngle(int screenX, int screenY){
         float adjustedX;
         float adjustedY;
         if (Gdx.graphics.getHeight() >= Gdx.graphics.getWidth()) {
@@ -180,8 +179,7 @@ public class PlayerController implements InputProcessor{
         if(aimAngle < 0){
             aimAngle += 360;
         }
-        player.setAimAngle(aimAngle);
-        return true;
+        return aimAngle;
     }
 
     /**
