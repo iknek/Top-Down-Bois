@@ -14,7 +14,7 @@ import com.mygdx.game.desktop.views.View;
  * Upon collision with the player, this object disappears and increases the player's currency counter.
  * The Coins movement towards the player is referred to as the Coins "magnet".
  */
-public class Coin extends Sprite implements Movable, FollowsPlayers{
+public class Coin extends Sprite implements Movable, FollowsPlayers, Coins {
     /**
      * Angle for this objects directional movement.
      */
@@ -30,7 +30,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     /**
      * Distance for this object to move towards the {@link Player}.
      */
-    private int magnetDistance = 25;
+    private int magnetDistance;
     /**
      * Speed for this object.
      */
@@ -48,13 +48,13 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
         super(new Texture(Gdx.files.internal("editedCoin.png")));
         this.setPosition(posX,posY);
         this.setScale(scale/2);
-        this.magnetDistance *= scale;
-
-        this.speed = 100;
-
         View.getInstance().addSprite(this);
         MovableSubject.getInstance().attach(this);
         FollowerSubject.getInstance().attach(this);
+        CoinSubject.getInstance().attach(this);
+        magnetDistance = CoinSubject.getInstance().getDistance();
+        speed = CoinSubject.getInstance().getSpeed();
+        this.magnetDistance *= scale;
     }
 
     /**
@@ -89,16 +89,6 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     }
 
     /**
-     * Sets the strength of the magnet.
-     * @param distance desired strength of the magnet
-     */
-    // Kan användas för "enhanced coin magnet" perk
-    // Döpa om till "setMagnetStrength"?
-    public void setMagnetDistance(int distance){
-        this.magnetDistance = distance;
-    }
-
-    /**
      * Handles collision between this object and other collision objects on the map.
      * @param rectangle object colliding with this object.
      */
@@ -130,6 +120,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
         View.getInstance().removeSprite(this);
         MovableSubject.getInstance().detach(this);
         FollowerSubject.getInstance().detach(this);
+        CoinSubject.getInstance().detach(this);
     }
 
     public float getX() {
@@ -149,5 +140,11 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     public void playerLocation(int x, int y) {
         this.playerX = x;
         this.playerY = y;
+    }
+
+    @Override
+    public void updateMagnet(int distance, int speed) {
+        this.magnetDistance = distance;
+        this.speed = speed;
     }
 }

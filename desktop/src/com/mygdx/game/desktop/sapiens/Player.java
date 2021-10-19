@@ -3,6 +3,7 @@ package com.mygdx.game.desktop.sapiens;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.Coin;
+import com.mygdx.game.desktop.CoinSubject;
 import com.mygdx.game.desktop.MovableSubject;
 import com.mygdx.game.desktop.Rounds;
 import com.mygdx.game.desktop.animations.PlayerAnimations;
@@ -33,6 +34,7 @@ public class Player extends Sapien {
     private int currentWeapon;
 
     private Firearm[] weapons = new Firearm[3];
+    private CoinSubject coinSubject = CoinSubject.getInstance();
 
     /**
      * Constructor for the Player class
@@ -181,7 +183,6 @@ public class Player extends Sapien {
      */
     public void coinGained() {
         money += 1;
-        System.out.println("Coin gained");
     }
 
     /**
