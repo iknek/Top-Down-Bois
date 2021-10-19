@@ -2,7 +2,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
@@ -11,6 +13,9 @@ import com.mygdx.game.desktop.weapons.*;
 import com.mygdx.game.desktop.*;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OverallTest {
 
@@ -30,6 +35,7 @@ public class OverallTest {
         firearm = new Revolver(2);
         assertEquals(6, firearm.getAmmoInMagazine());
     }
+
 
     @Test
     void testFirearmInitialTotal(){
@@ -304,8 +310,20 @@ public class OverallTest {
         assertEquals(2, rounds.getRound());
     }
 
+    //////////SPAWNPOINT//////////
+    @Test
+    void Spawnpoint(){
+        RectangleMapObject rectangleMapObject = new RectangleMapObject();
+        rectangleMapObject.getRectangle().setX(123);
+        rectangleMapObject.getRectangle().setY(456);
+        rectangleMapObject.getRectangle().setWidth(20);
+        rectangleMapObject.getRectangle().setHeight(30);
+        Spawnpoint spawnpoint = new Spawnpoint(rectangleMapObject,3);
+        assertEquals(153,spawnpoint.getX());
+        assertEquals(501,spawnpoint.getY());
+    }
 
-    //ZombieFactory
+    //////////ZOMBIEFACTORY//////////
     @Test
     void ZombieFactory(){
         assertTrue(true);
@@ -313,14 +331,23 @@ public class OverallTest {
 
     @Test
     void createZombie(){
+        //Not sure if this is right,
+        // I want to make sure that the list of sprites in View is empty
+        View view = View.getInstance();
+        for (int i = 0; i < view.getSprites().size(); i++) {
+            view.removeSprite(view.getSprites().get(i));
+        }
         ZombieFactory zombieFactory = new ZombieFactory(1);
         zombieFactory.createZombie(5,1);
-
+        List<Sprite> list = View.getInstance().getSprites();
+        for (Sprite sprite : list) {
+            assertTrue(sprite instanceof Zombie);
+        }
     }
 
-    //ZombieObserver
+    //////////ZOMBIESUBJECT//////////
     @Test
-    void attachZombieObserver(){
+    void attach(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
@@ -328,27 +355,13 @@ public class OverallTest {
     }
 
     @Test
-    void detachZombieObserver(){
+    void detach(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
         zombieSubject.detach(zombie);
         assertTrue(zombieSubject.getObservers().isEmpty());
     }
-
-    //TODO make this a test for FollowerObserver instead
-    /*
-    @Test
-    void playerLocation() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
-        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1);
-        ZombieObserver zombieObserver = new ZombieObserver();
-        zombieObserver.attach(zombie);
-        zombieObserver.attach(zombie2);
-        zombieObserver.playerLocation(15,25);
-        assertTrue(zombie.nearPlayer()==0 && zombie2.nearPlayer()==5);
-    }
-    */
 
     @Test
     void playerHit() {
@@ -362,7 +375,7 @@ public class OverallTest {
         assertEquals(2, zombieSubject.playerHit());
     }
 
-    //Zombie
+    //////////ZOMBIE//////////
 
     @Test
     void nearPlayer() {
@@ -435,5 +448,17 @@ public class OverallTest {
         zombie.setHitPlayer(true);
         zombie.setHitPlayer(false);
         assertFalse(zombie.isHitPlayer());
+    }
+
+    //////////FOLLOWERSUBJECT//////////
+    @Test
+    void playerLocation() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+        FollowerSubject subject = new FollowerSubject();
+        subject.attach(zombie);
+        subject.attach(zombie2);
+        subject.playerLocation(15,25);
+        assertTrue(zombie.nearPlayer()==0 && zombie2.nearPlayer()==5);
     }
 }
