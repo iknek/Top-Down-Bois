@@ -1,8 +1,15 @@
 package com.mygdx.game.desktop;
 
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.views.View;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The Rounds class represents every group of {@link Zombie} objects spawning in. Once all zombies are killed, a new round starts
@@ -20,13 +27,22 @@ public class Rounds {
 
     private int zombiesLeftToSpawn;
 
+    private ArrayList<Spawnpoint> spawnpoints = new ArrayList<>();
+
     /**
      * Constructor for the {@link Rounds} class.
      * @param scale scale of zombie factory
      */
     public Rounds (float scale){
+        MapLayer spawnPointLayer = View.getInstance().getMap().getLayers().get("spawntiles");
+        MapObjects spawnPointObjects = spawnPointLayer.getObjects();
+
         this.roundNumber = 0;
         zombiefactory = new ZombieFactory(scale);
+
+        for (RectangleMapObject spawnPointObject : spawnPointObjects.getByType(RectangleMapObject.class)) {
+            spawnpoints.add(new Spawnpoint(spawnPointObject, scale));
+        }
     }
 
     /**
@@ -34,8 +50,11 @@ public class Rounds {
      * @param player current {@link Player} object
      */
     public void checkNewRound(Player player){
+        Random random = new Random();
+        int randomInt = random.nextInt(4);
+        Spawnpoint spawnpoint = spawnpoints.get(randomInt);
         if(zombiesLeftToSpawn > 0){
-            zombiefactory.createZombie(1, roundNumber);
+            zombiefactory.createZombie(1, roundNumber, spawnpoint);
             zombiesLeftToSpawn--;
         }else{
             int zombiesLeft = 0;
