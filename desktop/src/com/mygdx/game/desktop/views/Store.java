@@ -41,6 +41,7 @@ public class Store implements Disposable{
     private ArrayList<Image> buttonList = new ArrayList<>();
 
     private Player player;
+    final Table table;
 
 
     /**
@@ -57,7 +58,7 @@ public class Store implements Disposable{
         //Defines images
         storeImage = new Image(new Texture(Gdx.files.internal("Store/store3.png")));
 
-        final Table table = new Table();
+        table = new Table();
 
         table.setFillParent(true);
 
@@ -197,6 +198,7 @@ public class Store implements Disposable{
                 player.strongerMagnet(50);
                 break;
             case 9:
+                table.addActor(exitImage);
                 View.getInstance().closeShop();
                 break;
             default:
