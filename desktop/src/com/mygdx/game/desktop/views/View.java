@@ -92,6 +92,7 @@ public class View extends OrthogonalTiledMapRenderer {
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
         hud.stage.draw();
+        //Gdx.input.setInputProcessor(store.stage);
 
         store.stage.draw();
     }

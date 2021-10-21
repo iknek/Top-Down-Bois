@@ -73,17 +73,17 @@ public class Store implements Disposable{
         button = new Button(buttonStyle);
 
         //Listener for click
-        button.addListener(new ChangeListener() {
+        button.addListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("hi!");
             }
         });
 
         table.row();
         table.add(button);
         //Adds table to stage
-        stage.addActor(table);
+        //stage.addActor(table);
 
     }
 

@@ -15,7 +15,6 @@ public class PlayerController implements InputProcessor{
     public PlayerController(Player player){
         this.player = player;
         Gdx.input.setInputProcessor(this);
-
     }
 
     /**

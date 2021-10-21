@@ -36,7 +36,6 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
      */
     private int speed;
 
-
     /**
      * Constructor for the {@link Coin} class.
      * Sets the {@link Texture} and initial position for this object.
@@ -95,7 +94,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     // Kan användas för "enhanced coin magnet" perk
     // Döpa om till "setMagnetStrength"?
     public void setMagnetDistance(int distance){
-        this.magnetDistance = distance;
+        magnetDistance = distance;
     }
 
     /**
@@ -135,6 +134,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers{
     public float getX() {
         return super.getX();
     }
+
 
     public float getY(){
         return super.getY();
