@@ -220,7 +220,7 @@ public class Player extends Sapien {
      * Adds to the <code>money</code> variable when a {@link Coin} object is picked up
      */
     public void coinGained() {
-        money += 1;
+        money += 100;
     }
 
     public void giveFasterSprint(int price){
@@ -309,6 +309,11 @@ public class Player extends Sapien {
     }
 
     public void regainControls(){
+        setLeft(false);
+        setRight(false);
+        setDown(false);
+        setUp(false);
+        setTriggerPulled(false);
         new PlayerController(this);
     }
 
