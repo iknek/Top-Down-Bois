@@ -45,7 +45,6 @@ public class DummyGame extends BlockJUnit4ClassRunner implements ApplicationList
     @Override
     public void render() {
         synchronized (invokeInRender) {
-            System.out.println(invokeInRender.size());
             for (Map.Entry<FrameworkMethod, RunNotifier> each : invokeInRender.entrySet()) {
                 super.runChild(each.getKey(), each.getValue());
             }
