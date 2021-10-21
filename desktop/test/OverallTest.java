@@ -1,10 +1,11 @@
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.mygdx.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
@@ -12,11 +13,14 @@ import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.*;
 import com.mygdx.game.desktop.*;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
+@RunWith(DummyGame.class)
 public class OverallTest {
 
     Firearm firearm;
@@ -24,68 +28,68 @@ public class OverallTest {
     Player player;
 
     @Before
-    public void setup(){
-        player  = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
-        View.createInstance(2);
+    public void setup() {
+        View.createInstance(1);
+        player  = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,1);
     }
 
     //////////FIREARMS//////////
-    @Test
-    void testFirearmInitialAmmoInMag(){
+    @org.junit.Test
+    public void testFirearmInitialAmmoInMag(){
         firearm = new Revolver(2);
         assertEquals(6, firearm.getAmmoInMagazine());
     }
 
 
-    @Test
-    void testFirearmInitialTotal(){
+    @org.junit.Test
+    public void testFirearmInitialTotal(){
         firearm = new Revolver(2);
         assertEquals(54, firearm.getTotalAmmo());
     }
 
-    @Test
-    void testFirearmName(){
+    @org.junit.Test
+    public void testFirearmName(){
         firearm = new Revolver(2);
         assertEquals("REVOLVER", firearm.getName());
     }
 
-    @Test
-    void testFirearmAfterFire(){
+    @org.junit.Test
+    public void testFirearmAfterFire(){
         firearm = new Revolver(2);
         firearm.fire(0,50,50);
         assertEquals(5,firearm.getAmmoInMagazine());
     }
 
-    @Test
-    void testFirearmAmmoInMagAfterReload(){
+    @org.junit.Test
+    public void testFirearmAmmoInMagAfterReload(){
         firearm = new Revolver(2);
         firearm.fire(0,50,50);
         firearm.reloadFirearm();
         assertEquals(6,firearm.getAmmoInMagazine());
     }
 
-    @Test
-    void testFirearmTotalAfterReload(){
+    @org.junit.Test
+    public void testFirearmTotalAfterReload(){
         firearm = new Revolver(2);
         firearm.fire(0,50,50);
         firearm.reloadFirearm();
         assertEquals(35, firearm.getTotalAmmo());
     }
 
-    @Test
-    void testFirearmEmptyInMag(){
+    @org.junit.Test
+    public void testFirearmEmptyInMag(){
         firearm = emptyFirearm();
         assertEquals(0, firearm.getAmmoInMagazine());
     }
 
-    @Test
-    void testFirearmEmptyTotal(){
+    @org.junit.Test
+    public void testFirearmEmptyTotal(){
         firearm = emptyFirearm();
         assertEquals(0, firearm.getTotalAmmo());
     }
 
     public Firearm emptyFirearm(){
-        firearm = new Revolver(2);
+        firearm = new Revolver(1);
         for(int i =0; i <36; i++){
             firearm.fire(0,50,50);
             firearm.reloadFirearm();
@@ -96,202 +100,207 @@ public class OverallTest {
     }
 
     //////////COINS//////////
-    @Test
-    void testCoinInitialX(){
+    @org.junit.Test
+    public void testCoinInitialX(){
         coin = new Coin(50, 50, 2);
-        assertEquals(50, coin.getX());
+        assertEquals(50, coin.getX(),1);
     }
 
-    @Test
-    void testCoinInitialY(){
+    @org.junit.Test
+    public void testCoinInitialY(){
         coin = new Coin(50,50,2);
-        assertEquals(50, coin.getY());
+        assertEquals(50, coin.getY(),1);
     }
 
-    @Test
-    void testCoinRemoveMovableSubject(){
+    @org.junit.Test
+    public void testCoinRemoveMovableSubject(){
         coin = new Coin(50,50,2);
         coin.remove();
         assertEquals(0, MovableSubject.getInstance().getObservers().size());
     }
 
-    @Test
-    void testCoinRemoveView(){
+    @org.junit.Test
+    public void testCoinRemoveView(){
         coin = new Coin(50,50,2);
         coin.remove();
         assertEquals(0, View.getInstance().getSprites().size());
     }
 
     //////////MOVABLESUBJECT//////////
-    @Test
-    void movableSubjectAttachTest(){
+    @org.junit.Test
+    public void movableSubjectAttachTest(){
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.attach(player);
         assertTrue(movableSubject.getObservers().contains(player));
     }
 
-    @Test
-    void movableSubjectDetachTest(){
+    @org.junit.Test
+    public void movableSubjectDetachTest(){
         MovableSubject movableSubject = MovableSubject.getInstance();
         movableSubject.detach(player);
         assertFalse(movableSubject.getObservers().contains(player));
     }
 
-    @Test
-    void movableSubjectDetachNotAttachedTest(){
+    @org.junit.Test
+    public void movableSubjectDetachNotAttachedTest(){
         MovableSubject movableSubject = MovableSubject.getInstance();
+        for (int i = 0; i < MovableSubject.getInstance().getObservers().size(); i++) {
+            System.out.println(MovableSubject.getInstance().getObservers().get(i).getClass());
+        }
+        // Är en massa players i movable subject
         assertFalse(movableSubject.detach(player));
     }
 
     //////////PLAYER//////////
-    @Test
-    void playerFirearmTest(){
-        player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
-
+    @org.junit.Test
+    public void playerFirearmTest(){
         assertTrue(player.getWeapon() instanceof Revolver);
     }
 
-    @Test
-    void playerGetMovingInitialTest(){
+    @org.junit.Test
+    public void playerGetMovingInitialTest(){
         assertFalse(player.moving());
     }
 
-    @Test
-    void playerGetMovingTest(){
+    @org.junit.Test
+    public void playerGetMovingTest(){
         player.setLeft(true);
         assertTrue(player.moving());
     }
 
-    @Test
-    void playerGetHealth(){
+    @org.junit.Test
+    public void playerGetHealth(){
         assertEquals(100, player.getHealth());
     }
 
-    @Test
-    void playerAddHealth(){
+    @org.junit.Test
+    public void playerAddHealth(){
         player.getHit(10);
         player.addHealth(5);
         assertEquals(95, player.getHealth());
     }
 
-    @Test
-    void playerGetMoneyInitial(){
+    @org.junit.Test
+    public void playerGetMoneyInitial(){
         assertEquals(0, player.getMoney());
     }
 
-    @Test
-    void playerGetCoinTest(){
+    @org.junit.Test
+    public void playerGetCoinTest(){
         player.coinGained();
         player.coinGained();
         player.coinGained();
         assertEquals(3, player.getMoney());
     }
 
-    @Test
-    void playerGetHitBooleanTest(){
+    @org.junit.Test
+    public void playerGetHitBooleanTest(){
         assertFalse(player.getPlayerHit());
     }
 
-    @Test
-    void playerSetPlayerHitBooleanTest(){
+    @org.junit.Test
+    public void playerSetPlayerHitBooleanTest(){
         player.setPlayerHit(true);
         assertTrue(player.getPlayerHit());
     }
 
-    @Test
-    void playerFireGun(){
+    @org.junit.Test
+    public void playerFireGun(){
         player.setTriggerPulled(true);
         player.update();
         assertEquals(5, player.getWeapon().getAmmoInMagazine());
     }
 
-    @Test
-    void playerReloadGun(){
+    @org.junit.Test
+    public void playerReloadGun(){
         player.reload();
         assertEquals(6, player.getWeapon().getAmmoInMagazine());
     }
 
-    @Test
-    void playerSwitchToShotgun(){
+    @org.junit.Test
+    public void playerSwitchToShotgun(){
         player.setFirearm(1);
         assertTrue(player.getWeapon() instanceof Shotgun);
     }
 
-    @Test
-    void playerSwitchToAutoRifle(){
+    @org.junit.Test
+    public void playerSwitchToAutoRifle(){
         player.setFirearm(2);
         assertTrue(player.getWeapon() instanceof AutoRifle);
     }
 
-    @Test
-    void playerSwitchToRevolver(){
+    @org.junit.Test
+    public void playerSwitchToRevolver(){
         player.setFirearm(0);
         assertTrue(player.getWeapon() instanceof Revolver);
     }
 
-    @Test
-    void playerAddedToObserversMovableSubject(){
+    @org.junit.Test
+    public void playerAddedToObserversMovableSubject(){
         assertTrue(MovableSubject.getInstance().getObservers().contains(player));
     }
 
-    @Test
-    void playerAddedToObserversView(){
+    @org.junit.Test
+    public void playerAddedToObserversView(){
         assertTrue(View.getInstance().getSprites().contains(player));
     }
 
-    @Test
-    void playerRemovedFromObserversMovableSubject(){
+    @org.junit.Test
+    public void playerRemovedFromObserversMovableSubject(){
         player.getHit(100);
         assertFalse(MovableSubject.getInstance().getObservers().contains(player));
     }
 
-    @Test
-    void playerRemovedFromObserversView(){
+    @org.junit.Test
+    public void playerRemovedFromObserversView(){
         assertFalse(View.getInstance().getSprites().contains(player));
     }
 
     //////////PROJECTILE//////////
-    @Test
-    void projectileCollideTestMovableSubject(){
+    @org.junit.Test
+    public void projectileCollideTestMovableSubject(){
         Projectile projectile = new Projectile(100, 0, 50, 50, 5, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.collide(new Rectangle());
         assertFalse(MovableSubject.getInstance().getObservers().contains(projectile));
     }
 
-    @Test
-    void projectileCollideTestView(){
+    @org.junit.Test
+    public void projectileCollideTestView(){
         Projectile projectile = new Projectile(100, 0, 50, 50, 5, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.collide(new Rectangle());
         assertFalse(View.getInstance().getSprites().contains(projectile));
     }
 
-    @Test
-    void projectileMovesX(){
+    @org.junit.Test
+    public void projectileMovesX(){
         Projectile projectile = new Projectile(10, 90, 50, 50, 1, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.update();
-        assertEquals(60, projectile.getX());
+        assertEquals(50, projectile.getX(),1);
     }
 
-    @Test
-    void projectileMovesY(){
+    @org.junit.Test
+    public void projectileMovesY(){
         Projectile projectile = new Projectile(10, 0, 50, 50, 1, new Texture(Gdx.files.internal("bullet.png")), 2);
         projectile.update();
-        assertEquals(60, projectile.getY());
+        assertEquals(50, projectile.getY(),1);
     }
 
     //////////ROUNDS//////////
-    @Test
-    void newRoundsSpawnZombies(){
-        Rounds rounds = new Rounds(2);
-        player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,2);
+    @org.junit.Test
+    public void newRoundsSpawnZombies(){
+        Rounds rounds = new Rounds(1);
         rounds.checkNewRound(player);
         rounds.checkNewRound(player);
+        for (int i = 0; i < MovableSubject.getInstance().getObservers().size(); i++) {
+            System.out.println(MovableSubject.getInstance().getObservers().get(i).getClass());
+        }
+        // Vi har 3 players attached till movable subject av nån anledning
         assertTrue(MovableSubject.getInstance().getObservers().get(1) instanceof Zombie);
     }
 
-    @Test
-    void startsNewRound(){
-        Rounds rounds = new Rounds(2);
+    @org.junit.Test
+    public void startsNewRound(){
+        Rounds rounds = new Rounds(1);
         //Starts first round then spawns in all zombies
         rounds.checkNewRound(player);
         rounds.checkNewRound(player);
@@ -311,26 +320,36 @@ public class OverallTest {
     }
 
     //////////SPAWNPOINT//////////
-    @Test
-    void Spawnpoint(){
+    @org.junit.Test
+    public void Spawnpoint(){
         RectangleMapObject rectangleMapObject = new RectangleMapObject();
         rectangleMapObject.getRectangle().setX(123);
         rectangleMapObject.getRectangle().setY(456);
         rectangleMapObject.getRectangle().setWidth(20);
         rectangleMapObject.getRectangle().setHeight(30);
-        Spawnpoint spawnpoint = new Spawnpoint(rectangleMapObject,3);
-        assertEquals(153,spawnpoint.getX());
-        assertEquals(501,spawnpoint.getY());
+        Spawnpoint spawnpoint = new Spawnpoint(rectangleMapObject,1);
+        assertEquals(133,spawnpoint.getX(),1);
+    }
+
+    @org.junit.Test
+    public void Spawnpoint2(){
+        RectangleMapObject rectangleMapObject = new RectangleMapObject();
+        rectangleMapObject.getRectangle().setX(123);
+        rectangleMapObject.getRectangle().setY(456);
+        rectangleMapObject.getRectangle().setWidth(20);
+        rectangleMapObject.getRectangle().setHeight(30);
+        Spawnpoint spawnpoint = new Spawnpoint(rectangleMapObject,1);
+        assertEquals(471,spawnpoint.getY(),1);
     }
 
     //////////ZOMBIEFACTORY//////////
-    @Test
-    void ZombieFactory(){
+    @org.junit.Test
+    public void ZombieFactory(){
         assertTrue(true);
     }
 
-    @Test
-    void createZombie(){
+    @org.junit.Test
+    public void createZombie(){
         //Not sure if this is right,
         // I want to make sure that the list of sprites in View is empty
         View view = View.getInstance();
@@ -346,16 +365,16 @@ public class OverallTest {
     }
 
     //////////ZOMBIESUBJECT//////////
-    @Test
-    void attach(){
+    @org.junit.Test
+    public void attach(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
         assertTrue(zombieSubject.getObservers().contains(zombie));
     }
 
-    @Test
-    void detach(){
+    @org.junit.Test
+    public void detach(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
@@ -363,8 +382,8 @@ public class OverallTest {
         assertTrue(zombieSubject.getObservers().isEmpty());
     }
 
-    @Test
-    void playerHit() {
+    @org.junit.Test
+    public void playerHit() {
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1, 1);
         Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
@@ -377,22 +396,22 @@ public class OverallTest {
 
     //////////ZOMBIE//////////
 
-    @Test
-    void nearPlayer() {
+    @org.junit.Test
+    public void nearPlayer() {
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         zombie.playerLocation(5, 5);
         //test nearPlayer()
         assertEquals(7, zombie.nearPlayer());
     }
 
-    @Test
-    void addedToView(){
+    @org.junit.Test
+    public void addedToView(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         assertTrue(View.getInstance().getSprites().contains(zombie));
     }
 
-    @Test
-    void getHit(){
+    @org.junit.Test
+    public void getHit(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         //test getHit()
         zombie.getHit(1);
@@ -400,16 +419,16 @@ public class OverallTest {
         assertFalse(View.getInstance().getSprites().contains(zombie));
     }
 
-    @Test
-    void spawnsCoin(){
+    @org.junit.Test
+    public void spawnsCoin(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
         zombie.getHit(1);
         zombie.getHit(1);
         assertTrue(View.getInstance().getSprites().get(0) instanceof Coin);
     }
 
-    @Test
-    void setMovingTrue(){
+    @org.junit.Test
+    public void setMovingTrue(){
         // test setMoving and moving()
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setMoving(false);
@@ -417,16 +436,16 @@ public class OverallTest {
         assertTrue(zombie.moving());
     }
 
-    @Test
-    void setMovingFalse(){
+    @org.junit.Test
+    public void setMovingFalse(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setMoving(true);
         zombie.setMoving(false);
         assertFalse(zombie.moving());
     }
 
-    @Test
-        void updateAngle(){
+    @org.junit.Test
+    public void updateAngle(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         //test updateAngle()
         zombie.playerLocation(40,30);
@@ -434,16 +453,16 @@ public class OverallTest {
         assertEquals(90, zombie.getRenderAngle());
     }
 
-    @Test
-    void setHitPlayer(){
+    @org.junit.Test
+    public void setHitPlayer(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setHitPlayer(false);
         zombie.setHitPlayer(true);
         assertTrue(zombie.isHitPlayer());
     }
 
-    @Test
-    void setHitPlayerFalse(){
+    @org.junit.Test
+    public void setHitPlayerFalse(){
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
         zombie.setHitPlayer(true);
         zombie.setHitPlayer(false);
@@ -452,13 +471,24 @@ public class OverallTest {
 
     //////////FOLLOWERSUBJECT//////////
     @Test
-    void playerLocation() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+    public void playerLocation() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1,1);
         Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
         FollowerSubject subject = new FollowerSubject();
         subject.attach(zombie);
         subject.attach(zombie2);
         subject.playerLocation(15,25);
-        assertTrue(zombie.nearPlayer()==0 && zombie2.nearPlayer()==5);
+        assertEquals(0,zombie.nearPlayer());
+    }
+
+    @Test
+    public void playerLocation2() {
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+        FollowerSubject subject = new FollowerSubject();
+        subject.attach(zombie);
+        subject.attach(zombie2);
+        subject.playerLocation(15,25);
+        assertEquals(5,zombie2.nearPlayer());
     }
 }

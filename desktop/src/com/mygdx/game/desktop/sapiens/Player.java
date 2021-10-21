@@ -174,7 +174,7 @@ public class Player extends Sapien {
      */
     private void updateAction() {
         if (triggerPulled) {
-            weapons[currentWeapon].fire(aimAngle, getX() + 16/2, getY() + 16/2);
+            weapons[currentWeapon].fire(aimAngle, getX(), getY());
         }
     }
 
