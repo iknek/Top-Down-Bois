@@ -166,28 +166,28 @@ public class Store implements Disposable{
         System.out.println(index);
         switch(index){
             case 0:
-                player.giveWeapon(new AutoRifle(scale));
+                player.giveWeapon(new AutoRifle(scale),100);
                 break;
             case 1:
-                player.giveWeapon(new Shotgun(scale));
+                player.giveWeapon(new Shotgun(scale),50);
                 break;
             case 2:
-                player.giveWeapon(new Revolver(scale));
+                player.giveWeapon(new Revolver(scale),25);
                 break;
             case 3:
-                player.giveFullAmmoAutorifle(new AutoRifle(scale));
+                player.giveFullAmmoAutorifle(new AutoRifle(scale), 75);
                 break;
             case 4:
-                player.giveFullAmmoShotgun(new Shotgun(scale));
+                player.giveFullAmmoShotgun(new Shotgun(scale), 35);
                 break;
             case 5:
-                player.giveFullAmmoRevolver(new Revolver(scale));
+                player.giveFullAmmoRevolver(new Revolver(scale), 15);
                 break;
             case 6:
-                player.setDouble(true);
+                player.setDouble(true, 200);
                 break;
             case 7:
-                player.giveFasterSprint();
+                player.giveFasterSprint(100);
                 break;
             case 8:
                 break;

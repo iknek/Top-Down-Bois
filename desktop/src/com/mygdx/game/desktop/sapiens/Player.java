@@ -185,8 +185,10 @@ public class Player extends Sapien {
         System.out.println("Coin gained");
     }
 
-    public void giveFasterSprint(){
-        hasSprintPerk = true;
+    public void giveFasterSprint(int price){
+        if(price<money){
+            hasSprintPerk = true;
+        }
     }
 
     /**
@@ -219,39 +221,51 @@ public class Player extends Sapien {
         }
     }
 
-    public void giveWeapon(Firearm firearm){
-        for(int i = 0; i<3; i++){
-            if (weapons[i] == null){
-                weapons[i] = firearm;
-                return;
+    public void giveWeapon(Firearm firearm, int price){
+        if(price<=money){
+            money -= price;
+            for(int i = 0; i<3; i++){
+                if (weapons[i] == null){
+                    weapons[i] = firearm;
+                    return;
+                }
             }
-        }
-        weapons[currentWeapon] = firearm;
-    }
-
-    public void giveFullAmmoAutorifle(Firearm firearm){
-        for(int i = 0; i<3; i++){
-            if (weapons[i] != null && weapons[i] instanceof AutoRifle){
-                weapons[i] = firearm;
-                return;
-            }
+            weapons[currentWeapon] = firearm;
         }
     }
 
-    public void giveFullAmmoShotgun(Firearm firearm){
-        for(int i = 0; i<3; i++){
-            if (weapons[i] != null && weapons[i] instanceof Shotgun){
-                weapons[i] = firearm;
-                return;
+    public void giveFullAmmoAutorifle(Firearm firearm, int price){
+        if(price<=money){
+            for(int i = 0; i<3; i++){
+                if (weapons[i] != null && weapons[i] instanceof AutoRifle){
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
             }
         }
     }
 
-    public void giveFullAmmoRevolver(Firearm firearm){
-        for(int i = 0; i<3; i++){
-            if (weapons[i] != null && weapons[i] instanceof Revolver){
-                weapons[i] = firearm;
-                return;
+    public void giveFullAmmoShotgun(Firearm firearm, int price){
+        if(price<=money){
+            for(int i = 0; i<3; i++){
+                if (weapons[i] != null && weapons[i] instanceof Shotgun){
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void giveFullAmmoRevolver(Firearm firearm, int price){
+        if(price<=money) {
+            for (int i = 0; i < 3; i++) {
+                if (weapons[i] != null && weapons[i] instanceof Revolver) {
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
             }
         }
     }
@@ -314,7 +328,9 @@ public class Player extends Sapien {
         return playerHit;
     }
 
-    public void setDouble(boolean bool){
-        hasDoublePerk = bool;
+    public void setDouble(boolean bool, int price){
+        if(price<=money){
+            hasDoublePerk = bool;
+        }
     }
 }
