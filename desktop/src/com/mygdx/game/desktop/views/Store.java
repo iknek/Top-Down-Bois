@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.desktop.coins.CoinSubject;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.weapons.*;
 
@@ -23,7 +24,7 @@ public class Store implements Disposable{
     //Scene2D widgets
     private Image storeImage;
 
-    private Image buttonImageUp, buttonImageUp2, buttonImageUp3, buttonImageUp4, buttonImageUp5, buttonImageUp6, buttonImageUp7, buttonImageUp8, buttonImageUp9;
+    private Image buttonImageUp;
 
     private Image buttonImageDown;
     private Image buttonImageDown2;
@@ -58,13 +59,20 @@ public class Store implements Disposable{
 
         final Table table = new Table();
 
-        /*table.setWidth(640*scale);
-        table.setHeight(640*scale);*/
         table.setFillParent(true);
 
         createButtons();
         setButtonPos(table);
 
+        addButtonListeners(table);
+        //Adds table to stage
+        storeImage.setPosition(50*scale,50*scale);
+        storeImage.setSize(540*scale,540*scale);
+        stage.addActor(storeImage);
+        stage.addActor(table);
+    }
+
+    private void addButtonListeners(final Table table){
         for(int i = 0; i < 10; i++){
             final int finalI = i;
             buttonList.get(i).addListener(new InputListener(){
@@ -78,18 +86,11 @@ public class Store implements Disposable{
                     table.removeActor(buttonList.get(finalI));
                     buttonImageUp.setPosition(buttonList.get(finalI).getX()-9, buttonList.get(finalI).getY()-2);
                     table.addActor(buttonImageUp);
-                    System.out.println(finalI);
                     pressButton(finalI);
                     return true;
                 }
             });
         }
-
-        //Adds table to stage
-        storeImage.setPosition(50*scale,50*scale);
-        storeImage.setSize(540*scale,540*scale);
-        stage.addActor(storeImage);
-        stage.addActor(table);
     }
 
     /**
@@ -128,6 +129,7 @@ public class Store implements Disposable{
      */
     private void setButtonPos(Table table){
         buttonImageUp.setPosition(50*scale,50*scale);
+        buttonImageUp.setSize(201*scale/2,46*scale/2);
 
         buttonImageDown.setPosition(91*scale,87*scale);
         buttonImageDown2.setPosition(91*scale,208*scale);
@@ -144,8 +146,10 @@ public class Store implements Disposable{
         exitImage.setPosition(533*scale,601*scale);
 
         for(Image button: buttonList){
+            button.setSize(183*scale/2, 42*scale/2);
             table.addActor(button);
         }
+        exitImage.setSize(213*scale/2,80*scale/2);
     }
 
     /**
@@ -190,6 +194,7 @@ public class Store implements Disposable{
                 player.giveFasterSprint(100);
                 break;
             case 8:
+                player.strongerMagnet(50);
                 break;
             case 9:
                 View.getInstance().closeShop();

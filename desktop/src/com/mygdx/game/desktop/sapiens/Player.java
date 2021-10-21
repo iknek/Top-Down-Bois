@@ -363,4 +363,11 @@ public class Player extends Sapien {
             hasDoublePerk = bool;
         }
     }
+
+    public void strongerMagnet(int price){
+        if(price<=money){
+            money -= price;
+            CoinSubject.getInstance().updateCoins(50,100);
+        }
+    }
 }

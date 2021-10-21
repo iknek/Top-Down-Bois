@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.views.View;
+import com.mygdx.game.desktop.coins.Coin;
 
 public class Model extends ApplicationAdapter {
     private OrthographicCamera camera;
@@ -15,9 +16,6 @@ public class Model extends ApplicationAdapter {
     private float scale;
     private Rounds rounds;
     private FitViewport viewport;
-    private Coin coin;
-
-    private boolean shopOpen;
 
     public Model(int scale){
         this.scale = scale;

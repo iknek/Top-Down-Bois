@@ -51,7 +51,6 @@ public class Rounds {
      */
     public boolean checkNewRound(Player player){
         boolean newRound = false;
-    public void checkNewRound(Player player){
         Random random = new Random();
         int randomInt = random.nextInt(4);
         Spawnpoint spawnpoint = spawnpoints.get(randomInt);
