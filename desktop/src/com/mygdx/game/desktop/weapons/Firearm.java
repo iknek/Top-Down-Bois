@@ -101,7 +101,7 @@ public abstract class Firearm {
 
         if(totalAmmo > 0){
             int ammoDifference = maxAmmoinMag-ammoInMagazine;
-            if(ammoDifference > totalAmmo){
+            if(ammoDifference >= totalAmmo){
                 ammoInMagazine = totalAmmo;
                 totalAmmo = 0;
             }else{
