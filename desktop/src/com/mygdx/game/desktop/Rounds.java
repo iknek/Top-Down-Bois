@@ -33,7 +33,8 @@ public class Rounds {
      * Checks if any {@link Zombie} objects remain on the map. If there aren't while the player isn't dead, it starts a new round.
      * @param player current {@link Player} object
      */
-    public void checkNewRound(Player player){
+    public boolean checkNewRound(Player player){
+        boolean newRound = false;
         if(zombiesLeftToSpawn > 0){
             zombiefactory.createZombie(1, roundNumber);
             zombiesLeftToSpawn--;
@@ -46,8 +47,10 @@ public class Rounds {
             }
             if(zombiesLeft == 0 && player.getHealth() != 0){
                 startNewRound(player);
+                newRound = true;
             }
         }
+        return newRound;
     }
 
     public int getRound(){

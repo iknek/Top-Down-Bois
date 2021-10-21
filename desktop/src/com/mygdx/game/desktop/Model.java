@@ -17,6 +17,8 @@ public class Model extends ApplicationAdapter {
     private FitViewport viewport;
     private Coin coin;
 
+    private boolean shopOpen;
+
     public Model(int scale){
         this.scale = scale;
     }
@@ -70,11 +72,16 @@ public class Model extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         View.getInstance().setView(camera);
         View.getInstance().render();
-        MovableSubject.getInstance().notifyUpdate();
-        collisionController.checkCollisions(View.getInstance(), player, this.scale);
-        FollowerSubject.getInstance().playerLocation((int) player.getX(),(int) player.getY());
-        rounds.checkNewRound(player);
+        if(!View.getInstance().getShopOpen()){
+            player.regainControls();
+            MovableSubject.getInstance().notifyUpdate();
+            collisionController.checkCollisions(View.getInstance(), player, this.scale);
+            FollowerSubject.getInstance().playerLocation((int) player.getX(),(int) player.getY());
+            player.getHit(ZombieSubject.getInstance().playerHit());
+        }
+        if(rounds.checkNewRound(player) && rounds.getRound() != 1 || View.getInstance().getShopOpen()){
+            View.getInstance().openShop(player);
+        }
 
-        player.getHit(ZombieSubject.getInstance().playerHit());
     }
 }

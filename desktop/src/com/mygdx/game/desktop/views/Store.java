@@ -4,17 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.weapons.*;
+
+import java.util.ArrayList;
 
 public class Store implements Disposable{
 
@@ -24,11 +22,25 @@ public class Store implements Disposable{
 
     //Scene2D widgets
     private Image storeImage;
-    private Button button;
+
+    private Image buttonImageUp, buttonImageUp2, buttonImageUp3, buttonImageUp4, buttonImageUp5, buttonImageUp6, buttonImageUp7, buttonImageUp8, buttonImageUp9;
+
+    private Image buttonImageDown;
+    private Image buttonImageDown2;
+    private Image buttonImageDown3;
+    private Image buttonImageDown4;
+    private Image buttonImageDown5;
+    private Image buttonImageDown6;
+    private Image buttonImageDown7;
+    private Image buttonImageDown8;
+    private Image buttonImageDown9;
+    private Image exitImage;
 
     private float scale;
+    private ArrayList<Image> buttonList = new ArrayList<>();
 
-    private Skin skin;
+    private Player player;
+
 
     /**
      * Constructor that does everything associated with the table and labels. See sub-comments.
@@ -37,83 +49,103 @@ public class Store implements Disposable{
      */
     public Store(SpriteBatch sb, int progScale){
         scale = progScale;
-
         viewport = new FitViewport(640*scale, 640*scale, new OrthographicCamera());
         stage = new Stage(viewport, sb);
         Gdx.input.setInputProcessor(stage);
 
-        final Stack stack = new Stack();
-
         //Defines images
-        storeImage = new Image(new Texture(Gdx.files.internal("Store/store2.png")));
-        stack.add(storeImage);
-
-        //Button skins for when clicked and not clicked
-        /*TextureRegion button_down = new TextureRegion(new Texture(Gdx.files.internal("Store/buttonDown.png")));
-        TextureRegion button_up = new TextureRegion(new Texture(Gdx.files.internal("Store/buttonUp.png")));
-        skin = new Skin();
-        skin.setScale((scale*9)/20);
-
-        skin.add("buttonDown", button_down);
-        skin.add("buttonUp", button_up);
-
-        //Sets skins for up/down
-        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
-        buttonStyle.up = skin.getDrawable("buttonUp");
-        buttonStyle.down = skin.getDrawable("buttonDown");
-
-        Table buttonTable = new Table();
-        buttonTable.left();
-        buttonTable.padLeft(42*scale);
-        buttonTable.top();
-        buttonTable.padTop(240*scale);
-        //Creates and adds button to table
-        button = new Button(buttonStyle);
-        buttonTable.add(button);
-
-        stack.add(buttonTable);*/
+        storeImage = new Image(new Texture(Gdx.files.internal("Store/store3.png")));
 
         final Table table = new Table();
-        table.center();
-        table.setWidth(640*scale);
-        //table.setHeight(640*scale);
-        table.scaleBy(scale);
 
-        // Pos of table, size, and alignment
-        table.setPosition(0,320);
-        table.align(Align.center);
+        /*table.setWidth(640*scale);
+        table.setHeight(640*scale);*/
+        table.setFillParent(true);
 
-        table.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                int row = -1;
-                int col = -1;
-                if (y>5*scale && y<15*scale){
-                    row=0;
-                } else if(y<-46.5*scale && y>-56.5*scale){
-                    row=1;
-                } else if(y<-106.5*scale && y>-116.5*scale){
-                    row=2;
+        createButtons();
+        setButtonPos(table);
+
+        for(int i = 0; i < 10; i++){
+            final int finalI = i;
+            buttonList.get(i).addListener(new InputListener(){
+                @Override
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    table.removeActor(buttonImageUp);
+                    table.addActor(buttonList.get(finalI));
                 }
-                if (x>42*scale && x<(42 + 50)*scale){
-                    col=0;
-                } else if(x>138*scale && x<183*scale){
-                    col=1;
-                } else if(x>230*scale && x<275*scale){
-                    col=2;
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    table.removeActor(buttonList.get(finalI));
+                    buttonImageUp.setPosition(buttonList.get(finalI).getX()-9, buttonList.get(finalI).getY()-2);
+                    table.addActor(buttonImageUp);
+                    System.out.println(finalI);
+                    pressButton(finalI);
+                    return true;
                 }
-                System.out.println(row + " " + col);
-                buy(row*3 + col);
-            }
-        });
+            });
+        }
 
-        table.add(storeImage).size(540,540);
         //Adds table to stage
+        storeImage.setPosition(50*scale,50*scale);
+        storeImage.setSize(540*scale,540*scale);
+        stage.addActor(storeImage);
         stage.addActor(table);
     }
 
-    public void update(){
+    /**
+     * Creates all the instances of images (buttons) needed for shop, with an image for both when pressed and not pressed
+     */
+    private void createButtons(){
+        buttonImageUp = new Image(new Texture(Gdx.files.internal("Store/buttonUp.png")));
 
+        buttonImageDown = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown2 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown3 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown4 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown5 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown6 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown7 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown8 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+        buttonImageDown9 = new Image(new Texture(Gdx.files.internal("Store/buttonDown.png")));
+
+        exitImage = new Image(new Texture(Gdx.files.internal("Store/exitSign.png")));
+
+        buttonList.add(buttonImageDown);
+        buttonList.add(buttonImageDown2);
+        buttonList.add(buttonImageDown3);
+        buttonList.add(buttonImageDown4);
+        buttonList.add(buttonImageDown5);
+        buttonList.add(buttonImageDown6);
+        buttonList.add(buttonImageDown7);
+        buttonList.add(buttonImageDown8);
+        buttonList.add(buttonImageDown9);
+        buttonList.add(exitImage);
+    }
+
+    /**
+     * Sets buttonImage position in table and adds image to table as an actor
+     * @param table = Table containing all the images of buttons.
+     */
+    private void setButtonPos(Table table){
+        buttonImageUp.setPosition(50*scale,50*scale);
+
+        buttonImageDown.setPosition(91*scale,87*scale);
+        buttonImageDown2.setPosition(91*scale,208*scale);
+        buttonImageDown3.setPosition(91*scale,329*scale);
+
+        buttonImageDown4.setPosition(274*scale,87*scale);
+        buttonImageDown5.setPosition(274*scale,208*scale);
+        buttonImageDown6.setPosition(274*scale,329*scale);
+
+        buttonImageDown7.setPosition((274+183)*scale,87*scale);
+        buttonImageDown8.setPosition((274+183)*scale,208*scale);
+        buttonImageDown9.setPosition((274+183)*scale,329*scale);
+
+        exitImage.setPosition(533*scale,601*scale);
+
+        for(Image button: buttonList){
+            table.addActor(button);
+        }
     }
 
     /**
@@ -124,29 +156,47 @@ public class Store implements Disposable{
         stage.dispose();
     }
 
-    private void buy(int index){
+    public void open(Player player){
+        this.player = player;
+        stage.draw();
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    private void pressButton(int index){
         System.out.println(index);
         switch(index){
             case 0:
+                player.giveWeapon(new AutoRifle(scale));
                 break;
             case 1:
+                player.giveWeapon(new Shotgun(scale));
                 break;
             case 2:
+                player.giveWeapon(new Revolver(scale));
                 break;
             case 3:
+                player.giveFullAmmoAutorifle(new AutoRifle(scale));
                 break;
             case 4:
+                player.giveFullAmmoShotgun(new Shotgun(scale));
                 break;
             case 5:
+                player.giveFullAmmoRevolver(new Revolver(scale));
                 break;
             case 6:
+                player.setDouble(true);
                 break;
             case 7:
+                player.giveFasterSprint();
                 break;
             case 8:
+                break;
+            case 9:
+                View.getInstance().closeShop();
                 break;
             default:
                 break;
         }
     }
+
 }

@@ -48,7 +48,7 @@ public class OverallTest {
         firearm = new Revolver(2);
         assertEquals("REVOLVER", firearm.getName());
     }
-
+/*
     @Test
     void testFirearmAfterFire(){
         firearm = new Revolver(2);
@@ -94,7 +94,7 @@ public class OverallTest {
         firearm.reloadFirearm();
         return firearm;
     }
-
+*/
     //////////COINS//////////
     @Test
     void testCoinInitialX(){

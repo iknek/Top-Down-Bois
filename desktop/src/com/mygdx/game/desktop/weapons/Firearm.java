@@ -65,11 +65,14 @@ public abstract class Firearm {
      * @param x is the current X-coordinate of the player so the bullets come from the player
      * @param y is the current Y-coordinate of the player
      */
-    public void fire(int angle, float x, float y) {
-        if (readyToFire && ammoInMagazine > 0) {
+    public void fire(int angle, float x, float y, boolean perk) {
+        if (readyToFire && ammoInMagazine > 0 ) {
             readyToFire = false;
             timer = new Timer();
             createBullet(angle, x, y);
+            if(perk){
+                createBullet(angle, x, y);
+            }
             //readyToFire = true;
             timer.schedule(new RemindTask(), (int)(60/rateOfFire*1000));
         }

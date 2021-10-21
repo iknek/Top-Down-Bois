@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.game.desktop.sapiens.Player;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,6 +21,8 @@ public class View extends OrthogonalTiledMapRenderer {
     private Hud hud;
     private Store store;
     private SpriteBatch spriteBatch;
+
+    private boolean shopOpen;
 
     /**
      * Constructor for the View class.
@@ -93,8 +96,15 @@ public class View extends OrthogonalTiledMapRenderer {
         spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
         hud.stage.draw();
         //Gdx.input.setInputProcessor(store.stage);
+    }
 
-        store.stage.draw();
+    public void openShop(Player player){
+        shopOpen = true;
+        store.open(player);
+    }
+
+    public void closeShop(){
+        shopOpen = false;
     }
 
     /**
@@ -158,4 +168,7 @@ public class View extends OrthogonalTiledMapRenderer {
         return super.getMap();
     }
 
+    public boolean getShopOpen(){
+        return shopOpen;
+    }
 }
