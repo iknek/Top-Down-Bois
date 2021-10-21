@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.PlayerController;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

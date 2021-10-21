@@ -54,24 +54,32 @@ public class Store implements Disposable{
         stage = new Stage(viewport, sb);
         Gdx.input.setInputProcessor(stage);
 
-        //Defines images
+        //Defines image for store.
         storeImage = new Image(new Texture(Gdx.files.internal("Store/store3.png")));
 
+        //Creates table for all the images ("buttons").
         final Table table = new Table();
 
         table.setFillParent(true);
 
+        //Method calls for image logic.
         createButtons();
         setButtonPos(table);
-
         addButtonListeners(table);
-        //Adds table to stage
+
+        //Adds store and table to stage
         storeImage.setPosition(50*scale,50*scale);
         storeImage.setSize(540*scale,540*scale);
         stage.addActor(storeImage);
         stage.addActor(table);
     }
 
+    /**
+     * Loops thru all the listeners and adds a listener to them, so that we can check if a player clicks on a "button".
+     * if touch up/down, the image is temporarily replaced with a 10% bigger one to give the user feedback.
+     * @param table = table that the actors are added/removed from.
+     * Note: Method also calls "pressButton" so that the code knows which button has been pressed.
+     */
     private void addButtonListeners(final Table table){
         for(int i = 0; i < 10; i++){
             final int finalI = i;
@@ -94,7 +102,8 @@ public class Store implements Disposable{
     }
 
     /**
-     * Creates all the instances of images (buttons) needed for shop, with an image for both when pressed and not pressed
+     * Creates all the instances of images (buttons) needed for shop, with an image for both when pressed and not pressed.
+     * These are added to a list.
      */
     private void createButtons(){
         buttonImageUp = new Image(new Texture(Gdx.files.internal("Store/buttonUp.png")));
@@ -160,12 +169,21 @@ public class Store implements Disposable{
         stage.dispose();
     }
 
+    /**
+     * Sets input proccessor to the stage when the shop is opened after a round, and draws the stage.
+     * @param player = player
+     */
     public void open(Player player){
         this.player = player;
         stage.draw();
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Logic for what each button does. In all cases, they call a method in player that corresponds to the purchase, also passing a price so that it can be removed
+     * from the players' money.
+     * @param index
+     */
     private void pressButton(int index){
         System.out.println(index);
         switch(index){
