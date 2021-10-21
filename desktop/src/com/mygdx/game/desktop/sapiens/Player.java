@@ -14,6 +14,7 @@ import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
 import com.mygdx.game.desktop.weapons.Revolver;
 import com.mygdx.game.desktop.weapons.Shotgun;
+import com.badlogic.gdx.Gdx;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -66,6 +67,9 @@ public class Player extends Sapien {
     /**
      * An array to store the Weapons that the player is holding
      */
+    private boolean hasSprintPerk = false;
+    private boolean hasDoublePerk = false;
+
     private Firearm[] weapons = new Firearm[3];
 
     /**
@@ -86,13 +90,11 @@ public class Player extends Sapien {
         this.speed = 50*scale;
 
         weapons[0] = new Revolver(scale);
-        weapons[1] = new Shotgun(scale);
-        weapons[2] = new AutoRifle(scale);
 
         currentWeapon = 0;
         //this.firearm = weapons[2];
 
-        health = 5;
+        health = 3;
         maxHealth = 100;
 
         new PlayerController(this);
@@ -210,7 +212,7 @@ public class Player extends Sapien {
      */
     private void updateAction() {
         if (triggerPulled) {
-            weapons[currentWeapon].fire(aimAngle, getX(), getY());
+            weapons[currentWeapon].fire(aimAngle, getX() + 16/2, getY() + 16/2, hasDoublePerk);
         }
     }
 
@@ -221,6 +223,12 @@ public class Player extends Sapien {
         money += 1;
     }
 
+    public void giveFasterSprint(int price){
+        if(price<money){
+            hasSprintPerk = true;
+        }
+    }
+
     /**
      * Sets speed for sprinting as opposed to walking. Uses timer to control how long player can run
      * @param bool sprinting
@@ -229,7 +237,12 @@ public class Player extends Sapien {
         if(bool){
             this.speed = (float)75*scale;
             timerSprint = new Timer();
-            timerSprint.schedule(new RemindTaskSprint(), 3*1000);
+            if(hasSprintPerk){
+                timerSprint.schedule(new RemindTaskSprint(), 6*1000);
+            }
+            else{
+                timerSprint.schedule(new RemindTaskSprint(), 3*1000);
+            }
         }else{
             this.speed = 55*scale;
         }
@@ -244,6 +257,59 @@ public class Player extends Sapien {
             timerSprint.cancel();
             timerSprint.purge();
         }
+    }
+
+    public void giveWeapon(Firearm firearm, int price){
+        if(price<=money){
+            money -= price;
+            for(int i = 0; i<3; i++){
+                if (weapons[i] == null){
+                    weapons[i] = firearm;
+                    return;
+                }
+            }
+            weapons[currentWeapon] = firearm;
+        }
+    }
+
+    public void giveFullAmmoAutorifle(Firearm firearm, int price){
+        if(price<=money){
+            for(int i = 0; i<3; i++){
+                if (weapons[i] != null && weapons[i] instanceof AutoRifle){
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void giveFullAmmoShotgun(Firearm firearm, int price){
+        if(price<=money){
+            for(int i = 0; i<3; i++){
+                if (weapons[i] != null && weapons[i] instanceof Shotgun){
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void giveFullAmmoRevolver(Firearm firearm, int price){
+        if(price<=money) {
+            for (int i = 0; i < 3; i++) {
+                if (weapons[i] != null && weapons[i] instanceof Revolver) {
+                    weapons[i] = firearm;
+                    money -= price;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void regainControls(){
+        new PlayerController(this);
     }
 
     /**
@@ -280,7 +346,9 @@ public class Player extends Sapien {
         aimAngle = angle;
     }
     public void setFirearm(int weaponNumber){
-        currentWeapon = weaponNumber;
+        if(weapons[weaponNumber] != null){
+            currentWeapon = weaponNumber;
+        }
     }
 
     public void setPlayerHit(boolean bool){
@@ -288,5 +356,11 @@ public class Player extends Sapien {
     }
     public boolean getPlayerHit(){
         return playerHit;
+    }
+
+    public void setDouble(boolean bool, int price){
+        if(price<=money){
+            hasDoublePerk = bool;
+        }
     }
 }

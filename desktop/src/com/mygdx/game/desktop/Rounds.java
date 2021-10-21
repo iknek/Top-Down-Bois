@@ -49,6 +49,8 @@ public class Rounds {
      * Checks if any {@link Zombie} objects remain on the map. If there aren't while the player isn't dead, it starts a new round.
      * @param player current {@link Player} object
      */
+    public boolean checkNewRound(Player player){
+        boolean newRound = false;
     public void checkNewRound(Player player){
         Random random = new Random();
         int randomInt = random.nextInt(4);
@@ -65,8 +67,10 @@ public class Rounds {
             }
             if(zombiesLeft == 0 && player.getHealth() != 0){
                 startNewRound(player);
+                newRound = true;
             }
         }
+        return newRound;
     }
 
     public int getRound(){

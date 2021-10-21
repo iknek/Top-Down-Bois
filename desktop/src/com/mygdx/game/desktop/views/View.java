@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapLayer;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.game.desktop.sapiens.Player;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,7 +19,10 @@ public class View extends OrthogonalTiledMapRenderer {
     private List<Sprite> sprites;
 
     private Hud hud;
+    private Store store;
     private SpriteBatch spriteBatch;
+
+    private boolean shopOpen;
 
     /**
      * Constructor for the View class.
@@ -29,6 +34,7 @@ public class View extends OrthogonalTiledMapRenderer {
         sprites = new CopyOnWriteArrayList<>();
         spriteBatch = new SpriteBatch();
         hud = new Hud(spriteBatch, (int) scale);
+        store = new Store(spriteBatch,(int) scale);
     }
 
     /**
@@ -87,7 +93,18 @@ public class View extends OrthogonalTiledMapRenderer {
         endRender();
 
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
         hud.stage.draw();
+        //Gdx.input.setInputProcessor(store.stage);
+    }
+
+    public void openShop(Player player){
+        shopOpen = true;
+        store.open(player);
+    }
+
+    public void closeShop(){
+        shopOpen = false;
     }
 
     /**
@@ -109,6 +126,7 @@ public class View extends OrthogonalTiledMapRenderer {
     @Override
     public void dispose() {
         hud.dispose();
+        store.dispose();
         spriteBatch.dispose();
         super.dispose();
     }
@@ -150,4 +168,7 @@ public class View extends OrthogonalTiledMapRenderer {
         return super.getMap();
     }
 
+    public boolean getShopOpen(){
+        return shopOpen;
+    }
 }
