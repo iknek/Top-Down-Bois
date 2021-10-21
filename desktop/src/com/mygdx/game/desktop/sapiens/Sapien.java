@@ -8,12 +8,26 @@ import com.mygdx.game.desktop.Movable;
 import com.mygdx.game.desktop.MovableSubject;
 
 public abstract class Sapien extends Sprite implements Movable {
+    /**
+     * Initial {@link TextureAtlas} which the sprite uses
+     */
     protected TextureAtlas textureAtlas;
 
+    /**
+     * The angle at which the sapien is moving
+     */
     protected int angle;
+    /**
+     * The speed at which the sapien moves
+     */
     protected float speed;
+    /**
+     * The health which the sapien has
+     */
     protected int health;
-    protected String name;
+    /**
+     * The (size)scale which the sprite is
+     */
     protected float scale;
 
     /**
@@ -74,17 +88,7 @@ public abstract class Sapien extends Sprite implements Movable {
         }
     }
 
-    public void setPosition(float posX, float posY){
-        this.setX(posX);
-        this.setY(posY);
-    }
 
-    public float getX() {
-        return super.getX();
-    }
-    public float getY(){
-        return super.getY();
-    }
     public abstract void getHit(int damage);
     public float getScale(){
         return scale;

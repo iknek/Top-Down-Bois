@@ -13,31 +13,39 @@ import java.util.List;
  * These will change depending on the players state, including running, shooting, being hit and dying.
  */
 public class PlayerAnimations extends ApplicationAdapter{
+
+    /**
+     * Batch which is used to draw the animations
+     */
     private Batch batch;
+    /**
+     * The current textureAtlas of the player
+     */
     private TextureAtlas textureAtlas;
+    /**
+     * The current animation which the player should be in
+     */
     private Animation animation;
+    /**
+     * A variable which keeps track of the time passed
+     */
     private float elapsedTime = 0f;
 
-    private TextureAtlas runningBack;
-    private TextureAtlas runningRight;
-    private TextureAtlas runningFront;
-    private TextureAtlas runningLeft;
+    /**
+     * Texture atlases for running
+     */
+    private TextureAtlas runningBack, runningRight, runningFront, runningLeft;
+    private TextureAtlas runningAngle1, runningAngle2, runningAngle3, runningAngle4;
 
-    private TextureAtlas runningAngle1;
-    private TextureAtlas runningAngle2;
-    private TextureAtlas runningAngle3;
-    private TextureAtlas runningAngle4;
+    /**
+     * Texture atlases for when player is idle
+     */
+    private TextureAtlas idleRight, idleLeft, idleBack, idleFront;
+    private TextureAtlas idleAngle1, idleAngle2, idleAngle3, idleAngle4;
 
-    private TextureAtlas idleRight;
-    private TextureAtlas idleLeft;
-    private TextureAtlas idleBack;
-    private TextureAtlas idleFront;
-    private TextureAtlas idleAngle1;
-    private TextureAtlas idleAngle2;
-    private TextureAtlas idleAngle3;
-    private TextureAtlas idleAngle4;
-
-
+    /**
+     * A list of all these texture atlases so that they can easily be disposed
+     */
     private List<TextureAtlas> list;
 
     /**
@@ -50,7 +58,8 @@ public class PlayerAnimations extends ApplicationAdapter{
     }
 
     /**
-     * Method to preload all textureatlas when game launches, so that the game doesn't have to do it later (thus reducing lag significantly).
+     * Method to preload all {@link TextureAtlas} when game launches.
+     * This is done so that the game does not have to do it during runtime, and so lag is reduced.
      */
     private void preLoad(){
         list = new ArrayList();

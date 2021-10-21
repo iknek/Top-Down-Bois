@@ -79,7 +79,7 @@ public class Rounds {
      */
     private void startNewRound(Player player){
         roundNumber++;
-        player.addHealth(1);
+        if(roundNumber % 5 == 0){ player.addHealth(1); }
         zombiesLeftToSpawn = roundNumber*5;
     }
 }

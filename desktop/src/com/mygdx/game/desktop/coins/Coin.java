@@ -1,9 +1,10 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.coins;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.desktop.*;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
 import com.mygdx.game.desktop.views.View;
@@ -28,7 +29,7 @@ public class Coin extends Sprite implements Movable, FollowsPlayers, Coins {
      */
     private int playerY;
     /**
-     * Distance for this object to move towards the {@link Player}.
+     * Distance for this object to start moving towards the {@link Player}.
      */
     private int magnetDistance;
     /**
@@ -142,6 +143,11 @@ public class Coin extends Sprite implements Movable, FollowsPlayers, Coins {
         this.playerY = y;
     }
 
+    /**
+     * Changes strength of "magnet"
+     * @param distance is the distance at which the coin should start moving towards the player
+     * @param speed the speed at which the coin should move towards the player
+     */
     @Override
     public void updateMagnet(int distance, int speed) {
         this.magnetDistance = distance;

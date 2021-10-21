@@ -1,18 +1,32 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.coins;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Observer pattern implementation for coins.
+ */
 public class CoinSubject {
+    /**
+     * list of all coins currently in program.
+     */
     private List<Coins> observers = new CopyOnWriteArrayList<>();
-
+    /**
+     * Singleton pattern, this is the single instance of this class.
+     */
     private static CoinSubject single_instance = null;
+    /**
+     * the distance from {@link com.mygdx.game.desktop.sapiens.Player} where magnet functionality works
+     */
     private int distance = 25;
+    /**
+     * speed at which coin would move
+     */
     private int speed = 100;
 
     /**
-     * Singleton pattern. same as in MovableSubject.java.
-     * @return the single instance of the ZombieObserver
+     * Singleton pattern. same as in {@link com.mygdx.game.desktop.MovableSubject}.
+     * @return the single instance of the CoinSubject
      */
     public static CoinSubject getInstance() {
         if (single_instance == null)
@@ -21,16 +35,16 @@ public class CoinSubject {
     }
 
     /**
-     * adds the zombie to the list
-     * @param o is the zombie which should be added to the list
+     * adds the {@link Coin} to the list
+     * @param o is the Coin which should be added to the list
      */
     public void attach(Coins o) {
         observers.add(o);
     }
 
     /**
-     * removes a specific zombie from the list
-     * @param o is the zombie which we want removed
+     * removes a specific {@link Coin} from the list
+     * @param o is the Coin which we want removed
      */
     public void detach(Coins o) {
         observers.remove(o);
