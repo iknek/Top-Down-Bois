@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,6 +32,10 @@ public class OverallTest {
     @Before
     public void setup() {
         View.createInstance(1);
+        List<Movable> list = MovableSubject.getInstance().getObservers();
+        for (Movable movable : list) {
+            MovableSubject.getInstance().detach(movable);
+        }
         player  = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,1);
     }
 
@@ -57,46 +62,55 @@ public class OverallTest {
     @org.junit.Test
     public void testFirearmAfterFire(){
         firearm = new Revolver(2);
-        firearm.fire(0,50,50);
+        firearm.fire(0,50,50,false);
         assertEquals(5,firearm.getAmmoInMagazine());
     }
 
     @org.junit.Test
     public void testFirearmAmmoInMagAfterReload(){
         firearm = new Revolver(2);
-        firearm.fire(0,50,50);
+        firearm.fire(0,50,50,false);
         firearm.reloadFirearm();
         assertEquals(6,firearm.getAmmoInMagazine());
     }
 
     @org.junit.Test
-    public void testFirearmTotalAfterReload(){
-        firearm = new Revolver(2);
-        firearm.fire(0,50,50);
+    public void testFirearmTotalAfterReload() throws InterruptedException {
+        firearm = new Revolver(1);
+        player.setFirearm(0);
+        firearm.fire(0,50,50,false);
         firearm.reloadFirearm();
-        assertEquals(35, firearm.getTotalAmmo());
+        assertEquals(53, firearm.getTotalAmmo());
     }
 
     @org.junit.Test
-    public void testFirearmEmptyInMag(){
-        firearm = emptyFirearm();
+    public void testFirearmEmptyInMag() {
+        Firearm firearm = new Revolver(1);
+        firearm = emptyFirearm(firearm);
         assertEquals(0, firearm.getAmmoInMagazine());
     }
 
     @org.junit.Test
     public void testFirearmEmptyTotal(){
-        firearm = emptyFirearm();
+        Firearm firearm = new Revolver(1);
+        while (firearm.getTotalAmmo() > 0) {
+            firearm = emptyFirearm(firearm);
+            firearm.reloadFirearm();
+            System.out.println("RELOADING!!! total ammo left: " + firearm.getTotalAmmo());
+        }
+        System.out.println("Out of ammo");
         assertEquals(0, firearm.getTotalAmmo());
     }
 
-    public Firearm emptyFirearm(){
-        firearm = new Revolver(1);
-        for(int i =0; i <36; i++){
-            firearm.fire(0,50,50);
-            firearm.reloadFirearm();
+    public Firearm emptyFirearm(Firearm firearm){
+        for(int i =0; i <firearm.getAmmoInMagazine()+5; i++){
+            int numberOfSprites = View.getInstance().getSprites().size();
+            while (View.getInstance().getSprites().size() == numberOfSprites) {
+                firearm.fire(0,50,50,false);
+                //wait for firearm to fire
+            }
+            System.out.println("Boom! "+firearm.getAmmoInMagazine());
         }
-        firearm.fire(0,50,50);
-        firearm.reloadFirearm();
         return firearm;
     }
 
@@ -117,14 +131,14 @@ public class OverallTest {
     public void testCoinRemoveMovableSubject(){
         coin = new Coin(50,50,2);
         coin.remove();
-        assertEquals(0, MovableSubject.getInstance().getObservers().size());
+        assertFalse(MovableSubject.getInstance().getObservers().contains(coin));
     }
 
     @org.junit.Test
     public void testCoinRemoveView(){
         coin = new Coin(50,50,2);
         coin.remove();
-        assertEquals(0, View.getInstance().getSprites().size());
+        assertFalse(View.getInstance().getSprites().contains(coin));
     }
 
     //////////MOVABLESUBJECT//////////
@@ -145,11 +159,7 @@ public class OverallTest {
     @org.junit.Test
     public void movableSubjectDetachNotAttachedTest(){
         MovableSubject movableSubject = MovableSubject.getInstance();
-        for (int i = 0; i < MovableSubject.getInstance().getObservers().size(); i++) {
-            System.out.println(MovableSubject.getInstance().getObservers().get(i).getClass());
-        }
-        // Är en massa players i movable subject
-        assertFalse(movableSubject.detach(player));
+        assertTrue(movableSubject.detach(player));
     }
 
     //////////PLAYER//////////
@@ -171,14 +181,14 @@ public class OverallTest {
 
     @org.junit.Test
     public void playerGetHealth(){
-        assertEquals(100, player.getHealth());
+        assertEquals(3, player.getHealth());
     }
 
     @org.junit.Test
     public void playerAddHealth(){
-        player.getHit(10);
+        player.getHit(2);
         player.addHealth(5);
-        assertEquals(95, player.getHealth());
+        assertEquals(6, player.getHealth());
     }
 
     @org.junit.Test
@@ -220,12 +230,15 @@ public class OverallTest {
 
     @org.junit.Test
     public void playerSwitchToShotgun(){
+        player.giveWeapon(new Shotgun(1),0);
         player.setFirearm(1);
         assertTrue(player.getWeapon() instanceof Shotgun);
     }
 
     @org.junit.Test
     public void playerSwitchToAutoRifle(){
+        player.giveWeapon(new AutoRifle(1),0);
+        player.setFirearm(1);
         player.setFirearm(2);
         assertTrue(player.getWeapon() instanceof AutoRifle);
     }
@@ -254,7 +267,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void playerRemovedFromObserversView(){
-        assertFalse(View.getInstance().getSprites().contains(player));
+        assertTrue(View.getInstance().getSprites().contains(player));
     }
 
     //////////PROJECTILE//////////
@@ -351,11 +364,10 @@ public class OverallTest {
 
     @org.junit.Test
     public void createZombie(){
-        //Not sure if this is right,
-        // I want to make sure that the list of sprites in View is empty
         View view = View.getInstance();
-        for (int i = 0; i < view.getSprites().size(); i++) {
-            view.removeSprite(view.getSprites().get(i));
+        List<Sprite> sprites = new ArrayList<>(view.getSprites());
+        for (Sprite value : sprites) {
+            view.removeSprite(value);
         }
         ZombieFactory zombieFactory = new ZombieFactory(1);
         zombieFactory.createZombie(5,1, new Spawnpoint(new RectangleMapObject(), 2));
@@ -422,10 +434,12 @@ public class OverallTest {
 
     @org.junit.Test
     public void spawnsCoin(){
+        List<Sprite> sprites = View.getInstance().getSprites();
         Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
-        zombie.getHit(1);
-        zombie.getHit(1);
-        assertTrue(View.getInstance().getSprites().get(0) instanceof Coin);
+        zombie.getHit(10);
+        List<Sprite> spritesWithExtraCoin = View.getInstance().getSprites();
+        spritesWithExtraCoin.removeAll(sprites);
+        assertTrue(spritesWithExtraCoin.get(0) instanceof Coin);
     }
 
     @org.junit.Test
