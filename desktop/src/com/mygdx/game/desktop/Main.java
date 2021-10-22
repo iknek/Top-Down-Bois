@@ -6,7 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        int scale = 2;
+        int scale = 1;
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Wild West Coffin Escape";
         cfg.width = 640*scale;
