@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Observer implementation for the {@link Movable} interface
+ */
 public class MovableSubject {
     //Copy on write list prevents exceptions when list is modified while being iterated on.
     private List<Movable> observers = new CopyOnWriteArrayList<>();

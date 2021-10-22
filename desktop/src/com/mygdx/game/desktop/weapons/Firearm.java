@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Superclass for all Firearms and holds common attributes and methods for all weapons
+ */
 public abstract class Firearm {
     protected int projectileSpeed;
     protected int damage;

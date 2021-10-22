@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Observer pattern implementation for coins.
+ * Observer pattern implementation for {@link Coins} interface.
  */
 public class CoinSubject {
     /**

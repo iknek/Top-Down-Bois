@@ -15,6 +15,9 @@ import com.mygdx.game.desktop.sapiens.PlayerController;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * The View class renders the whole program. This goes for {@link Sprite} and {@link Hud} and {@link Store}
+ */
 public class View extends OrthogonalTiledMapRenderer {
     private static View single_instance = null;
     private List<Sprite> sprites;

@@ -11,6 +11,10 @@ import com.mygdx.game.desktop.sapiens.Zombie;
 import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.Projectile;
 
+/**
+ * This class controls collision logic between the map and different objects of the {@link Movable} interface
+ * As well as between the {@link Movable} objects themselves
+ */
 public class CollisionController {
 
     /**

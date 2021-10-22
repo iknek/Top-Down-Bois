@@ -2,6 +2,9 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
+/**
+ * Class for spawnpoints, holds the position of where zombies can spawn.
+ */
 public class Spawnpoint {
     private float x;
     private float y;

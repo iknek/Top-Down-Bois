@@ -11,6 +11,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Class which takes care of the labels which give the user information about the game. For example ammo, rounds and lives
+ */
 public class Hud implements Disposable{
 
     //Scene2D Stage and its own Viewport for HUD

@@ -1,5 +1,8 @@
 package com.mygdx.game.desktop.weapons;
 
+/**
+ * Class for the specific firearm AutroRifle
+ */
 public class AutoRifle extends Firearm {
 
     /**

@@ -3,6 +3,9 @@ package com.mygdx.game.desktop;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Implementation of the observer pattern for {@link Zombies} interface.
+ */
 public class ZombieSubject {
     private List<Zombies> observers = new CopyOnWriteArrayList<>();
 

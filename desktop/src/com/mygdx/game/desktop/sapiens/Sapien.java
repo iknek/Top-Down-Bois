@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.Movable;
 import com.mygdx.game.desktop.MovableSubject;
 
+/**
+ * Superclass for {@link Player} and {@link Zombie} to hold common methods and attributes
+ */
 public abstract class Sapien extends Sprite implements Movable {
     /**
      * Initial {@link TextureAtlas} which the sprite uses

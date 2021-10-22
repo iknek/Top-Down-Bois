@@ -14,7 +14,6 @@ import com.mygdx.game.desktop.views.View;
  * Projectiles will upon creation travel at the aim angle given by the {@link Player} object. Once the Projectile object
  * collides with another object, it will deal damage to eventual enemies involved with the collision, and then be deleted.
  */
-
 public class Projectile extends Sprite implements Movable {
     private double xSpeed;
     private double ySpeed;

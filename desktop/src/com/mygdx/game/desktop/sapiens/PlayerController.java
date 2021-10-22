@@ -5,6 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.desktop.sapiens.Player;
 
+/**
+ * Controller class for the {@link Player} class. Processes input and translates the controls to the player.
+ */
 public class PlayerController implements InputProcessor{
     /**
      * Instance of {@link Player} which the inputs correspond to

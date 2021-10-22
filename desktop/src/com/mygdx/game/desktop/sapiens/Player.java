@@ -20,6 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * The character that the user controls.
  * @author David
  * @author Imad
  */

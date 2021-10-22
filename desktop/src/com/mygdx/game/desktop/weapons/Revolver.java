@@ -1,6 +1,8 @@
 package com.mygdx.game.desktop.weapons;
 
-
+/**
+ * Class for the specific firearm Revolver
+ */
 public class Revolver extends Firearm {
 
     /**
