@@ -41,7 +41,7 @@ public class Store implements Disposable{
     private ArrayList<Image> buttonList = new ArrayList<>();
 
     private Player player;
-    final Table table;
+    final private Table table;
 
 
     /**
@@ -217,7 +217,7 @@ public class Store implements Disposable{
                 break;
             case 9:
                 table.addActor(exitImage);
-                View.getInstance().closeShop();
+                View.getInstance().closeShop(player);
                 break;
             default:
                 break;

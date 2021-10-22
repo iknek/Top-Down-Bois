@@ -104,7 +104,8 @@ public class View extends OrthogonalTiledMapRenderer {
         store.open(player);
     }
 
-    public void closeShop(){
+    public void closeShop(Player player){
+        player.regainControls();
         shopOpen = false;
     }
 

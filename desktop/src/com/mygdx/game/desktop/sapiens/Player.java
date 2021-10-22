@@ -69,6 +69,7 @@ public class Player extends Sapien {
      */
     private boolean hasSprintPerk = false;
     private boolean hasDoublePerk = false;
+    private boolean hasMagnetPerk = false;
 
     private Firearm[] weapons = new Firearm[3];
 
@@ -220,11 +221,11 @@ public class Player extends Sapien {
      * Adds to the <code>money</code> variable when a {@link Coin} object is picked up
      */
     public void coinGained() {
-        money += 100;
+        money += 10;
     }
 
     public void giveFasterSprint(int price){
-        if(price<money){
+        if(price<money && !hasSprintPerk){
             hasSprintPerk = true;
         }
     }
@@ -364,13 +365,15 @@ public class Player extends Sapien {
     }
 
     public void setDouble(boolean bool, int price){
-        if(price<=money){
+        if(price<=money && !hasDoublePerk){
+            money -= price;
             hasDoublePerk = bool;
         }
     }
 
     public void strongerMagnet(int price){
-        if(price<=money){
+        if(price<=money && !hasMagnetPerk){
+            hasMagnetPerk = true;
             money -= price;
             CoinSubject.getInstance().updateCoins(50,100);
         }
