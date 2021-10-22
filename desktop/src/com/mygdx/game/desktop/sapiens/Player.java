@@ -260,6 +260,11 @@ public class Player extends Sapien {
         }
     }
 
+    /**
+     * If the player purchases a weapon, this method will give them the firearm, presuming they have enough money.
+     * @param firearm = firearm to be given.
+     * @param price = price of weapon (checked if less or equal to total player money)
+     */
     public void giveWeapon(Firearm firearm, int price){
         if(price<=money){
             money -= price;
@@ -273,6 +278,11 @@ public class Player extends Sapien {
         }
     }
 
+    /**
+     * If the player purchases ammo for an autorifle, this method will give them the ammo, presuming they have enough money.
+     * @param firearm = ammo for this firearm is to be given.
+     * @param price = price of ammo (checked if less or equal to total player money)
+     */
     public void giveFullAmmoAutorifle(Firearm firearm, int price){
         if(price<=money){
             for(int i = 0; i<3; i++){
@@ -285,6 +295,11 @@ public class Player extends Sapien {
         }
     }
 
+    /**
+     * If the player purchases ammo for a shotgun, this method will give them the ammo, presuming they have enough money.
+     * @param firearm = ammo for this firearm is to be given.
+     * @param price = price of ammo (checked if less or equal to total player money)
+     */
     public void giveFullAmmoShotgun(Firearm firearm, int price){
         if(price<=money){
             for(int i = 0; i<3; i++){
@@ -297,6 +312,11 @@ public class Player extends Sapien {
         }
     }
 
+    /**
+     * If the player purchases ammo for a revolver, this method will give them the ammo, presuming they have enough money.
+     * @param firearm = ammo for this firearm is to be given.
+     * @param price = price of ammo (checked if less or equal to total player money)
+     */
     public void giveFullAmmoRevolver(Firearm firearm, int price){
         if(price<=money) {
             for (int i = 0; i < 3; i++) {

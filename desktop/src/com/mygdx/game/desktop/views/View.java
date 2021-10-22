@@ -99,11 +99,18 @@ public class View extends OrthogonalTiledMapRenderer {
         //Gdx.input.setInputProcessor(store.stage);
     }
 
+    /**
+     * "Opens" store, i.e. opens shop UI
+     * @param player
+     */
     public void openShop(Player player){
         shopOpen = true;
         store.open(player);
     }
 
+    /**
+     * "Closes" store, i.e sets shopOpen to false.
+     */
     public void closeShop(Player player){
         player.regainControls();
         shopOpen = false;
@@ -125,6 +132,9 @@ public class View extends OrthogonalTiledMapRenderer {
         return camera;
     }
 
+    /**
+     * LibGDX dispose method.
+     */
     @Override
     public void dispose() {
         hud.dispose();
@@ -133,6 +143,15 @@ public class View extends OrthogonalTiledMapRenderer {
         super.dispose();
     }
 
+    /**
+     * Method to update all relevant UI fields. Called in update
+     * @param round = current round
+     * @param live = player lives left
+     * @param money = player money
+     * @param firearm = current player weapon
+     * @param mag = Ammo in "magazine"
+     * @param totalAmmo = Total weapon ammo left.
+     */
     public void updateHud(int round, int live, int money, String firearm, int mag, int totalAmmo){
         hud.update(round, live, money, firearm, mag, totalAmmo);
     }
