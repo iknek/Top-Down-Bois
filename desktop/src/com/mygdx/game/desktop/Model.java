@@ -1,6 +1,9 @@
 package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.backends.lwjgl.audio.Mp3;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -16,6 +19,7 @@ public class Model extends ApplicationAdapter {
     private float scale;
     private Rounds rounds;
     private FitViewport viewport;
+    private Music sound;
 
     public Model(int scale){
         this.scale = scale;
@@ -33,6 +37,8 @@ public class Model extends ApplicationAdapter {
         float h = Gdx.graphics.getHeight();
 
         player = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),w/2,h/2,scale);
+
+        sound = Gdx.audio.newMusic(Gdx.files.internal("Music/LoopedVersions/01.mp3"));
 
         camera = View.getInstance().createCamera(w, h);
         viewport = new FitViewport(w, h, camera);
@@ -64,6 +70,9 @@ public class Model extends ApplicationAdapter {
      */
     @Override
     public void render () {
+        sound.setLooping(true);
+        sound.play();
+        sound.setVolume(1f/2);
         camera.update();
         View.getInstance().updateHud(rounds.getRound(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),player.getWeapon().getAmmoInMagazine(), player.getWeapon().getTotalAmmo());
         Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -80,6 +89,5 @@ public class Model extends ApplicationAdapter {
         if(rounds.checkNewRound(player) && (rounds.getRound() > 1) || View.getInstance().getShopOpen()){
             View.getInstance().openShop(player);
         }
-
     }
 }
