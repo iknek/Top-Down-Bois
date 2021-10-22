@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.views.View;
-import com.mygdx.game.desktop.coins.Coin;
 
 public class Model extends ApplicationAdapter {
     private OrthographicCamera camera;
@@ -71,7 +70,6 @@ public class Model extends ApplicationAdapter {
         View.getInstance().setView(camera);
         View.getInstance().render();
         if(!View.getInstance().getShopOpen()){
-            player.regainControls();
             MovableSubject.getInstance().notifyUpdate();
             collisionController.checkCollisions(View.getInstance(), player, this.scale);
             FollowerSubject.getInstance().playerLocation((int) player.getX(),(int) player.getY());
