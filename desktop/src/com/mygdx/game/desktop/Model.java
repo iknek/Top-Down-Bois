@@ -71,13 +71,13 @@ public class Model extends ApplicationAdapter {
         View.getInstance().setView(camera);
         View.getInstance().render();
         if(!View.getInstance().getShopOpen()){
-            player.regainControls();
+            //player.regainControls();
             MovableSubject.getInstance().notifyUpdate();
             collisionController.checkCollisions(View.getInstance(), player, this.scale);
             FollowerSubject.getInstance().playerLocation((int) player.getX(),(int) player.getY());
             player.getHit(ZombieSubject.getInstance().playerHit());
         }
-        if(rounds.checkNewRound(player) && rounds.getRound() != 1 || View.getInstance().getShopOpen()){
+        if(rounds.checkNewRound(player) && (rounds.getRound() > 1) || View.getInstance().getShopOpen()){
             View.getInstance().openShop(player);
         }
 
