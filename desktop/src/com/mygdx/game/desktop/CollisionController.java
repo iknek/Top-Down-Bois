@@ -9,7 +9,6 @@ import com.mygdx.game.desktop.coins.Coin;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
 import com.mygdx.game.desktop.views.View;
-import com.mygdx.game.desktop.weapons.Projectile;
 
 /**
  * This class controls collision logic between the map and different objects of the {@link Movable} interface

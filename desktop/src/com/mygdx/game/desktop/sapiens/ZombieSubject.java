@@ -1,4 +1,4 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

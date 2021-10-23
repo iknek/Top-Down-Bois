@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.ZombieSubject;
 import com.mygdx.game.desktop.views.View;
 
 /**

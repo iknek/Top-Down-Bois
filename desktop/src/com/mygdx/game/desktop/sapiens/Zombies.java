@@ -1,4 +1,4 @@
-package com.mygdx.game.desktop;
+package com.mygdx.game.desktop.sapiens;
 
 /**
  * Interafce for all Zombies
