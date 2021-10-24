@@ -13,6 +13,7 @@ import com.mygdx.game.desktop.MovableSubject;
  * This class does not use any classes, except for Movable and Sprite.
  * @author david
  * @author imad
+ * @author Anders
  */
 public abstract class Sapien extends Sprite implements Movable {
     /**
@@ -94,7 +95,6 @@ public abstract class Sapien extends Sprite implements Movable {
             }
         }
     }
-
 
     public abstract void getHit(int damage);
     public float getScale(){

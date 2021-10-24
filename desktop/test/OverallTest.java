@@ -1,13 +1,20 @@
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.desktop.coins.Coin;
+import com.mygdx.game.desktop.coins.CoinSubject;
 import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.Sapien;
 import com.mygdx.game.desktop.sapiens.Zombie;
 import com.mygdx.game.desktop.sapiens.ZombieSubject;
+import com.mygdx.game.desktop.views.Hud;
+import com.mygdx.game.desktop.views.Store;
 import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.*;
 import com.mygdx.game.desktop.*;
@@ -178,6 +185,21 @@ public class OverallTest {
     }
 
     @org.junit.Test
+    public void updatePlayerAngle(){
+        player.setLeft(false);
+        player.setDown(false);
+        player.setUp(false);
+        player.setRight(false);
+        player.setUp(true);
+        float initialPositionY = player.getY();
+        while(player.getY() < initialPositionY+1) {
+            player.update();
+            System.out.println(player.getY());
+        }
+        assertTrue(player.getY() > initialPositionY+1);
+    }
+
+    @org.junit.Test
     public void playerGetHealth(){
         assertEquals(3, player.getHealth());
     }
@@ -227,6 +249,45 @@ public class OverallTest {
     }
 
     @org.junit.Test
+    public void playerSprint() {
+        player.setLeft(false);
+        player.setDown(false);
+        player.setUp(false);
+        player.setRight(true);
+        float initialPosX = player.getX();
+        player.update();
+        player.update();
+        player.update();
+        float postMovePosX = player.getX();
+        float distanceWalked = postMovePosX-initialPosX;
+
+        player.setSprint(true);
+        initialPosX = player.getX();
+        player.update();
+        player.update();
+        player.update();
+        postMovePosX = player.getX();
+        float distanceSprinted = postMovePosX-initialPosX;
+        assertTrue(distanceWalked*0.3 < distanceSprinted);
+    }
+
+    @org.junit.Test
+    public void playerGiveWeapon(){
+        Shotgun shotgun = new Shotgun(1);
+        player.giveWeapon(shotgun,0);
+        player.setFirearm(1);
+        assertEquals(shotgun,player.getWeapon());
+    }
+
+    @org.junit.Test
+    public void playerGiveWeapon2(){
+        Shotgun shotgun = new Shotgun(1);
+        player.giveWeapon(shotgun,1000);
+        player.setFirearm(1);
+        assertFalse(player.getWeapon() instanceof Shotgun);
+    }
+
+    @org.junit.Test
     public void playerSwitchToShotgun(){
         player.giveWeapon(new Shotgun(1),0);
         player.setFirearm(1);
@@ -239,6 +300,54 @@ public class OverallTest {
         player.setFirearm(1);
         player.setFirearm(2);
         assertTrue(player.getWeapon() instanceof AutoRifle);
+    }
+
+    @org.junit.Test
+    public void playerGiveFullAmmoAutoRifle() {
+        Player player2 = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,1);
+        player2.giveWeapon(new AutoRifle(1),0);
+        player2.setFirearm(1);
+        //fire and reload
+        player2.setTriggerPulled(true);
+        player2.update();
+        player2.reload();
+        player2.giveFullAmmoAutorifle(new AutoRifle(1),0);
+        assertEquals(200,player2.getWeapon().getTotalAmmo());
+        MovableSubject.getInstance().detach(player2);
+    }
+
+    @org.junit.Test
+    public void playerGiveFullAmmoShotgun() {
+        Player player2 = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,1);
+        player2.giveWeapon(new Shotgun(1),0);
+        player2.setFirearm(1);
+        //fire and reload
+        player2.setTriggerPulled(true);
+        player2.update();
+        player2.reload();
+        player2.giveFullAmmoShotgun(new Shotgun(1),0);
+        assertEquals(50,player2.getWeapon().getTotalAmmo());
+        MovableSubject.getInstance().detach(player2);
+    }
+
+    @org.junit.Test
+    public void playerGiveFullAmmoRevolver() {
+        Player player2 = new Player(new TextureAtlas(Gdx.files.internal("Player/standIn/standInz.atlas")),50,50,1);
+        player2.setFirearm(0);
+        player2.setTriggerPulled(true);
+        player2.update();
+        player2.reload();
+        System.out.println(player2.getWeapon().getTotalAmmo());
+        player2.giveFullAmmoRevolver(new Revolver(1),0);
+        assertEquals(54,player2.getWeapon().getTotalAmmo());
+        MovableSubject.getInstance().detach(player2);
+    }
+
+    @org.junit.Test
+    public void regainControls() {
+        player.setDown(true);
+        player.regainControls();
+        assertFalse(player.moving());
     }
 
     @org.junit.Test
@@ -266,6 +375,47 @@ public class OverallTest {
     @org.junit.Test
     public void playerRemovedFromObserversView(){
         assertTrue(View.getInstance().getSprites().contains(player));
+    }
+
+    @org.junit.Test
+    public void playerSetDouble() {
+        int money = player.getMoney();
+        player.coinGained();
+        player.setDouble(true,money+2*3);
+        int numberOfMovables = MovableSubject.getInstance().getObservers().size();
+        player.setTriggerPulled(true);
+        player.update();
+        assertEquals(numberOfMovables + 1,MovableSubject.getInstance().getObservers().size());
+    }
+
+    @org.junit.Test
+    public void playerSetDouble2() {
+        int money = player.getMoney();
+        player.coinGained();
+        player.coinGained();
+        player.setDouble(true,money+2*3);
+        int numberOfMovables = MovableSubject.getInstance().getObservers().size();
+        player.setTriggerPulled(true);
+        player.update();
+        assertEquals(numberOfMovables + 2,MovableSubject.getInstance().getObservers().size());
+    }
+
+    @org.junit.Test
+    public void playerStrongerMagnet() {
+        int money = player.getMoney();
+        player.coinGained();
+        player.coinGained();
+        player.strongerMagnet(money+2*3);
+        assertEquals(50,CoinSubject.getInstance().getDistance());
+    }
+
+    @org.junit.Test
+    public void playerStrongerMagnet2() {
+        int money = player.getMoney();
+        player.coinGained();
+        player.coinGained();
+        player.setDouble(true,money+2*3);
+        assertEquals(0,player.getMoney());
     }
 
     //////////PROJECTILE//////////
@@ -509,5 +659,30 @@ public class OverallTest {
         subject.attach(zombie2);
         subject.playerLocation(15,25);
         assertEquals(5,zombie2.nearPlayer());
+    }
+
+    //////////HUD Head up display//////////
+    @org.junit.Test
+    public void constructHUD() {
+        SpriteBatch sb = new SpriteBatch();
+        Hud hud = new Hud(sb,1);
+        assertEquals(sb,hud.stage.getBatch());
+    }
+
+    //////////STORE//////////
+    @org.junit.Test
+    public void constructStore() {
+        SpriteBatch sb = new SpriteBatch();
+        Store store = new Store(sb,1);
+        assertEquals(sb,store.stage.getBatch());
+    }
+
+    @org.junit.Test
+    public void openStore() {
+        SpriteBatch sb = new SpriteBatch();
+        Store store = new Store(sb,1);
+        store.open(player);
+        assertEquals(store.stage,Gdx.input.getInputProcessor());
+
     }
 }

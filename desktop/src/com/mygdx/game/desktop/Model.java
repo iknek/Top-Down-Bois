@@ -58,6 +58,16 @@ public class Model extends ApplicationAdapter {
         View.getInstance().dispose();
     }
 
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+    }
+
     /**
      * When the window gets resized it configures the viewport so that the program does not glitch out.
      * @param width the width of the window
