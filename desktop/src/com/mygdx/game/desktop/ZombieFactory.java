@@ -28,7 +28,7 @@ public class ZombieFactory {
      * Creates zombies by looping thru @param amount, assigning the zombie to a random spawnpoint
      */
     public void createZombie(int amount, int roundNumber, Spawnpoint spawnpoint){
-        TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas"));
+        TextureAtlas atlasEric = new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running"));
         for (int i = 0; i < amount; i++) {
             new Zombie(atlasEric, spawnpoint.getX(), spawnpoint.getY(), scale, roundNumber);
         }
