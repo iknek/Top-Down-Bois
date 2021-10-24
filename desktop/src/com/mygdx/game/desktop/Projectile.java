@@ -10,6 +10,9 @@ import com.mygdx.game.desktop.views.View;
  * The Projectile class handles projectiles being fired from {@link com.mygdx.game.desktop.weapons.Firearm} objects in the game.
  * Projectiles will upon creation travel at the aim angle given by the {@link Player} object. Once the Projectile object
  * collides with another object, it will deal damage to eventual enemies involved with the collision, and then be deleted.
+ * Instances of this class are created in Firearm class.
+ * This class is used only in {@link CollisionController} and does not use any classes.
+ * @author anders
  */
 public class Projectile extends Sprite implements Movable {
     private double xSpeed;

@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Observer pattern implementation for {@link Coins} interface.
+ * This class is used by the {@link Player} class.
+ * @author Anders
  */
 public class CoinSubject {
     /**

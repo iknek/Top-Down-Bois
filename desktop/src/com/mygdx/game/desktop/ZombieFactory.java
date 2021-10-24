@@ -2,17 +2,13 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.mygdx.game.desktop.sapiens.Zombie;
-import com.mygdx.game.desktop.views.View;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * A factory class for Zombies
+ * This class is created and used by {@link Rounds} but does not use any other classes.
+ * @author david
+ * @author imad
  */
 public class ZombieFactory {
 

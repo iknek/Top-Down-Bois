@@ -13,6 +13,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Class which takes care of the labels which give the user information about the game. For example ammo, rounds and lives
+ * This class is created and used by {@link View}.
+ * This class does not use any other classes.
+ * @author Imad
  */
 public class Hud implements Disposable{
 

@@ -14,6 +14,10 @@ import java.util.Random;
 /**
  * The Rounds class represents every group of {@link Zombie} objects spawning in. Once all zombies are killed, a new round starts
  * with new zombies spawning in with increased health, for the sake of increased difficulty.
+ * This class is created and used in {@link Model}.
+ * This class uses {@link ZombieFactory} and {@link Spawnpoint}.
+ * @author david
+ * @author imad
  */
 public class Rounds {
     /**

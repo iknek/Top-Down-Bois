@@ -8,6 +8,10 @@ import java.util.TimerTask;
 
 /**
  * Superclass for all Firearms and holds common attributes and methods for all weapons
+ * This class is used in {@link Player}.
+ * This class does not use any other classes.
+ * @author david
+ * @author imad
  */
 public abstract class Firearm {
     protected int projectileSpeed;

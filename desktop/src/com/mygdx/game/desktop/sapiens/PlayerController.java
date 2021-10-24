@@ -3,10 +3,13 @@ package com.mygdx.game.desktop.sapiens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.mygdx.game.desktop.sapiens.Player;
 
 /**
  * Controller class for the {@link Player} class. Processes input and translates the controls to the player.
+ * This class is created by the {@link Player}.
+ * This class is not used by any other class.
+ * This class uses {@link Player}.
+ * @author david
  */
 public class PlayerController implements InputProcessor{
     /**

@@ -5,6 +5,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Implementation of the observer pattern for {@link Zombies} interface.
+ * This class is used by Model.
+ * This class does not use any other classes.
+ * @author david
  */
 public class ZombieSubject {
     private List<Zombies> observers = new CopyOnWriteArrayList<>();

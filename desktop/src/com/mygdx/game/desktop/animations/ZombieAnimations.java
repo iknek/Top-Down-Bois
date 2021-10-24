@@ -4,13 +4,15 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.mygdx.game.desktop.sapiens.Zombie;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The ZombieAnimations class handles animating the {@link Zombie} objects on screen.
  * These will change depending on the zombies state, including running, hitting, being hit and dying.
+ * This class is created by {@link Zombie} and uses {@link Zombie} to get essential information for animations
+ * This class is used by {@link Zombie} when it is called to render itself.
+ * @author Imad
  */
 
 public class ZombieAnimations extends ApplicationAdapter{

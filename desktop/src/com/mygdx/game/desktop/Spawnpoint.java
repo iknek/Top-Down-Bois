@@ -4,6 +4,9 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 /**
  * Class for spawnpoints, holds the position of where zombies can spawn.
+ * This class is used by {@link Rounds} and does not use any other classes
+ * @author david
+ * @author imad
  */
 public class Spawnpoint {
     private float x;
