@@ -96,13 +96,13 @@ public class Hud implements Disposable{
         moneyLabel.setText("MONEY " + money + "$");
 
         if(firearm.equals("REVOLVER")){
-            currentWeaponLabel.setText("REVOLVER -" + mag + "/" + totalAmmo);
+            currentWeaponLabel.setText("COLT -" + mag + "/" + totalAmmo);
         }
         if(firearm.equals("AUTORIFLE")){
-            currentWeaponLabel.setText("AUTO RIFLE -" + mag + "/" + totalAmmo);
+            currentWeaponLabel.setText("GATLING GUN -" + mag + "/" + totalAmmo);
         }
         if(firearm.equals("SHOTGUN")){
-            currentWeaponLabel.setText("SHOTGUN -" + mag + "/" + totalAmmo);
+            currentWeaponLabel.setText("MODEL 97 -" + mag + "/" + totalAmmo);
         }
     }
 

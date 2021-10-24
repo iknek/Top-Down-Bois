@@ -199,7 +199,7 @@ public class OverallTest {
         player.coinGained();
         player.coinGained();
         player.coinGained();
-        assertEquals(3, player.getMoney());
+        assertEquals(9, player.getMoney());
     }
 
     @org.junit.Test
@@ -378,7 +378,7 @@ public class OverallTest {
     //////////ZOMBIESUBJECT//////////
     @org.junit.Test
     public void attach(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
         assertTrue(zombieSubject.getObservers().contains(zombie));
@@ -386,7 +386,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void detach(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),0,0,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),0,0,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
         zombieSubject.detach(zombie);
@@ -395,8 +395,8 @@ public class OverallTest {
 
     @org.junit.Test
     public void playerHit() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1, 1);
-        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),15,25,1, 1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),20,25,1, 1);
         ZombieSubject zombieSubject = new ZombieSubject();
         zombieSubject.attach(zombie);
         zombieSubject.attach(zombie2);
@@ -409,7 +409,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void nearPlayer() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
         zombie.playerLocation(5, 5);
         //test nearPlayer()
         assertEquals(7, zombie.nearPlayer());
@@ -417,13 +417,13 @@ public class OverallTest {
 
     @org.junit.Test
     public void addedToView(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
         assertTrue(View.getInstance().getSprites().contains(zombie));
     }
 
     @org.junit.Test
     public void getHit(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
         //test getHit()
         zombie.getHit(1);
         zombie.getHit(1);
@@ -433,8 +433,14 @@ public class OverallTest {
     @org.junit.Test
     public void spawnsCoin(){
         List<Sprite> sprites = View.getInstance().getSprites();
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")), 10, 10, 1, 1);
-        zombie.getHit(10);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
+        Zombie zombie3 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
+        Zombie zombie4 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")), 10, 10, 1, 1);
+        zombie.getHit(50);
+        zombie2.getHit(50);
+        zombie3.getHit(50);
+        zombie4.getHit(50);
         List<Sprite> spritesWithExtraCoin = View.getInstance().getSprites();
         spritesWithExtraCoin.removeAll(sprites);
         assertTrue(spritesWithExtraCoin.get(0) instanceof Coin);
@@ -443,7 +449,7 @@ public class OverallTest {
     @org.junit.Test
     public void setMovingTrue(){
         // test setMoving and moving()
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),10,10,1, 1);
         zombie.setMoving(false);
         zombie.setMoving(true);
         assertTrue(zombie.moving());
@@ -451,7 +457,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void setMovingFalse(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),10,10,1, 1);
         zombie.setMoving(true);
         zombie.setMoving(false);
         assertFalse(zombie.moving());
@@ -459,7 +465,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void updateAngle(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),10,10,1, 1);
         //test updateAngle()
         zombie.playerLocation(40,30);
         zombie.update();
@@ -468,7 +474,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void setHitPlayer(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),10,10,1, 1);
         zombie.setHitPlayer(false);
         zombie.setHitPlayer(true);
         assertTrue(zombie.isHitPlayer());
@@ -476,7 +482,7 @@ public class OverallTest {
 
     @org.junit.Test
     public void setHitPlayerFalse(){
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),10,10,1, 1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),10,10,1, 1);
         zombie.setHitPlayer(true);
         zombie.setHitPlayer(false);
         assertFalse(zombie.isHitPlayer());
@@ -485,8 +491,8 @@ public class OverallTest {
     //////////FOLLOWERSUBJECT//////////
     @Test
     public void playerLocation() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1,1);
-        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),15,25,1,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),20,25,1,1);
         FollowerSubject subject = new FollowerSubject();
         subject.attach(zombie);
         subject.attach(zombie2);
@@ -496,8 +502,8 @@ public class OverallTest {
 
     @Test
     public void playerLocation2() {
-        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),15,25,1,1);
-        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Eric_sprites.atlas")),20,25,1,1);
+        Zombie zombie = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),15,25,1,1);
+        Zombie zombie2 = new Zombie(new TextureAtlas(Gdx.files.internal("Coffin/Back/running/running")),20,25,1,1);
         FollowerSubject subject = new FollowerSubject();
         subject.attach(zombie);
         subject.attach(zombie2);
