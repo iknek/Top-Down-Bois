@@ -1,7 +1,5 @@
 package com.mygdx.game.desktop.sapiens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.desktop.coins.Coin;
@@ -14,13 +12,15 @@ import com.mygdx.game.desktop.weapons.AutoRifle;
 import com.mygdx.game.desktop.weapons.Firearm;
 import com.mygdx.game.desktop.weapons.Revolver;
 import com.mygdx.game.desktop.weapons.Shotgun;
-import com.badlogic.gdx.Gdx;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * The character that the user controls.
+ * An instance of this class is created by the Model class.
+ * This class uses {@link PlayerAnimations}, {@link Firearm} and {@link CoinSubject}.
+ * This class is used by Model, {@link Store}, {@link PlayerController}
  * @author David
  * @author Imad
  */

@@ -1,6 +1,5 @@
 package com.mygdx.game.desktop.views;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.maps.MapLayer;
@@ -10,13 +9,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.desktop.sapiens.Player;
-import com.mygdx.game.desktop.sapiens.PlayerController;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * The View class renders the whole program. This goes for {@link Sprite} and {@link Hud} and {@link Store}
+ * This class is created and used by Model.
+ * This class uses {@link Sprite}, {@link Hud} and {@link Store}.
+ * @author david
+ * @author imad
  */
 public class View extends OrthogonalTiledMapRenderer {
     private static View single_instance = null;
@@ -99,7 +101,6 @@ public class View extends OrthogonalTiledMapRenderer {
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
         hud.stage.draw();
-        //Gdx.input.setInputProcessor(store.stage);
     }
 
     /**

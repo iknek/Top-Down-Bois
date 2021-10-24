@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.desktop.coins.CoinSubject;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.weapons.*;
 
@@ -17,6 +16,12 @@ import java.util.ArrayList;
 
 /**
  * This class handles the logic and visuals around the shop
+ * This class is created by {@link View}.
+ * This class is used by {@link View}.
+ * This class uses {@link Player}.
+ * This class also created {@link Firearm}
+ * @author david
+ * @author imad.
  */
 public class Store implements Disposable{
 

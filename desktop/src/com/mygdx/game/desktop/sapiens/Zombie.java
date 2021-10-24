@@ -11,6 +11,11 @@ import java.util.Random;
 
 /**
  * Class for the all zombies, which follows the player
+ * Instances of this class are created by ZombieFactory.
+ * This class is used in {@link ZombieAnimations}.
+ * This class uses {@link ZombieAnimations} and creates {@link Coin}
+ * @author Imad
+ * @author David
  */
 public class Zombie extends Sapien implements Zombies, FollowsPlayers {
     /**

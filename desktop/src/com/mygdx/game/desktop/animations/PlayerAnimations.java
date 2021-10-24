@@ -11,6 +11,9 @@ import java.util.List;
 /**
  * The Animations class handles animating the {@link Player} on screen.
  * These will change depending on the players state, including running, shooting, being hit and dying.
+ * This class is created by {@link Player}.
+ * This class is used by {@link Player} when it is called to render itself.
+ * @author Imad
  */
 public class PlayerAnimations extends ApplicationAdapter{
 

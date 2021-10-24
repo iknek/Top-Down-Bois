@@ -12,6 +12,13 @@ import com.mygdx.game.desktop.views.View;
 
 /**
  * This is the model of the program. It holds the game-loop and the instance of the player.
+ * This class is used only by {@link Main}.
+ * This class uses {@link View}, {@link Player}, {@link Rounds}, {@link MovableSubject},
+ * {@link FollowerSubject}, {@link ZombieSubject} and {@link CollisionController}.
+ * @author imad
+ * @author david
+ * @author anders
+ * @author samuel
  */
 public class Model extends ApplicationAdapter {
     private OrthographicCamera camera;

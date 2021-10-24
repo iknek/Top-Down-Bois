@@ -9,6 +9,10 @@ import com.mygdx.game.desktop.MovableSubject;
 
 /**
  * Superclass for {@link Player} and {@link Zombie} to hold common methods and attributes
+ * This class is not used anywhere.
+ * This class does not use any classes, except for Movable and Sprite.
+ * @author david
+ * @author imad
  */
 public abstract class Sapien extends Sprite implements Movable {
     /**

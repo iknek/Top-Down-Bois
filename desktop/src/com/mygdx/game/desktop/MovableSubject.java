@@ -1,11 +1,13 @@
 package com.mygdx.game.desktop;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Observer implementation for the {@link Movable} interface
+ * This class is used in {@link Model}.
+ * This class uses {@link Movable}.
+ * @author Anders
  */
 public class MovableSubject {
     //Copy on write list prevents exceptions when list is modified while being iterated on.

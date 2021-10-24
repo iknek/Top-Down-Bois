@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Observer pattern implementation for the {@link FollowsPlayers} interface
+ * This class is used by {@link Model} and uses {@link FollowsPlayers}
+ * @author david
  */
 public class FollowerSubject {
     private List<FollowsPlayers> observers = new CopyOnWriteArrayList<>();
