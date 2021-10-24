@@ -14,6 +14,9 @@ import com.mygdx.game.desktop.views.View;
  * A Coin drops from killed {@link Zombie} objects, and slowly move towards the {@link Player}.
  * Upon collision with the player, this object disappears and increases the player's currency counter.
  * The Coins movement towards the player is referred to as the Coins "magnet".
+ * Instances of this class are created by {@link Zombie}.
+ * This class is used by {@link CollisionController}
+ * @author Anders
  */
 public class Coin extends Sprite implements Movable, FollowsPlayers, Coins {
     /**

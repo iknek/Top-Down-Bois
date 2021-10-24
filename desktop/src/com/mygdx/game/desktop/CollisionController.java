@@ -13,6 +13,9 @@ import com.mygdx.game.desktop.views.View;
 /**
  * This class controls collision logic between the map and different objects of the {@link Movable} interface
  * As well as between the {@link Movable} objects themselves
+ * This class is created and used by {@link Model}.
+ * This class uses {@link View} and {@link MovableSubject} as well as {@link Player} and {@link Zombie}
+ * @author david
  */
 public class CollisionController {
 

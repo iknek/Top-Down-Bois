@@ -4,6 +4,9 @@ import com.mygdx.game.desktop.Projectile;
 
 /**
  * Class for the specific firearm AutroRifle
+ * Instances of this class are created in {@link Store}.
+ * This class creates {@link Projectile}.
+ * @author Anders
  */
 public class AutoRifle extends Firearm {
 
