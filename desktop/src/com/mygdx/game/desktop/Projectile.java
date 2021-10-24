@@ -1,12 +1,9 @@
-package com.mygdx.game.desktop.weapons;
+package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.desktop.Movable;
-import com.mygdx.game.desktop.MovableSubject;
-import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.views.View;
 
 /**
@@ -14,7 +11,6 @@ import com.mygdx.game.desktop.views.View;
  * Projectiles will upon creation travel at the aim angle given by the {@link Player} object. Once the Projectile object
  * collides with another object, it will deal damage to eventual enemies involved with the collision, and then be deleted.
  */
-
 public class Projectile extends Sprite implements Movable {
     private double xSpeed;
     private double ySpeed;

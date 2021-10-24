@@ -9,6 +9,9 @@ import com.mygdx.game.desktop.views.View;
 
 import java.util.Random;
 
+/**
+ * Class for the all zombies, which follows the player
+ */
 public class Zombie extends Sapien implements Zombies, FollowsPlayers {
     /**
      * Current coordinates of the {@link Player}

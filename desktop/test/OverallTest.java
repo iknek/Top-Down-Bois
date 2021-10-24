@@ -1,15 +1,13 @@
-import com.mygdx.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.desktop.coins.Coin;
 import com.mygdx.game.desktop.sapiens.Player;
 import com.mygdx.game.desktop.sapiens.Zombie;
+import com.mygdx.game.desktop.sapiens.ZombieSubject;
 import com.mygdx.game.desktop.views.View;
 import com.mygdx.game.desktop.weapons.*;
 import com.mygdx.game.desktop.*;

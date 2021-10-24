@@ -15,6 +15,9 @@ import com.mygdx.game.desktop.weapons.*;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles the logic and visuals around the shop
+ */
 public class Store implements Disposable{
 
     //Scene2D Stage and its own Viewport for HUD
@@ -26,16 +29,8 @@ public class Store implements Disposable{
 
     private Image buttonImageUp;
 
-    private Image buttonImageDown;
-    private Image buttonImageDown2;
-    private Image buttonImageDown3;
-    private Image buttonImageDown4;
-    private Image buttonImageDown5;
-    private Image buttonImageDown6;
-    private Image buttonImageDown7;
-    private Image buttonImageDown8;
-    private Image buttonImageDown9;
-    private Image exitImage;
+    private Image buttonImageDown, buttonImageDown2, buttonImageDown3, buttonImageDown4, buttonImageDown5;
+    private Image buttonImageDown6, buttonImageDown7, buttonImageDown8, buttonImageDown9, exitImage;
 
     private float scale;
     private ArrayList<Image> buttonList = new ArrayList<>();

@@ -2,15 +2,17 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.backends.lwjgl.audio.Mp3;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.sapiens.ZombieSubject;
 import com.mygdx.game.desktop.views.View;
 
+/**
+ * This is the model of the program. It holds the game-loop and the instance of the player.
+ */
 public class Model extends ApplicationAdapter {
     private OrthographicCamera camera;
     private CollisionController collisionController = new CollisionController();

@@ -3,6 +3,9 @@ package com.mygdx.game.desktop;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Observer pattern implementation for the {@link FollowsPlayers} interface
+ */
 public class FollowerSubject {
     private List<FollowsPlayers> observers = new CopyOnWriteArrayList<>();
 

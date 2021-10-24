@@ -11,6 +11,9 @@ import com.mygdx.game.desktop.views.View;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A factory class for Zombies
+ */
 public class ZombieFactory {
 
     private float scale;
