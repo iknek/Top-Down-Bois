@@ -681,7 +681,7 @@ public class OverallTest {
     public void openStore() {
         SpriteBatch sb = new SpriteBatch();
         Store store = new Store(sb,1);
-        store.open(player);
+        store.open();
         assertEquals(store.stage,Gdx.input.getInputProcessor());
 
     }

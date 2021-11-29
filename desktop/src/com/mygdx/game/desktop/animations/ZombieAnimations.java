@@ -133,7 +133,6 @@ public class ZombieAnimations extends ApplicationAdapter{
         else{
             renderRunning();
         }
-
         animation = new Animation(1f/20f, textureAtlas.getRegions());
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),zombie.getX(),zombie.getY(),(int)(42*zombie.getScale()/2),(int)(40*zombie.getScale()/2));
     }

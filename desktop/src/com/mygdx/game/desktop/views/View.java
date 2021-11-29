@@ -1,14 +1,16 @@
 package com.mygdx.game.desktop.views;
 
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.desktop.Model;
 import com.mygdx.game.desktop.sapiens.Player;
+import com.mygdx.game.desktop.weapons.Firearm;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author david
  * @author imad
  */
-public class View extends OrthogonalTiledMapRenderer {
+public class View extends ApplicationAdapter {
     private static View single_instance = null;
     private List<Sprite> sprites;
 
@@ -30,17 +32,44 @@ public class View extends OrthogonalTiledMapRenderer {
 
     private boolean shopOpen;
 
+    private OrthographicCamera camera;
+    private FitViewport viewport;
+
+    private MapRenderer mapRenderer;
+    private TiledMap map;
+
+    private float scale;
+    private Model model;
+
     /**
      * Constructor for the View class.
-     * @param map is the map which is going to be shown
      * @param scale if the scale of everything on screen
      */
-    public View(TiledMap map, float scale) {
-        super(map, scale);
+    public View(float scale) {
         sprites = new CopyOnWriteArrayList<>();
+        single_instance = this;
+        this.scale = scale;
+    }
+
+    @Override
+    public void create(){
+        mapRenderer = new MapRenderer(new TmxMapLoader().load("textures/wildwest.tmx"), scale);
+        this.map = new TmxMapLoader().load("textures/wildwest.tmx");
+
+        model = new Model(scale);
+
         spriteBatch = new SpriteBatch();
         hud = new Hud(spriteBatch, (int) scale);
         store = new Store(spriteBatch,(int) scale);
+
+        store.setPlayer(model.getPlayer());
+
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        camera = createCamera(w, h);
+        viewport = new FitViewport(w, h, camera);
+
     }
 
     /**
@@ -50,7 +79,7 @@ public class View extends OrthogonalTiledMapRenderer {
      */
     public static View createInstance(float scale) {
         if (single_instance == null)
-            single_instance = new View(new TmxMapLoader().load("textures/wildwest.tmx"), scale);
+            single_instance = new View(scale);
         return single_instance;
     }
 
@@ -75,41 +104,41 @@ public class View extends OrthogonalTiledMapRenderer {
      * It goes through each layer in the map and renders them
      * As well as rendering the sprites when needed, and updated animations
      */
-    @Override
     public void render() {
-        beginRender();
-        int currentLayer = 0;
-        for (MapLayer layer : map.getLayers()) {
-            if (layer.isVisible()) {
-                if (layer instanceof TiledMapTileLayer) {
-                    renderTileLayer((TiledMapTileLayer)layer);
-                    currentLayer++;
-                    if(currentLayer == 9){
-                        for(Sprite sprite : sprites) {
-                            sprite.draw(this.batch);
-                        }
-                    }
-                } else {
-                    for (MapObject object : layer.getObjects()) {
-                        renderObject(object);
-                    }
-                }
-            }
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        camera.update();
+        mapRenderer.setView(camera);
+
+        mapRenderer.renderMap(sprites);
+
+        if(!getShopOpen()){
+            model.render();
         }
-        endRender();
 
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         spriteBatch.setProjectionMatrix(store.stage.getCamera().combined);
+
+        Player player = model.getPlayer();
+        Firearm firearm = player.getWeapon();
+
+        updateHud(model.getRoundNo(), player.getHealth(), player.getMoney(), player.getWeapon().getName(),
+                firearm.getAmmoInMagazine(), firearm.getTotalAmmo());
+
         hud.stage.draw();
+
+        if(model.getRoundInfo() || getShopOpen()){
+            openShop();
+        }
     }
 
     /**
      * "Opens" store, i.e. opens shop UI
-     * @param player
      */
-    public void openShop(Player player){
+    public void openShop(){
         shopOpen = true;
-        store.open(player);
+        store.open();
     }
 
     /**
@@ -148,6 +177,16 @@ public class View extends OrthogonalTiledMapRenderer {
     }
 
     /**
+     * When the window gets resized it configures the viewport so that the program does not glitch out.
+     * @param width the width of the window
+     * @param height the height of the window
+     */
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width,height);
+    }
+
+    /**
      * Method to update all relevant UI fields. Called in update
      * @param round = current round
      * @param live = player lives left
@@ -173,7 +212,7 @@ public class View extends OrthogonalTiledMapRenderer {
      * @return the batch
      */
     public Batch getBatch(){
-        return batch;
+        return mapRenderer.getBatch();
     }
 
     /**
@@ -188,9 +227,8 @@ public class View extends OrthogonalTiledMapRenderer {
      * returns the map
      * @return The map of the program
      */
-    @Override
     public TiledMap getMap() {
-        return super.getMap();
+        return map;
     }
 
     public boolean getShopOpen(){

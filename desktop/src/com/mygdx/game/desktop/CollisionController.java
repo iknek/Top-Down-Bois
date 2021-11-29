@@ -26,12 +26,11 @@ public class CollisionController {
      * Then it goes through all movable subjects and checks if they overlap with the collision objects(have collided with)
      * If the movableSubject is a Zombie it checks the specific collisions for the Zombie
      * And if it is a coin it checks if it is being picked up by the player
-     * @param view the instance of View which contains the map
      * @param player the instance of player
      * @param scale the scale of the whole program
      */
-    public void checkCollisions(View view, Player player, float scale) {
-
+    public void checkCollisions(Player player, float scale) {
+        View view = View.getInstance();
         MovableSubject movableSubject = MovableSubject.getInstance();
 
         MapLayer collisionObjectLayer = view.getMap().getLayers().get("collision");

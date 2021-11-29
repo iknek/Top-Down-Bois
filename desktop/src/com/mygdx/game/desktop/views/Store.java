@@ -53,7 +53,6 @@ public class Store implements Disposable{
         scale = progScale;
         viewport = new FitViewport(640*scale, 640*scale, new OrthographicCamera());
         stage = new Stage(viewport, sb);
-        Gdx.input.setInputProcessor(stage);
 
         //Defines image for store.
         storeImage = new Image(new Texture(Gdx.files.internal("Store/store3.png")));
@@ -172,10 +171,8 @@ public class Store implements Disposable{
 
     /**
      * Sets input proccessor to the stage when the shop is opened after a round, and draws the stage.
-     * @param player = player
      */
-    public void open(Player player){
-        this.player = player;
+    public void open(){
         stage.draw();
         Gdx.input.setInputProcessor(stage);
     }
@@ -224,4 +221,7 @@ public class Store implements Disposable{
         }
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 }

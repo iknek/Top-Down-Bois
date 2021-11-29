@@ -17,7 +17,7 @@ import com.mygdx.game.desktop.MovableSubject;
  */
 public abstract class Sapien extends Sprite implements Movable {
     /**
-     * Initial {@link TextureAtlas} which the sprite uses
+     * Initial {@link TextureAtlas} which the sprite uses.
      */
     protected TextureAtlas textureAtlas;
 

@@ -95,7 +95,6 @@ public class Player extends Sapien {
         weapons[0] = new Revolver(scale);
 
         currentWeapon = 0;
-        //this.firearm = weapons[2];
 
         health = 3;
         maxHealth = 100;
@@ -139,6 +138,7 @@ public class Player extends Sapien {
             angle = 315;
         }
         updateAction();
+        System.out.println(this.getX() + " " + this.getY());
     }
 
     /**
@@ -223,7 +223,7 @@ public class Player extends Sapien {
      * Adds to the <code>money</code> variable when a {@link Coin} object is picked up
      */
     public void coinGained() {
-        money += 3;
+        money += 200;
     }
 
     public void giveFasterSprint(int price){
